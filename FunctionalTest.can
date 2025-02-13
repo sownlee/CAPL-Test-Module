@@ -1,0 +1,106 @@
+/*@!Encoding:1252*/
+includes
+{
+  
+}
+
+variables
+{
+  const dword kWAIT_TIMEOUT = 500; // 500msecs 
+int WaitResult;
+}
+
+void MainTest() 
+{ 
+cf_testPreparation();
+ctc_RequestLock();  
+} 
+void cf_testPreparation() 
+{ 
+/* Add Description of Test Module */ 
+TestModuleDescription("Sample test cases written in CAPL."); 
+/* Add Information into Test engineer Information Table */ 
+TestReportAddEngineerInfo("Company", "VinFast.Ltd."); 
+TestReportAddEngineerInfo("Tester name", "Le Dinh Giang Son"); 
+TestReportAddSetupInfo("CANoe", "Version 15.0"); 
+TestReportAddSetupInfo("vTestStudio", "Version 5.0"); 
+TestReportAddSUTInfo ("SUT", "Doors ECU"); 
+} 
+testfunction PreConditions() 
+{ 
+    testStep("Pre-cond","Start"); 
+    testStep("","Set Ignition to ON"); 
+    // Set Ignition to ON 
+    @sysvar::testNS::IgnitionStart = @sysvar::testNS::IgnitionStart::Ign_ON; 
+    testWaitForTimeout(500); 
+    testStep("Pre-cond","End"); 
+} 
+
+testfunction PostConditions() 
+{ 
+    testStep("Post-cond","Start"); 
+    testStep("","Set Ignition to OFF"); 
+    // Set Ignition to OFF 
+    @sysvar::testNS::IgnitionStart = @sysvar::testNS::IgnitionStart::Ign_OFF; 
+    testWaitForTimeout(500); 
+    testStep("Post-cond","End"); 
+}
+testcase ctc_RequestLock() 
+{ 
+  message GW_BCM_DoorSts_0x3D0 LockingStatus; 
+   
+  TestCaseTitle("Locking Test", "Request to Lock"); 
+   
+  PreConditions(); 
+   
+  testStep("","Set request to Lock State"); 
+  @sysvar::testNS::LockRq = @sysvar::testNS::LockRq::RqToLock; 
+   
+  TestStep("Unlocking Test", "Set Locking request to RqToUnlock"); 
+  @sysvar::testNS::LockRq = @sysvar::testNS::LockRq::RqToUnlock; 
+   
+  // Wait for the reply message from Doors ECU for 500ms 
+  WaitResult = TestWaitForMessage(GW_BCM_DoorSts_0x3D0, kWAIT_TIMEOUT); 
+   
+  // Determine results of test step 
+  switch(WaitResult) 
+  { 
+    case 0: TestStepFail("Message not received"); 
+      break; 
+    case 1: 
+      // Retrieve the message data of “LockSysState” 
+      TestGetWaitEventMsgData(LockingStatus); 
+      // If Lock state is unlocked, then test passed. 
+      if(LockingStatus.STAT_DoorLockDriver == STAT_DoorLockDriver::Unlocked ) 
+        TestStepPass("Test Step 1", "Door is Unlocked"); 
+      else 
+        TestStepFail("Test Step 1", "Still Locked"); 
+      break; 
+  } 
+  TestWaitForTimeout(kWAIT_TIMEOUT); // Wait for 500ms 
+   
+  TestStep("Locking Test", "Set Locking request to RqToLock"); 
+  @sysvar::testNS::LockRq = @sysvar::testNS::LockRq::RqToLock; 
+   
+  // Wait for the message “LockingSysState” to occur for 500ms 
+  WaitResult = TestWaitForMessage(GW_BCM_DoorSts_0x3D0, kWAIT_TIMEOUT); 
+  // Determine results of test step 
+  switch(WaitResult) 
+  { 
+    case 0: TestStepFail("Message not received"); 
+      break; 
+    case 1: 
+      // Retrieve the message data of “LockSysState” 
+      TestGetWaitEventMsgData(LockingStatus);
+      // If Lock state is locked, then test passed. 
+      if(LockingStatus.STAT_DoorLockDriver == STAT_DoorLockDriver::Locked ) 
+        TestStepPass("Test Step 1", "Door is Locked"); 
+      else 
+        TestStepFail("Test Step 1", "Still Unlocked"); 
+      break; 
+  } 
+  TestWaitForTimeout(kWAIT_TIMEOUT); // Wait for 500ms 
+   
+  PostConditions(); 
+}
+
