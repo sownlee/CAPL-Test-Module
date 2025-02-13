@@ -1,0 +1,43 @@
+o Name = EngineStatus 
+• Set the DLC (Data LengthCode) to “2”, for 2 bytes of data.  
+• Select the Transmitters tab and click [Add]. Select “Engine” and click [OK]. 
+ Name = IgnitionStatus 
+• Enter “1” for Length [Bit]. 
+• Select “Unsigned” for the Value Type. 
+• Set Minimum to “0” and Maximum to “1”. 
+Name = Velocity 
+• Enter “8” for Length [Bit]. 
+• Select “Unsigned” for the Value Type. 
+• Set Minimum to “0” and Maximum to “200”.
+
+o Name = LockingRq 
+• Set the DLC to “1”. 
+• Set “Console” to be the transmitter of the message. 
+Name = LockRequest 
+• Enter “1” for Length [Bit]. 
+• Select “Unsigned” for the Value Type. 
+• Set Minimum to “0” and Maximum to “1”.
+
+o Name = LockingState 
+• Set the DLC to “1”. 
+• Set “Doors” to be the transmitter of the message. 
+Name = LockState 
+• Enter “1” for Length [Bit]. 
+• Select “Unsigned” for the Value Type. 
+• Set Minimum to “0” and Maximum to “1”.
+
+o Name = WindowRq 
+• Set the DLC to “1”. 
+• Set “Console” to be the transmitter of the message. 
+Name = WindowPosition 
+• Enter “4” for Length [Bit]. 
+• Select “Unsigned” for the Value Type. 
+• Set Minimum to “0” and Maximum to “15”.
+
+o Name = WindowState 
+• Set the DLC to “1”. 
+• Set “Doors” to be the transmitter of the message.
+Name = WindowRequest 
+• Enter “2” for Length [Bit]. 
+• Select “Unsigned” for the Value Type. 
+• Set Minimum to “0” and Maximum to “2”.
