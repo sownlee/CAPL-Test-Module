@@ -1,37 +1,35 @@
-Overview
-This repository hosts the "CANoe Test Feature Set Tutorial," a comprehensive guide designed to demonstrate the setup, simulation, and testing of Electronic Control Units (ECUs) using CANoe and vTESTstudio. The tutorial specifically focuses on simulating the Doors ECU as the System Under Test (SUT) within a CAN network environment.
-Purpose
-The tutorial aims to equip automotive engineers and testers with the necessary skills to:
-Develop and manage a CAN database.
-Simulate ECUs and their interactions within a CAN network.
-Create, manage, and execute test cases using both CAPL and C# in vTESTstudio.
-Analyze test results effectively using CANoe's testing and simulation tools.
-Tutorial Content
-The tutorial is structured into several key sections, each designed to build upon the previous to provide a thorough understanding of CANoe's and vTESTstudio's capabilities:
-1. Introduction to the Tutorial:
-An overview of the tutorial's goals and the simulated network setup.
-Details on the ECUs involved: Engine, Console, and Doors ECUs.
-Setup Instructions:
-Steps to create a new directory structure for managing the tutorial files.
-Instructions on setting up CANoe configurations and creating a new CAN database.
-ECU Simulation:
-Guidance on simulating the Doors ECU and the remaining bus required for the simulation.
-Configuration of messages and signals within the CAN database.
-4. Creating and Managing Test Cases:
-Detailed instructions on using vTESTstudio to create test cases in CAPL, C#, Test Table, and Test Sequence Diagram.
-Steps to configure and execute tests within CANoe.
-5. Testing and Results Analysis:
-Explanation of how to execute tests and monitor them in real-time using CANoe.
-Guidelines on generating and interpreting test reports.
-6. Appendices:
-Additional technical details on network setup, ECU design, and specific CAN requirements.
-Getting Started
-To begin with this tutorial:
-1. Clone this repository to your local environment.
-2. Install CANoe and vTESTstudio, ideally version 15.0 for CANoe and version 5.0 for vTESTstudio, as used in this tutorial.
-3. Navigate to the docs directory and sequentially follow the tutorials starting from the setup instructions.
-Resources
-This repository includes:
-docs/: Detailed documentation and step-by-step guides for each section of the tutorial.
-examples/: Example configuration files and scripts that can be directly used or modified for testing.
-scripts/: Sample scripts in CAPL and C# demonstrating how to write effective test cases.
+1.1 Test Units and Test Modules 
+There are two types of Test Setups in CANoe. The Test Units Test Setup is used for executing the test 
+cases created using vTESTstudio and the Test Modules Test Setup is used for executing the test cases 
+created in CANoe environment. 
+1.2 
+Testing in CANoe 
+CANoe has a built-in testing feature where test cases may be implemented in CAPL language. With CAPL, 
+test cases will be executed in the order in which they are written in the “MainTest()” test control. Also, it is 
+important to note that the functionality of a test module CAPL program is not quite the same as that of a 
+regular CAPL program written to simulate a network node. 
+1.1.1 
+Configuration 
+Let’s begin by setting up the test environment in CANoe. 
+1) Open the Test Setup by going to the Test ribbon and selecting Test Setup in the Test Modules 
+group. 
+2) Right-click in the blank area and select New Test Environment. Enter the name as 
+“te_FunctionalTests”. Right-click on this environment and click Save. Navigate to the sub-folder “Test 
+Files” and click [Save]. 
+3) Right-click on this new folder and select Insert CAPL Test Module. 
+4) Right-click on this new test module and click on Configuration. Enter the name as 
+“tm_FunctionalTests”. Click on File, navigate to the “Test Files” sub-folder and enter the name as 
+“CANoeTests.can”. Click [Open] and click [OK]. 
+5) Again right-click on the test module and click Configuration. Under the Test Report tab, add the path 
+of the sub-folder “Test Reports” in the Test reports path. Click [OK]. 
+6) Again right-click on the test module and click Edit. This will open the CAPL browser. 
+Note: The CAPL Browser is a tool that comes with the CANoe installation. Typically, this browser is used to 
+implement a CAPL program to simulate a network node, but it is possible to use it to implement test cases for 
+a test module. 
+1.2.2 
+Creating the Test Module 
+The CAPL view for a test module is different than the CAPL view for a network node. There are three new 
+event types, “Test Functions”, “Test Cases” and “Test Control”. The “Test Control” event drives which and 
+when each test case should be executed. The test cases are defined in the “Test Cases” event type. We will 
+need to create one function for setting the details of the test module, 2 testfunctions for Pre and Post 
+conditions and 3 test cases as per the test design mentioned in the Appendix. 
