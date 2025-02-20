@@ -1,6 +1,11 @@
+I. Initial Setup
 1.1 Test Units and Test Modules 
 There are two types of Test Setups in CANoe. The Test Units Test Setup is used for executing the test cases created using vTESTstudio and the Test Modules Test Setup is used for executing the test cases 
 created in CANoe environment. 
+![image](https://github.com/user-attachments/assets/08c5f50c-2aca-4c55-bf8d-5d1fd3087749)
+![image](https://github.com/user-attachments/assets/f2ef09ba-5032-4685-aeff-b3b22af00208)
+![image](https://github.com/user-attachments/assets/cb72f8b6-689a-429e-9c7a-526b0d20d0ae)
+![image](https://github.com/user-attachments/assets/cb88cb12-58c1-46bc-8721-9fba19728c90)
 
 1.2 Testing in CANoe 
 CANoe has a built-in testing feature where test cases may be implemented in CAPL language. With CAPL, test cases will be executed in the order in which they are written in the “MainTest()” test control. Also, it is important to note that the functionality of a test module CAPL program is not quite the same as that of a regular CAPL program written to simulate a network node. 
