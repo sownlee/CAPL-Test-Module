@@ -15,7 +15,7 @@ Test Module (Door_System_Test)
               └── Test Step (Check_Lock_At_Speed)
               
 // Test Module: Door_System_Test
-testcase Auto_Lock_Test() {
+testcase Auto_Lock_Test() {   
     // Test Step 1
     testStep("Check door unlocked at low speed");
     @sysvar::VehicleSpeed = 10;
@@ -23,7 +23,6 @@ testcase Auto_Lock_Test() {
     if (@sysvar::DoorLockState != UNLOCKED) {
         testStepFail("Door should be unlocked at 10 km/h");
     }
-
     // Test Step 2
     testStep("Check door auto-locks at high speed");
     @sysvar::VehicleSpeed = 20;
