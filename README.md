@@ -9,29 +9,55 @@ created in CANoe environment.
 
 1.2 Testing in CANoe 
 1.2.1 Test Architecture in CANoe
-Test Module (Door_System_Test)
-    └── Test Group (Lock_Functions)
-         └── Test Case (Auto_Lock_Test)
-              └── Test Step (Check_Lock_At_Speed)
-              
-// Test Module: Door_System_Test
-testcase Auto_Lock_Test() {   
-    // Test Step 1
-    testStep("Check door unlocked at low speed");
-    @sysvar::VehicleSpeed = 10;
-    testWaitForTimeout(1000);
-    if (@sysvar::DoorLockState != UNLOCKED) {
-        testStepFail("Door should be unlocked at 10 km/h");
+![image](https://github.com/user-attachments/assets/c5b15267-8514-4d65-91e1-60686a989ed3)
+
+variables {
+    msTimer testTimer;
+}
+
+// Test Module
+on start {
+    // init test environment
+    InitializeTestEnvironment();
+    
+    // Test Group: Safety Features
+    setTestGroup("Safety_Features");
+    
+    // Test Cases
+    DoorLockTest();
+    WindowSafetyTest();
+    AirbagTest();
+    
+    // Test Group: Comfort Features
+    setTestGroup("Comfort_Features");
+    
+    // Test Cases
+    ClimateControlTest();
+    AutoLightTest();
+    
+    // Cleanup
+    CleanupTestEnvironment();
+}
+
+testcase DoorLockTest() {
+    testStep("Check basic lock function");
+    @sysvar::LockRequest = LOCK;
+    testWaitForTimeout(500);
+    
+    if (@sysvar::LockState != LOCKED) {
+        testStepFail("Door lock failed");
+        return;
     }
-    // Test Step 2
-    testStep("Check door auto-locks at high speed");
+    
+    testStep("Check speed-dependent auto lock");
     @sysvar::VehicleSpeed = 20;
     testWaitForTimeout(1000);
-    if (@sysvar::DoorLockState != LOCKED) {
-        testStepFail("Door should auto-lock at 20 km/h");
+    
+    if (@sysvar::LockState != LOCKED) {
+        testStepFail("Auto lock at speed failed");
     }
 }
-              
+*/                            
 CANoe has a built-in testing feature where test cases may be implemented in CAPL language. With CAPL, test cases will be executed in the order in which they are written in the “MainTest()” test control. Also, it is important to note that the functionality of a test module CAPL program is not quite the same as that of a regular CAPL program written to simulate a network node. 
 
 1.1.1 Configuration 
