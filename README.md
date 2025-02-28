@@ -8,6 +8,31 @@ created in CANoe environment.
 ![image](https://github.com/user-attachments/assets/cb88cb12-58c1-46bc-8721-9fba19728c90)
 
 1.2 Testing in CANoe 
+1.2.1 Test Architecture in CANoe
+Test Module (Door_System_Test)
+    └── Test Group (Lock_Functions)
+         └── Test Case (Auto_Lock_Test)
+              └── Test Step (Check_Lock_At_Speed)
+              
+// Test Module: Door_System_Test
+testcase Auto_Lock_Test() {
+    // Test Step 1
+    testStep("Check door unlocked at low speed");
+    @sysvar::VehicleSpeed = 10;
+    testWaitForTimeout(1000);
+    if (@sysvar::DoorLockState != UNLOCKED) {
+        testStepFail("Door should be unlocked at 10 km/h");
+    }
+
+    // Test Step 2
+    testStep("Check door auto-locks at high speed");
+    @sysvar::VehicleSpeed = 20;
+    testWaitForTimeout(1000);
+    if (@sysvar::DoorLockState != LOCKED) {
+        testStepFail("Door should auto-lock at 20 km/h");
+    }
+}
+              
 CANoe has a built-in testing feature where test cases may be implemented in CAPL language. With CAPL, test cases will be executed in the order in which they are written in the “MainTest()” test control. Also, it is important to note that the functionality of a test module CAPL program is not quite the same as that of a regular CAPL program written to simulate a network node. 
 
 1.1.1 Configuration 
