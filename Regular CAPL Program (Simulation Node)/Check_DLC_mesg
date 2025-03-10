@@ -1,0 +1,232 @@
+/*@!Encoding:1252*/
+includes
+{
+  
+}
+
+void MainTest()
+{
+testModuleTitle("NetworkTester");
+testModuleDescription("Message Specification Test and Function Test Demo.");
+testGroupBegin ("Check msg cycle time", "Check the differ mesage cycle time");
+  Init_Test_Condition();
+  CheckMsgEngineData();
+  CheckMsgVehicleData();
+  CheckMsgGear_Info();
+  CheckMsgIgnition_Info();
+  CheckMsgLight_Info();
+  testGroupEnd();
+  
+testGroupBegin("Check msg DLC","Check DLC of a message");
+CheckDLCLock_Info();
+testGroupEnd();
+
+testGroupBegin("Check undefined msg","Check the undefined message");
+CheckUndefinedMessage();
+testGroupEnd();
+  
+testGroupBegin("Fucntion Test", "Check the engine speed after setup");
+CheckEngine_Speed();
+testGroupEnd();
+}
+
+//?????????,????????onLine
+Init_Test_Condition()
+{
+@Vehicle_Key::Unlock_Car = 1;
+@Vehicle_Key::Car_Driver = 0;
+@Vehicle_Key::Key_State = 2;
+testWaitForTimeout(500);
+}
+
+variables
+{
+  //TC1
+dword gCycCheckId;//WID
+int gundefinedMsgCheckResult;//XX
+const long KMIN_CYCLE_TIME = 40;//-
+const long KMAX_CYCLE_TIME = 60;//-
+const long Light_MIN_CYCLE_TIME = 490;//????Light_Info ????????
+const long Light_MAX_CYCLE_TIME = 510;//????Light_Info????????
+const long KTIMEOUT = 4000;//£XX##@#!
+4000;//??????????
+// ?????——??IG??
+}
+
+//??????????
+CheckMsgCyc (float aCycMinCycleTime, float acycMaxCycleTime)
+{
+  long lQueryResultProbeAvg; //
+  long lQueryResultProbeMin;//
+  long lQueryResultProbeMax; //A
+  char lbuffer[100];
+  
+testAddCondition (gCycCheckId);//££*£1
+testWaitForTimeout(KTIMEOUT);//####
+//??????
+lQueryResultProbeAvg = ChkQuery_StatProbeIntervalAvg(gCycCheckId);
+//??min??
+lQueryResultProbeMin = ChkQuery_StatProbeIntervalMin (gCycCheckId);
+//??max??
+lQueryResultProbeMax = ChkQuery_StatProbeIntervalMax (gCycCheckId);
+  
+if (ChkQuery_NumEvents (gCycCheckId)>0)
+{
+//??????//????
+snprintf(lbuffer, elCount (lbuffer), "Valid values %.0fms - %.0fms", acycMinCycleTime, aCycMaxCycleTime);
+testStepFail ("",lbuffer);
+snprintf(lbuffer, elCount (lbuffer), "Average cycle time: %dms", lQueryResultProbeAvg);
+testStepFail("",lbuffer);
+snprintf(lbuffer,elCount(lbuffer),"Min cycle time: %dms", lQueryResultProbeMin);
+testStepFail("",lbuffer);
+snprintf(lbuffer,elCount(lbuffer), "Average cycle time: %dms", lQueryResultProbeMax);
+testStepFail("",lbuffer);
+}
+else
+{
+  snprintf(lbuffer, elCount (lbuffer), "Valid values %.0fms - %.0fms", aCycMinCycleTime, acycMaxCycleTime);
+  testStepPass("",lbuffer);
+  snprintf(lbuffer, elCount (lbuffer), "Average cycle time: %dms", lQueryResultProbeAvg);
+  testStepPass("",lbuffer);
+  snprintf(lbuffer, elCount (lbuffer), "Min cycle time: %dms", lQueryResultProbeMin);
+  testStepPass("",lbuffer);
+  snprintf(lbuffer, elCount (lbuffer), "Average cycle time: %dms", lQueryResultProbeMax);
+  testStepPass("",lbuffer);
+}
+ ChControl_Destroy(gCycCheckId);
+
+}
+//TC1: Check Cycle time of msg EngineData
+testcase CheckMsgEngineData()
+{
+float lCycMinCycleTime;//
+float lCycMaxCycleTime;//
+lCycMinCycleTime = KMIN_CYCLE_TIME;//
+lCycMaxCycleTime = KMAX_CYCLE_TIME;
+//????????
+testCaseTitle("TC-1", "TC-1: Check cycle time of msg EngineData");
+//????????
+gCycCheckId = ChkStart_MsgAbsCycleTimeViolation (EngineData, lCycMinCycleTime, lCycMaxCycleTime);
+CheckMsgCyc (lCycMinCycleTime, lCycMaxCycleTime); //R
+testRemoveCondition (gCycCheckId);//
+}
+//TC-2: Check Cycle time of msg VehicleData
+testcase CheckMsgVehicleData()
+{
+float lCycMinCycleTime;
+float lCycMaxCycleTime;
+lCycMinCycleTime = KMIN_CYCLE_TIME;
+lCycMaxCycleTime = KMAX_CYCLE_TIME;
+testCaseTitle("TC-2", "TC-2: Check cycle time of msg VehicleData");
+gCycCheckId = ChkStart_MsgAbsCycleTimeViolation (VehicleData,lCycMinCycleTime, lCycMaxCycleTime);
+CheckMsgCyc (lCycMinCycleTime, lCycMaxCycleTime);
+testRemoveCondition (gCycCheckId);
+}
+
+// TC-3: Check Cycle time of msg Gear_Info
+testcase CheckMsgGear_Info()
+{
+  float lCycMinCycleTime;
+  float lCycMaxCycleTime;
+  lCycMinCycleTime = KMIN_CYCLE_TIME;
+  lCycMaxCycleTime = KMAX_CYCLE_TIME;
+  testCaseTitle("TC-3", "TC-3: Check cycle time of msg Gear_Info");
+  gCycCheckId = ChkStart_MsgAbsCycleTimeViolation(Gear_Info, lCycMinCycleTime, lCycMaxCycleTime);
+  CheckMsgCyc(lCycMinCycleTime, lCycMaxCycleTime);
+  testRemoveCondition(gCycCheckId);
+} // Added missing brace
+// TC-4: Check Cycle time of msg Ignition_Info
+testcase CheckMsgIgnition_Info()
+{
+  float lCycMinCycleTime;
+  float lCycMaxCycleTime;
+  lCycMinCycleTime = KMIN_CYCLE_TIME; // Corrected variable name from '1CycMinCycleTime'
+  lCycMaxCycleTime = KMAX_CYCLE_TIME; // Corrected variable name from '1CycMaxCycleTime'
+  testCaseTitle("TC-4", "TC-4: Check cycle time of msg Ignition_Info");
+  gCycCheckId = ChkStart_MsgAbsCycleTimeViolation(Ignition_Info, lCycMinCycleTime, lCycMaxCycleTime);
+  CheckMsgCyc(lCycMinCycleTime, lCycMaxCycleTime);
+  testRemoveCondition(gCycCheckId);
+}
+
+//TC-5: Check Cycle time of msg Light_Inf
+testcase CheckMsgLight_Info()
+{
+float lCycMinCycleTime;
+float lCycMaxCycleTime;
+lCycMinCycleTime = KMIN_CYCLE_TIME;
+lCycMaxCycleTime = KMAX_CYCLE_TIME;
+testCaseTitle("TC-5", "TC-5: Check cycle time of msg Light_Info");
+gCycCheckId = ChkStart_MsgAbsCycleTimeViolation(Light_Info, lCycMinCycleTime, lCycMaxCycleTime);
+CheckMsgCyc(lCycMinCycleTime, lCycMaxCycleTime);
+testRemoveCondition (gCycCheckId);
+}
+
+//TC6: DLC ??????
+testcase CheckDLCLock_Info()
+{
+dword checkId;
+//????????
+testCaseTitle("TC-6", "TC-6: Check msg DLC of Lock_Info");
+// ??????Lock Info ?DLC
+checkId = Chkstart_InconsistentDlc (Lock_Info);
+testAddCondition (checkId);
+// ????????
+testWaitForTimeout (KTIMEOUT);
+testRemoveCondition (checkId);
+}
+
+// TC-7: Check for undefined messages
+testcase CheckUndefinedMessage()
+{
+  long lEventUndefineMessageId; // Corrected variable declaration
+  char lbuffer[100];
+  gUndefinedMsgCheckResult = 0;
+  testCaseTitle("TC-7", "TC-7: Check CAN channel for undefined message");
+  gCycCheckId = ChkStart_UndefinedMessageReceived("Undefined MsgCallback");
+  testWaitForTimeout(KTIMEOUT);
+  switch(gundefinedMsgCheckResult) // Corrected variable name
+  {
+    case 1:
+      write("undefined message detected!");
+      lEventUndefineMessageId = ChkQuery_EventMessageId(gCycCheckId);
+      snprintf(lbuffer, elCount(lbuffer), "Undefined message detected: Id 0x%x", lEventUndefineMessageId);
+      testStepFail("", lbuffer);
+      break;
+    default:
+      write("I am default");
+      testStepPass("", "No undefined message detected!");
+      break;
+  }
+  ChkControl_Destroy(gCycCheckId);
+}
+UndefinedMsgCallback(dword aCheckId)
+{
+}
+//????,???????????
+  write("Test: undefined message finded");
+  ChkQuery_EventStatusToWrite(aCheckId);
+  gUndefinedMsgCheckResult=1;//*XX?
+}
+
+testcase CheckEngine_Speed()
+{
+}
+dword checkid;
+testCaseTitle("TC-8", "TC-8: Check Engine Speed Value");
+@Vehicle_Key::Unlock_Car = 1;
+@Vehicle_Key::Car_Driver = 0;
+@Vehicle_Key::Key_State = 2;
+@Vehicle_Control::Eng_Speed = 2000;
+//????,?????????
+checkId = ChkStart_MsgSignalValueInvalid (EngineData:: EngSpeed, 1900, 2100);
+testWaitForTimeout (KTIMEOUT);
+if (ChkQuery_EventSignalValue(checkId))
+{
+}
+testStepPass("", "Correct Engine Speed Value");
+else
+{
+}
+testStepFail("","Incorrect Engine Speed Value");
+}
+}
