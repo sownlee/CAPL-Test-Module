@@ -1,0 +1,46 @@
+Create system variables 
+1) In CANoe, select the Environment ribbon and click on the “System Variables”. The System Variables 
+Configuration window will open. 
+2) In the empty left pane, right-click and select New. 
+3) Enter the following details for creating a System Variable 
+o Variable 1 
+• Namespace : “testNS” 
+• Name : “IgnitionStart” 
+• Initial Value : 0 
+• Minimum : 0 
+• Maximum : 1 
+• Value Table : Select “Custom”. Expand the Value Table tree, click the Value Table Items 
+row to reveal the “Edit Value Table” icon and click it. Now enter the following: 
+❖ 0 : Ign_OFF 
+❖ 1 : Ign_ON 
+4) We will now create 4 more System Variables by right-clicking on the “testNS” row and selecting New. 
+o Variable 2 
+• Name : “LockRq” 
+• Initial Value : 0 
+• Minimum : 0 
+• Maximum : 1 
+• Value Table Items 
+❖ 0 : RqToLock 
+❖ 1 : RqToUnlock 
+o Variable 3 
+• Name : “Velocity” 
+• Initial Value : 0 
+• Minimum : 0 
+• Maximum : 200 
+• Unit : kmph 
+• Value Table : Not required 
+o Variable 4 
+• Name : “WindowRequest” 
+• Initial Value : 0 
+• Minimum : 0 
+• Maximum : 2 
+• Value Table Items 
+❖ 0 : No_Request 
+❖ 1 : Roll_Up 
+❖ 2 : Roll_Down 
+o Variable 5 
+• Name : “WindowState” 
+• Initial Value : 0 
+• Minimum : 0 
+• Maximum : 15 
+• Value Table : Not required 
