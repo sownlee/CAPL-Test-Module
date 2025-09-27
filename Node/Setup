@@ -1,1 +1,19 @@
+/*
+Message:
+EngineStatus         ->    GW_BCM_CLAMP_STAT_0x112
+Signal:    IgnitionStatus    ->      STAT_Terminal
+Signal:    Velocity            -> message GW_IPC_Information_0x2BF, signal IPC_VehSpd
+Message:
+LockingRq           ->     GW_BCM_DoorSts_0x3D0
+Signal:    LockRequest       ->       STAT_DoorLockDriver
+Message:
+LockingState        ->      GW_BCM_DoorSts_0x3D0
+Signal:    LockState       ->         BCM_STAT_DoorAjarDriver
+Message:
+WindowRq            ->      GW_MHU_BCM_DoorsCtrl_0x10D
+Signal:    WindowRequest    ->        MHU_APM_ReqWindow
+Message:
+WindowState       ->        BCM_APM_WindowSts_0x110
+Signal:    WindowPosition     ->      APM_Status
+*/
 

@@ -1,0 +1,518 @@
+/* ************************************************************************** */ 
+    /*                                  VINFAST                                   */ 
+    /*  Description: LIN Description file                                         */ 
+    /*  Configuration: VinFast                                                    */ 
+    /*  Bus: LIN_1_V10_00                                                         */ 
+    /*  Created: Long Dep Trai                                                    */ 
+    /*                                                                            */ 
+    /* ************************************************************************** */
+
+LIN_description_file;
+LIN_protocol_version = "2.1";
+LIN_language_version = "2.1";
+LIN_speed = 19.2 kbps;
+Channel_name = "DB";
+
+Nodes {
+  Master: XGW, 5 ms, 0.1 ms ;
+  Slaves: USS ;
+}
+
+Signals {
+  EnvironmentTemp: 8, 80, XGW, USS ;
+  ReverseGearSts: 1, 0, XGW, USS ;
+  TransGearIO: 4, 0, XGW, USS ;
+  ElectricParkingSts_Reserved: 2, 0, XGW, USS ;
+  ParkingSts: 1, 0, XGW, USS ;
+  SpeedSts: 15, 0, XGW, USS ;
+  RRSSetRq: 2, 2, XGW, USS ;
+  RRSSetRq1: 1, 0, XGW, USS ;
+  PAS_Workmode_choosing: 8, 0, XGW, USS ;
+  EPB_timeout_Reserved: 1, 0, XGW, USS ;
+  ACM_timeout: 1, 0, XGW, USS ;
+  ESC_timeout: 1, 0, XGW, USS ;
+  BCM_timeout_Reserved: 1, 0, XGW, USS ;
+  VCU_timeout: 1, 0, XGW, USS ;
+  ResponseError: 1, 0, USS, XGW ;
+  RPASWorkSts: 1, 1, USS, XGW ;
+  PrkAssFrnSysSta_reserved: 2, 0, USS, XGW ;
+  ParkAssistantRearSystemStatus: 3, 0, USS, XGW ;
+  PrkAssSndCadCom: 4, 0, USS, XGW ;
+  LFDistance_reserved: 4, 0, USS, XGW ;
+  RFDistance_reserved: 4, 0, USS, XGW ;
+  LRDistance: 4, 0, USS, XGW ;
+  LMRDistance: 4, 0, USS, XGW ;
+  RMRDistance: 4, 0, USS, XGW ;
+  RRDistance: 4, 0, USS, XGW ;
+  PrkAssSysSta: 1, 1, USS, XGW ;
+  FLSenSta_reserved: 1, 0, USS, XGW ;
+  FRSenSta_reserved: 1, 0, USS, XGW ;
+  RLSenSta: 1, 0, USS, XGW ;
+  RRSenSta: 1, 0, USS, XGW ;
+  RLMSenSta: 1, 0, USS, XGW ;
+  RRMSenSta: 1, 0, USS, XGW ;
+  RRSSetSta: 2, 0, USS, XGW ;
+}
+
+Diagnostic_signals {
+  MasterReqB0: 8, 0 ;
+  MasterReqB1: 8, 0 ;
+  MasterReqB2: 8, 0 ;
+  MasterReqB3: 8, 0 ;
+  MasterReqB4: 8, 0 ;
+  MasterReqB5: 8, 0 ;
+  MasterReqB6: 8, 0 ;
+  MasterReqB7: 8, 0 ;
+  SlaveRespB0: 8, 0 ;
+  SlaveRespB1: 8, 0 ;
+  SlaveRespB2: 8, 0 ;
+  SlaveRespB3: 8, 0 ;
+  SlaveRespB4: 8, 0 ;
+  SlaveRespB5: 8, 0 ;
+  SlaveRespB6: 8, 0 ;
+  SlaveRespB7: 8, 0 ;
+}
+
+
+
+Frames {
+  XGW_REQ: 32, XGW, 8 {
+    EnvironmentTemp, 8 ;
+    ReverseGearSts, 46 ;
+    TransGearIO, 32 ;
+    ElectricParkingSts_Reserved, 50 ;
+    ParkingSts, 36 ;
+    SpeedSts, 16 ;
+    RRSSetRq, 48 ;
+    RRSSetRq1, 31 ;
+    PAS_Workmode_choosing, 0 ;
+    EPB_timeout_Reserved, 45 ;
+    ACM_timeout, 44 ;
+    ESC_timeout, 42 ;
+    BCM_timeout_Reserved, 52 ;
+    VCU_timeout, 40 ;
+  }
+  USS_State: 39, USS, 8 {
+    ResponseError, 49 ;
+    RPASWorkSts, 48 ;
+    PrkAssFrnSysSta_reserved, 38 ;
+    ParkAssistantRearSystemStatus, 40 ;
+    PrkAssSndCadCom, 32 ;
+    LFDistance_reserved, 4 ;
+    RFDistance_reserved, 0 ;
+    LRDistance, 12 ;
+    LMRDistance, 8 ;
+    RMRDistance, 20 ;
+    RRDistance, 16 ;
+    PrkAssSysSta, 59 ;
+    FLSenSta_reserved, 55 ;
+    FRSenSta_reserved, 54 ;
+    RLSenSta, 53 ;
+    RRSenSta, 52 ;
+    RLMSenSta, 51 ;
+    RRMSenSta, 50 ;
+    RRSSetSta, 61 ;
+  }
+}
+
+
+
+Diagnostic_frames {
+  MasterReq: 0x3c {
+    MasterReqB0, 0 ;
+    MasterReqB1, 8 ;
+    MasterReqB2, 16 ;
+    MasterReqB3, 24 ;
+    MasterReqB4, 32 ;
+    MasterReqB5, 40 ;
+    MasterReqB6, 48 ;
+    MasterReqB7, 56 ;
+  }
+  SlaveResp: 0x3d {
+    SlaveRespB0, 0 ;
+    SlaveRespB1, 8 ;
+    SlaveRespB2, 16 ;
+    SlaveRespB3, 24 ;
+    SlaveRespB4, 32 ;
+    SlaveRespB5, 40 ;
+    SlaveRespB6, 48 ;
+    SlaveRespB7, 56 ;
+  }
+}
+
+Node_attributes {
+  USS{
+    LIN_protocol = "2.1" ;
+    configured_NAD = 0x23 ;
+    initial_NAD = 0x1 ;
+    product_id = 0x2, 0x1000, 0 ;
+    response_error = ResponseError ;
+    P2_min = 150 ms ;
+    ST_min = 15 ms ;
+    N_As_timeout = 1000 ms ;
+    N_Cr_timeout = 1000 ms ;
+    configurable_frames {
+      USS_State ;
+      XGW_REQ ;
+    }
+  }
+}
+
+Schedule_tables {
+ DIAG {
+    MasterReq delay 20 ms ;
+    SlaveResp delay 20 ms ;
+  }
+ RUN_MAIN {
+    XGW_REQ delay 10 ms ;
+    USS_State delay 10 ms ;
+    XGW_REQ delay 30 ms ;
+  }
+}
+
+
+Signal_encoding_types {
+  Distance_Encoding {
+    physical_value, 0, 15, 1, 0 ;
+    logical_value, 0, "No obstacle" ;
+    logical_value, 1, "Zone 1" ;
+    logical_value, 2, "Zone 2" ;
+    logical_value, 3, "Zone 3" ;
+    logical_value, 15, "invalid" ;
+  }
+  ElectricParkingSts_Reserved_Encoding {
+    physical_value, 0, 3, 1, 0 ;
+    logical_value, 0, "No Indication" ;
+    logical_value, 1, "Continuous Indication" ;
+    logical_value, 2, "Flash Rate" ;
+  }
+  EnvironmentTemp_Encoding {
+    physical_value, 0, 255, 0.5, -40 ;
+    logical_value, 255, "Invalid" ;
+  }
+  PAS_Workmode_choosing_Encoding {
+    physical_value, 0, 255, 1, 0 ;
+    logical_value, 33, "2 Sensors" ;
+    logical_value, 49, "3 Sensors" ;
+    logical_value, 65, "4 Sensors" ;
+    logical_value, 81, "5 Sensors" ;
+    logical_value, 97, "6 Sensors" ;
+    logical_value, 113, "7 Sensors" ;
+    logical_value, 129, "8 Sensors" ;
+  }
+  ParkAssistantRearSystemStatus_Encoding {
+    physical_value, 0, 7, 1, 0 ;
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Enable" ;
+    logical_value, 2, "Active" ;
+    logical_value, 3, "Temporary Fault" ;
+    logical_value, 4, "Permanent Fault" ;
+  }
+  ParkingSts_Encoding {
+    physical_value, 0, 1, 1, 0 ;
+    logical_value, 0, "False" ;
+    logical_value, 1, "True" ;
+  }
+  PrkAssFrnSysSta_reserved_Encoding {
+    physical_value, 0, 3, 1, 0 ;
+    logical_value, 0, "Disable" ;
+    logical_value, 1, "Enable" ;
+    logical_value, 2, "Active" ;
+    logical_value, 3, "Failed" ;
+  }
+  PrkAssSndCadCom_Encoding {
+    physical_value, 0, 15, 1, 0 ;
+    logical_value, 0, "Tone 0 - No warning" ;
+    logical_value, 1, "Front Level 1" ;
+    logical_value, 2, "Front Level 2" ;
+    logical_value, 3, "Front Level 3" ;
+    logical_value, 4, "Front Level 4" ;
+    logical_value, 5, "Front Level 5" ;
+    logical_value, 6, "Rear Level 1" ;
+    logical_value, 7, "Rear Level 2" ;
+    logical_value, 8, "Rear Level 3" ;
+    logical_value, 9, "Rear Level 4" ;
+    logical_value, 10, "Rear Level 5" ;
+    logical_value, 11, "Rear Level 6" ;
+    logical_value, 12, "Tone 10 - PAS & APA Check Normal Warning" ;
+    logical_value, 13, "Tone 11 - PAS & APA Check Fault Warning" ;
+    logical_value, 14, "Tone 12 - APA Warning tone/ Tone 12 -RRS Warning tone" ;
+    logical_value, 15, "Front and Rear Alternate alarm" ;
+  }
+  PrkAssSysSta_Encoding {
+    physical_value, 0, 1, 1, 0 ;
+    logical_value, 0, "True" ;
+    logical_value, 1, "Fault" ;
+  }
+  RPASWorkSts_Encoding {
+    physical_value, 0, 1, 1, 0 ;
+    logical_value, 0, "Rear PAS Off" ;
+    logical_value, 1, "Rear PAS ON" ;
+  }
+  RRSSetRq1_Encoding {
+    physical_value, 0, 1, 1, 0 ;
+    logical_value, 0, "No Restore" ;
+    logical_value, 1, "Restore" ;
+  }
+  RRSSetRq_Encoding {
+    physical_value, 0, 3, 1, 0 ;
+    logical_value, 0, "No Request" ;
+    logical_value, 1, "Off" ;
+    logical_value, 2, "On" ;
+    logical_value, 3, "Unused" ;
+  }
+  RRSSetSta_Encoding {
+    physical_value, 0, 3, 1, 0 ;
+    logical_value, 0, "Unavailable" ;
+    logical_value, 1, "Off" ;
+    logical_value, 2, "On" ;
+    logical_value, 3, "Unused" ;
+  }
+  ResponseError_Encoding {
+    physical_value, 0, 1, 1, 0 ;
+    logical_value, 0, "False" ;
+    logical_value, 1, "True" ;
+  }
+  ReverseGearSts_Encoding {
+    physical_value, 0, 1, 1, 0 ;
+    logical_value, 0, "False" ;
+    logical_value, 1, "True" ;
+  }
+  SenSta_Encoding {
+    physical_value, 0, 1, 1, 0 ;
+    logical_value, 0, "Normal" ;
+    logical_value, 1, "Fault" ;
+  }
+  SpeedSts_Encoding {
+    physical_value, 0, 32676, 1, 0 ;
+  }
+  TransGearIO_Encoding {
+    physical_value, 0, 15, 1, 0 ;
+    logical_value, 0, "P reserved" ;
+    logical_value, 1, "R" ;
+    logical_value, 2, "N" ;
+    logical_value, 3, "D" ;
+    logical_value, 7, "Fault" ;
+  }
+  XMRDistance_Encoding {
+    physical_value, 0, 15, 1, 0 ;
+    logical_value, 0, "No obstacle" ;
+    logical_value, 1, "Zone 1" ;
+    logical_value, 2, "Zone 2" ;
+    logical_value, 3, "Zone 3" ;
+    logical_value, 4, "Zone 4" ;
+    logical_value, 5, "Zone 5" ;
+    logical_value, 15, "invalid" ;
+  }
+  timeout_Encoding_1 {
+    physical_value, 0, 1, 1, 0 ;
+    logical_value, 0, "Over Time" ;
+    logical_value, 1, "Normal" ;
+  }
+  HeatingControl_Encoding {
+    logical_value, 0, "Off" ;
+    logical_value, 1, "On, " ;
+  }
+  Info_Engine_XGW_Encoding {
+    logical_value, 0, "Engine OFF" ;
+    logical_value, 1, "Engine cranking" ;
+    logical_value, 2, "Engine run" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+  MFS_CruiseCancel_Encoding {
+    logical_value, 0, "Off" ;
+    logical_value, 1, "No Action" ;
+    logical_value, 2, "Cruise Cancel, " ;
+    logical_value, 3, "Reserved" ;
+  }
+  MFS_CruiseGapDecrease_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Reserved" ;
+    logical_value, 4, "Signal invalid" ;
+  }
+  MFS_CruiseGapIncrease_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Reserved" ;
+    logical_value, 4, "Signal invalid" ;
+  }
+  MFS_CruiseOn_Off_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+  MFS_CruiseSpeedDecrease_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+  MFS_CruiseSpeedIncrease_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+  MFS_DownControl_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+  MFS_Failure_Encoding {
+    logical_value, 0, "No Error" ;
+    logical_value, 1, "Error" ;
+  }
+  MFS_ISAControl_Encoding {
+    logical_value, 0, "Off, " ;
+    logical_value, 1, "Disable  ISA" ;
+    logical_value, 2, "Activate ISA" ;
+  }
+  MFS_LDWControl_Encoding {
+    physical_value, 0, 4, 1, 0 ;
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+  MFS_LKAControl_Encoding {
+    logical_value, 0, " Off" ;
+    logical_value, 1, "Disable LKA" ;
+    logical_value, 2, "Active LDW, " ;
+    logical_value, 3, "Disable LDW and Activate LKA, " ;
+  }
+  MFS_LeftControl_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+  MFS_MUTE_MIC_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+  MFS_OK_Control_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+  MFS_RightControl_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+  MFS_SONG_D_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+  MFS_SONG_U_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+  MFS_SourseControl_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Reserved" ;
+    logical_value, 4, "Signal invalid" ;
+  }
+  MFS_TelephoneCall_EndCall_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Reserved" ;
+    logical_value, 4, "Signal invalid" ;
+  }
+  MFS_UpControl_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+  MFS_VOL_D_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+  MFS_VOL_U_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+  MFS_VoiceRecognitionOn_Off_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+  MHU_St_DimmingIPC_Encoding {
+    logical_value, 0, "Not active" ;
+    logical_value, 1, "Level 1" ;
+    logical_value, 2, "Level 2" ;
+    logical_value, 3, "Level 3" ;
+    logical_value, 4, "Level 4" ;
+    logical_value, 5, "Level 5" ;
+    logical_value, 6, "Level 6" ;
+    logical_value, 7, "Level 7" ;
+    logical_value, 8, "Level 8" ;
+    logical_value, 9, "Level 9" ;
+    logical_value, 10, "Level 10" ;
+    logical_value, 11, "Level 11" ;
+    logical_value, 12, "Level 12" ;
+    logical_value, 13, "Level 13" ;
+    logical_value, 14, "Level 14" ;
+    logical_value, 15, "Invalid" ;
+  }
+  XGW_BackGround_Light_Encoding {
+    logical_value, 0, "Backlight OFF" ;
+    logical_value, 1, "BackLight On" ;
+    logical_value, 2, "Reserved" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+  EPB_timeout_Reserved_Encoding {
+    physical_value, 0, 1, 1, 0 ;
+  }
+  Speed_Vehicle_XGW_Encoding {
+    physical_value, 0, 5333, 0.05625, 0, "km/h" ;
+  }
+  Vbat_Value_XGW_Encoding {
+    physical_value, 0, 15359, 0.000976563, 3, "V" ;
+  }
+}
+
+Signal_representation {
+  Distance_Encoding: LFDistance_reserved, RFDistance_reserved, LRDistance, RRDistance ;
+  ElectricParkingSts_Reserved_Encoding: ElectricParkingSts_Reserved ;
+  EnvironmentTemp_Encoding: EnvironmentTemp ;
+  PAS_Workmode_choosing_Encoding: PAS_Workmode_choosing ;
+  ParkAssistantRearSystemStatus_Encoding: ParkAssistantRearSystemStatus ;
+  ParkingSts_Encoding: ParkingSts ;
+  PrkAssFrnSysSta_reserved_Encoding: PrkAssFrnSysSta_reserved ;
+  PrkAssSndCadCom_Encoding: PrkAssSndCadCom ;
+  PrkAssSysSta_Encoding: PrkAssSysSta ;
+  RPASWorkSts_Encoding: RPASWorkSts ;
+  RRSSetRq1_Encoding: RRSSetRq1 ;
+  RRSSetRq_Encoding: RRSSetRq ;
+  RRSSetSta_Encoding: RRSSetSta ;
+  ResponseError_Encoding: ResponseError ;
+  ReverseGearSts_Encoding: ReverseGearSts ;
+  SenSta_Encoding: FLSenSta_reserved, FRSenSta_reserved, RLSenSta, RRSenSta, RLMSenSta, RRMSenSta ;
+  SpeedSts_Encoding: SpeedSts ;
+  TransGearIO_Encoding: TransGearIO ;
+  XMRDistance_Encoding: LMRDistance, RMRDistance ;
+  timeout_Encoding_1: EPB_timeout_Reserved, ACM_timeout, ESC_timeout, BCM_timeout_Reserved, VCU_timeout ;
+}

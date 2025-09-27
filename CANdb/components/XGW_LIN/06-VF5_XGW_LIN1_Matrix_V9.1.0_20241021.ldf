@@ -1,0 +1,385 @@
+/* ************************************************************************** */ 
+    /*                                  VINFAST                                   */ 
+    /*  Description: LIN Description file                                         */ 
+    /*  Configuration: VinFast                                                    */ 
+    /*  Bus: LIN_1_V10_00                                                         */ 
+    /*  Created: Long Dep Trai                                                    */ 
+    /*                                                                            */ 
+    /* ************************************************************************** */
+
+LIN_description_file;
+LIN_protocol_version = "2.1";
+LIN_language_version = "2.1";
+LIN_speed = 19.2 kbps;
+Channel_name = "DB";
+
+Nodes {
+  Master: XGW, 5 ms, 0.1 ms ;
+  Slaves: MFS ;
+}
+
+Signals {
+  MFS_TelephoneCall_EndCall: 3, 0, MFS, XGW ;
+  MFS_VoiceRecognitionOn_Off: 3, 0, MFS, XGW ;
+  MFS_SourseControl: 3, 0, MFS, XGW ;
+  MFS_UpControl: 3, 0, MFS, XGW ;
+  MFS_DownControl: 3, 0, MFS, XGW ;
+  MFS_LeftControl: 3, 0, MFS, XGW ;
+  MFS_RightControl: 3, 0, MFS, XGW ;
+  MFS_OK_Control: 3, 0, MFS, XGW ;
+  MFS_LKAControl: 2, 0, MFS, XGW ;
+  MFS_ISAControl: 2, 0, MFS, XGW ;
+  MFS_Failure: 1, 0, MFS, XGW ;
+  MFS_CruiseOn_Off: 3, 0, MFS, XGW ;
+  MFS_CruiseSpeedIncrease: 3, 0, MFS, XGW ;
+  MFS_CruiseSpeedDecrease: 3, 0, MFS, XGW ;
+  MFS_CruiseGapIncrease: 3, 0, MFS, XGW ;
+  MFS_CruiseGapDecrease: 3, 0, MFS, XGW ;
+  MFS_CruiseCancel: 2, 0, MFS, XGW ;
+  HeatingControl: 1, 0, XGW ;
+  MHU_St_DimmingIPC: 4, 0, XGW, MFS ;
+  Odometer_Value_XGW: 24, {0, 0, 0}, XGW ;
+  Vbat_Value_XGW: 14, 12, XGW ;
+  Speed_Vehicle_XGW: 13, 0, XGW ;
+  Info_Engine_XGW: 2, 0, XGW ;
+  XGW_BackGround_Light: 2, 0, XGW, MFS ;
+  MFS_ModeControl: 2, 0, MFS, XGW ;
+  MFS_MUTE_SPEAKER: 2, 0, MFS, XGW ;
+  MFS_SONG_U: 2, 0, MFS, XGW ;
+  MFS_SONG_D: 2, 0, MFS, XGW ;
+  MFS_VOL_U: 2, 0, MFS, XGW ;
+  MFS_VOL_D: 2, 0, MFS, XGW ;
+}
+
+Diagnostic_signals {
+  MasterReqB0: 8, 0 ;
+  MasterReqB1: 8, 0 ;
+  MasterReqB2: 8, 0 ;
+  MasterReqB3: 8, 0 ;
+  MasterReqB4: 8, 0 ;
+  MasterReqB5: 8, 0 ;
+  MasterReqB6: 8, 0 ;
+  MasterReqB7: 8, 0 ;
+  SlaveRespB0: 8, 0 ;
+  SlaveRespB1: 8, 0 ;
+  SlaveRespB2: 8, 0 ;
+  SlaveRespB3: 8, 0 ;
+  SlaveRespB4: 8, 0 ;
+  SlaveRespB5: 8, 0 ;
+  SlaveRespB6: 8, 0 ;
+  SlaveRespB7: 8, 0 ;
+}
+
+
+
+Frames {
+  MFS_BC_VOL_CONT: 3, MFS, 8 {
+    MFS_TelephoneCall_EndCall, 0 ;
+    MFS_VoiceRecognitionOn_Off, 3 ;
+    MFS_MUTE_SPEAKER, 6 ;
+    MFS_SONG_U, 9 ;
+    MFS_SONG_D, 12 ;
+    MFS_VOL_U, 15 ;
+    MFS_VOL_D, 18 ;
+  }
+  MFS_Control_Button: 43, MFS, 8 {
+    MFS_UpControl, 3 ;
+    MFS_DownControl, 6 ;
+    MFS_LeftControl, 9 ;
+    MFS_RightControl, 12 ;
+    MFS_OK_Control, 15 ;
+    MFS_Failure, 22 ;
+    MFS_ModeControl, 23 ;
+    MFS_LKAControl, 18 ;
+    MFS_SourseControl, 0 ;
+    MFS_ISAControl, 20 ;
+  }
+  MFS_CRUISE_CONT: 4, MFS, 8 {
+    MFS_CruiseOn_Off, 0 ;
+    MFS_CruiseSpeedIncrease, 3 ;
+    MFS_CruiseSpeedDecrease, 6 ;
+    MFS_CruiseCancel, 15 ;
+    MFS_CruiseGapDecrease, 9 ;
+    MFS_CruiseGapIncrease, 12 ;
+  }
+  XGW_Information: 16, XGW, 8 {
+    MHU_St_DimmingIPC, 24 ;
+    XGW_BackGround_Light, 61 ;
+  }
+}
+
+
+
+Diagnostic_frames {
+  MasterReq: 0x3c {
+    MasterReqB0, 0 ;
+    MasterReqB1, 8 ;
+    MasterReqB2, 16 ;
+    MasterReqB3, 24 ;
+    MasterReqB4, 32 ;
+    MasterReqB5, 40 ;
+    MasterReqB6, 48 ;
+    MasterReqB7, 56 ;
+  }
+  SlaveResp: 0x3d {
+    SlaveRespB0, 0 ;
+    SlaveRespB1, 8 ;
+    SlaveRespB2, 16 ;
+    SlaveRespB3, 24 ;
+    SlaveRespB4, 32 ;
+    SlaveRespB5, 40 ;
+    SlaveRespB6, 48 ;
+    SlaveRespB7, 56 ;
+  }
+}
+
+Node_attributes {
+  MFS{
+    LIN_protocol = "2.1" ;
+    configured_NAD = 0x23 ;
+    initial_NAD = 0x1 ;
+    product_id = 0x2, 0x1000, 0 ;
+    response_error = MFS_Failure ;
+    P2_min = 150 ms ;
+    ST_min = 15 ms ;
+    N_As_timeout = 1000 ms ;
+    N_Cr_timeout = 1000 ms ;
+    configurable_frames {
+      MFS_BC_VOL_CONT ;
+      MFS_Control_Button ;
+      MFS_CRUISE_CONT ;
+      XGW_Information ;
+    }
+  }
+}
+
+Schedule_tables {
+ DIAG {
+    MasterReq delay 10 ms ;
+    SlaveResp delay 10 ms ;
+  }
+ RUN_MAIN {
+    MFS_BC_VOL_CONT delay 20 ms ;
+    MFS_Control_Button delay 20 ms ;
+    MFS_CRUISE_CONT delay 20 ms ;
+    XGW_Information delay 20 ms ;
+  }
+}
+
+
+Signal_encoding_types {
+  HeatingControl_Encoding {
+    logical_value, 0, "Off" ;
+    logical_value, 1, "On, " ;
+  }
+  Info_Engine_XGW_Encoding {
+    logical_value, 0, "Engine OFF" ;
+    logical_value, 1, "Engine cranking" ;
+    logical_value, 2, "Engine run" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+  MFS_CruiseCancel_Encoding {
+    logical_value, 0, "Off" ;
+    logical_value, 1, "No Action" ;
+    logical_value, 2, "Cruise Cancel, " ;
+    logical_value, 3, "Reserved" ;
+  }
+  MFS_CruiseGapDecrease_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+  MFS_CruiseGapIncrease_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+  MFS_CruiseOn_Off_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+  MFS_CruiseSpeedDecrease_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+  MFS_CruiseSpeedIncrease_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+  MFS_DownControl_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+  MFS_Failure_Encoding {
+    logical_value, 0, "No Error" ;
+    logical_value, 1, "Error" ;
+  }
+  MFS_ISAControl_Encoding {
+    logical_value, 0, "Off, " ;
+    logical_value, 1, "Disable  ISA" ;
+    logical_value, 2, "Activate ISA" ;
+  }
+  MFS_LDWControl_Encoding {
+    physical_value, 0, 4, 1, 0 ;
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+  MFS_LKAControl_Encoding {
+    logical_value, 0, " Off" ;
+    logical_value, 1, "Disable LKA" ;
+    logical_value, 2, "Active mode" ;
+    logical_value, 3, "Disable mode and Activate LKA" ;
+  }
+  MFS_LeftControl_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+  MFS_MUTE_SPEAKER_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+  MFS_OK_Control_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+  MFS_RightControl_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+  MFS_SONG_D_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+  MFS_SONG_U_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+  MFS_SourseControl_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Reserved" ;
+    logical_value, 4, "Signal invalid" ;
+  }
+  MFS_TelephoneCall_EndCall_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Reserved" ;
+    logical_value, 4, "Signal invalid" ;
+  }
+  MFS_UpControl_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+  MFS_VOL_D_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+  MFS_VOL_U_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+  MFS_VoiceRecognitionOn_Off_Encoding {
+    logical_value, 0, "OFF" ;
+    logical_value, 1, "Short Press" ;
+    logical_value, 2, "Long Press" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+  MHU_St_DimmingIPC_Encoding {
+    logical_value, 0, "Not active" ;
+    logical_value, 1, "Level 1" ;
+    logical_value, 2, "Level 2" ;
+    logical_value, 3, "Level 3" ;
+    logical_value, 4, "Level 4" ;
+    logical_value, 5, "Level 5" ;
+    logical_value, 6, "Level 6" ;
+    logical_value, 7, "Level 7" ;
+    logical_value, 8, "Level 8" ;
+    logical_value, 9, "Level 9" ;
+    logical_value, 10, "Level 10" ;
+    logical_value, 11, "Level 11" ;
+    logical_value, 12, "Level 12" ;
+    logical_value, 13, "Level 13" ;
+    logical_value, 14, "Level 14" ;
+    logical_value, 15, "Invalid" ;
+  }
+  Odometer_Value_XGW_Encoding {
+    physical_value, 0, 999999, 1, 0, "km" ;
+  }
+  Speed_Vehicle_XGW_Encoding {
+    physical_value, 0, 5333, 0.05625, 0, "km/h" ;
+  }
+  Vbat_Value_XGW_Encoding {
+    physical_value, 0, 15359, 0.000976563, 3, "V" ;
+  }
+  XGW_BackGround_Light_Encoding {
+    logical_value, 0, "Backlight OFF" ;
+    logical_value, 1, "BackLight On" ;
+    logical_value, 2, "Reserved" ;
+    logical_value, 3, "Signal invalid" ;
+  }
+}
+
+Signal_representation {
+  HeatingControl_Encoding: HeatingControl ;
+  Info_Engine_XGW_Encoding: Info_Engine_XGW ;
+  MFS_CruiseCancel_Encoding: MFS_CruiseCancel ;
+  MFS_CruiseGapDecrease_Encoding: MFS_CruiseGapDecrease ;
+  MFS_CruiseGapIncrease_Encoding: MFS_CruiseGapIncrease ;
+  MFS_CruiseOn_Off_Encoding: MFS_CruiseOn_Off ;
+  MFS_CruiseSpeedDecrease_Encoding: MFS_CruiseSpeedDecrease ;
+  MFS_CruiseSpeedIncrease_Encoding: MFS_CruiseSpeedIncrease ;
+  MFS_DownControl_Encoding: MFS_DownControl ;
+  MFS_Failure_Encoding: MFS_Failure ;
+  MFS_ISAControl_Encoding: MFS_ISAControl ;
+  MFS_LDWControl_Encoding: MFS_ModeControl ;
+  MFS_LKAControl_Encoding: MFS_LKAControl ;
+  MFS_LeftControl_Encoding: MFS_LeftControl ;
+  MFS_MUTE_SPEAKER_Encoding: MFS_MUTE_SPEAKER ;
+  MFS_OK_Control_Encoding: MFS_OK_Control ;
+  MFS_RightControl_Encoding: MFS_RightControl ;
+  MFS_SONG_D_Encoding: MFS_SONG_D ;
+  MFS_SONG_U_Encoding: MFS_SONG_U ;
+  MFS_SourseControl_Encoding: MFS_SourseControl ;
+  MFS_TelephoneCall_EndCall_Encoding: MFS_TelephoneCall_EndCall ;
+  MFS_UpControl_Encoding: MFS_UpControl ;
+  MFS_VOL_D_Encoding: MFS_VOL_D ;
+  MFS_VOL_U_Encoding: MFS_VOL_U ;
+  MFS_VoiceRecognitionOn_Off_Encoding: MFS_VoiceRecognitionOn_Off ;
+  MHU_St_DimmingIPC_Encoding: MHU_St_DimmingIPC ;
+  Odometer_Value_XGW_Encoding: Odometer_Value_XGW ;
+  Speed_Vehicle_XGW_Encoding: Speed_Vehicle_XGW ;
+  Vbat_Value_XGW_Encoding: Vbat_Value_XGW ;
+  XGW_BackGround_Light_Encoding: XGW_BackGround_Light ;
+}

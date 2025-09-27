@@ -1,0 +1,728 @@
+VERSION ""
+
+
+NS_ :
+    NS_DESC_
+    CM_
+    BA_DEF_
+    BA_
+    VAL_
+    CAT_DEF_
+    CAT_
+    FILTER
+    BA_DEF_DEF_
+    EV_DATA_
+    ENVVAR_DATA_
+    SGTYPE_
+    SGTYPE_VAL_
+    BA_DEF_SGTYPE_
+    BA_SGTYPE_
+    SIG_TYPE_REF_
+    VAL_TABLE_
+    SIG_GROUP_
+    SIG_VALTYPE_
+    SIGTYPE_VALTYPE_
+    BO_TX_BU_
+    BA_DEF_REL_
+    BA_REL_
+    BA_DEF_DEF_REL_
+    BU_SG_REL_
+    BU_EV_REL_
+    BU_BO_REL_
+    SG_MUL_VAL_
+
+BS_:
+
+BU_: EPS  
+
+
+VAL_TABLE_ RollingCounter_0x342 15 "Invalid";
+VAL_TABLE_ ABS_LRWhlSpdRaw 32767 "Invalid";
+VAL_TABLE_ ABS_LRWhlSpdRawValid 1 "Valid" 0 "Invalid";
+VAL_TABLE_ ABS_RRWhlSpdRaw 32767 "Invalid";
+VAL_TABLE_ ABS_RRWhlSpdRawValid 1 "Valid" 0 "Invalid";
+VAL_TABLE_ ABS_VehSpd 32767 "Invalid";
+VAL_TABLE_ ABS_VehSpdValid 1 "Valid" 0 "Invalid";
+VAL_TABLE_ Rolling_counter_0x17E 15 "Invalid";
+VAL_TABLE_ SAS_SteerWheelAngle 65535 "Invalid";
+VAL_TABLE_ SAS_SteeringAngleValid 1 "Valid" 0 "Invalid";
+VAL_TABLE_ SAS_SASStsSnsr 1 "sensor value valid" 0 "sensor value Invalid";
+VAL_TABLE_ SAS_SteerWhlRotSpd 16383 "Invalid";
+VAL_TABLE_ SAS_SteerWhlRotSpdStatus 1 "Valid" 0 "Invalid";
+VAL_TABLE_ SAS_Calibrated 1 "Calibrated" 0 "Not Calibrated";
+VAL_TABLE_ SAS_SASFailure 1 "No Failure" 0 "Failure";
+VAL_TABLE_ Rolling_counter_0x37E 15 "Invalid";
+VAL_TABLE_ EPS_SteeringTorque 4095 "Invalid";
+VAL_TABLE_ EPS_TorqSensorStatus 1 "Invalid" 0 "Valid";
+VAL_TABLE_ EPS_EpsFailed 1 "failed" 0 "not failed";
+VAL_TABLE_ EPS_Mode 3 " Invalid" 1 "low assist" 0 "full assist";
+VAL_TABLE_ RollingCounter_0x269 15 "Invalid";
+VAL_TABLE_ VCU_VehicleHVStatus 3 "Reserved" 2 "ReadyToDrive" 1 "HV On" 0 "Not ready";
+VAL_TABLE_ VCU_ActualGear 7 "Fault" 6 "Reserved" 5 "Reserved" 4 "Reserved" 3 "D" 2 "N" 1 "R" 0 "P reserved";
+VAL_TABLE_ VCU_ActualGearValid 1 "Invalid" 0 "Valid";
+VAL_TABLE_ VCU_AccPedalPosition 255 "Invalid";
+VAL_TABLE_ VCU_AccPedalPositionValid 1 "Invalid" 0 "Valid";
+VAL_TABLE_ VCU_TqReductionRqstResponse 1 "active" 0 "inactive";
+VAL_TABLE_ VCU_BrakePedalSts 3 "Invalid" 2 "Reserved" 1 "pressed" 0 "Not pressed";
+VAL_TABLE_ Rolling_Counter_0x20C 15 "Invalid";
+VAL_TABLE_ IPC_ODO 1048575 "Invalid";
+VAL_TABLE_ IPC_Sec 63 "Invalid";
+VAL_TABLE_ IPC_Min 63 "Invalid";
+VAL_TABLE_ IPC_Hour 31 "Invalid";
+VAL_TABLE_ IPC_Day 31 "Invalid";
+VAL_TABLE_ IPC_Month 15 "Invalid";
+VAL_TABLE_ IPC_Year 255 "Invalid";
+VAL_TABLE_ IPC_SelfCheckStatus 1 "self-check finish" 0 "self-checking";
+VAL_TABLE_ CCU_ExternalTemperature 255 "Invaild";
+VAL_TABLE_ CCU_ExternalTemperatureFailSts 1 "invalid" 0 "valid";
+VAL_TABLE_ Rolling_Counter_0x10a 15 "Invalid";
+VAL_TABLE_ BCM_LVTop_up 1 "start Top up" 0 "stop Top up";
+VAL_TABLE_ Rolling_Counter_0x112 15 "Invalid";
+VAL_TABLE_ STAT_Terminal 7 "Signal invalid" 6 "Reserved" 5 "Reserved" 4 "SW update OTA (Not used in VFe34)" 3 "Engine start (eMotor running)" 2 "ON (Driver Present)" 1 "ACC (Park)" 0 "OFF(Comfort Enable)";
+VAL_TABLE_ STAT_CL30s_L_Reserved 3 "Signal invalid" 2 "Failure" 1 "ON" 0 "OFF";
+BO_ 834 ABS_WheelSpdR_0x342: 8 Vector__XXX
+ SG_ Checksum_0x342 : 7|8@0+ (1,0) [0|255] "" EPS
+ SG_ RollingCounter_0x342 : 11|4@0+ (1,0) [0|15] "" EPS
+ SG_ ABS_LRWhlSpdRaw : 55|15@0+ (0.01,0) [0|327.66] "kph" Vector__XXX
+ SG_ ABS_LRWhlSpdRawValid : 56|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ ABS_RRWhlSpdRaw : 22|15@0+ (0.01,0) [0|327.66] "kph" Vector__XXX
+ SG_ ABS_RRWhlSpdRawValid : 23|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ ABS_VehSpd : 38|15@0+ (0.01,0) [0|327.66] "kph" EPS
+ SG_ ABS_VehSpdValid : 39|1@0+ (1,0) [0|1] "" EPS
+BO_ 382 SAS_Sensor_0x17E: 8 EPS
+ SG_ Checksum_0x17E : 7|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ Rolling_counter_0x17E : 11|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ SAS_SteerWheelAngle : 55|16@0+ (0.0238,-780) [-780|779.7] "deg" Vector__XXX
+ SG_ SAS_SteeringAngleValid : 23|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ SAS_SASStsSnsr : 22|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ SAS_SteerWhlRotSpd : 21|14@0+ (0.125,-1024) [-1024|1023.75] "degs" Vector__XXX
+ SG_ SAS_SteerWhlRotSpdStatus : 34|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ SAS_Calibrated : 33|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ SAS_SASFailure : 32|1@0+ (1,0) [0|1] "" Vector__XXX
+BO_ 894 EPS_Advanced_0x37E: 8 EPS
+ SG_ Checksum_0x37E : 7|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ Rolling_counter_0x37E : 11|4@0+ (1,0) [0|15] "" Vector__XXX
+ SG_ EPS_SteeringTorque : 47|12@0+ (0.01,-20.47) [-20.47|20.47] "Nm" Vector__XXX
+ SG_ EPS_TorqSensorStatus : 31|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ EPS_EpsFailed : 23|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ EPS_Mode : 33|2@0+ (1,0) [0|3] "" Vector__XXX
+BO_ 617 VCU_Pedals_0x269: 8 Vector__XXX
+ SG_ Checksum_0x269 : 7|8@0+ (1,0) [0|255] "" EPS
+ SG_ RollingCounter_0x269 : 11|4@0+ (1,0) [0|15] "" EPS
+ SG_ VCU_VehicleHVStatus : 25|2@0+ (1,0) [0|3] "" EPS
+ SG_ VCU_ActualGear : 15|3@0+ (1,0) [0|7] "" Vector__XXX
+ SG_ VCU_ActualGearValid : 12|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ VCU_AccPedalPosition : 23|8@0+ (0.4,0) [0|100] "%" Vector__XXX
+ SG_ VCU_AccPedalPositionValid : 31|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ VCU_TqReductionRqstResponse : 26|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ VCU_BrakePedalSts : 29|2@0+ (1,0) [0|3] "" Vector__XXX
+BO_ 524 GW_IPC_ODO_0x20C: 8 Vector__XXX
+ SG_ Checksum_0x20C : 7|8@0+ (1,0) [0|255] "" EPS
+ SG_ Rolling_Counter_0x20C : 11|4@0+ (1,0) [0|15] "" EPS
+ SG_ IPC_ODO : 31|20@0+ (1,0) [0|999999] "km" EPS
+BO_ 1087 GW_IPC_Time_0x43F: 8 Vector__XXX
+ SG_ IPC_Sec : 45|6@0+ (1,0) [0|59] "second" EPS
+ SG_ IPC_Min : 37|6@0+ (1,0) [0|59] "min" EPS
+ SG_ IPC_Hour : 28|5@0+ (1,0) [0|23] "hour" EPS
+ SG_ IPC_Day : 20|5@0+ (1,0) [1|31] "" EPS
+ SG_ IPC_Month : 11|4@0+ (1,0) [1|12] "" EPS
+ SG_ IPC_Year : 7|8@0+ (1,2000) [2000|2255] "" EPS
+ SG_ IPC_SelfCheckStatus : 15|1@0+ (1,0) [0|1] "" EPS
+BO_ 814 GW_CCU_Info_0x32E: 8 Vector__XXX
+ SG_ CCU_ExternalTemperature : 7|8@0+ (0.5,-40) [-40|87] "°C" EPS
+ SG_ CCU_ExternalTemperatureFailSts : 8|1@0+ (1,0) [0|1] "" EPS
+BO_ 266 GW_BCM_VOLTAGE_0x10a: 8 Vector__XXX
+ SG_ Checksum_0x10a : 7|8@0+ (1,0) [0|255] "" EPS
+ SG_ Rolling_Counter_0x10a : 11|4@0+ (1,0) [0|15] "" EPS
+ SG_ BCM_LVTop_up : 24|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ Ubatt_Reserved : 23|14@0+ (0.001,3) [3|18] "V" EPS
+BO_ 274 GW_BCM_CLAMP_STAT_0x112: 8 Vector__XXX
+ SG_ Checksum_0x112 : 7|8@0+ (1,0) [0|255] "" EPS
+ SG_ Rolling_Counter_0x112 : 11|4@0+ (1,0) [0|15] "" EPS
+ SG_ STAT_Terminal : 34|3@0+ (1,0) [0|7] "Bit" EPS
+ SG_ STAT_CL30s_L_Reserved : 41|2@0+ (1,0) [0|3] "Bit" Vector__XXX
+BO_ 1704 EPS_DiagReq: 8 Vector__XXX
+ SG_ EPS_DiagReqData0 : 7|8@0+ (1,0) [0|255] "" EPS
+ SG_ EPS_DiagReqData1 : 15|8@0+ (1,0) [0|255] "" EPS
+ SG_ EPS_DiagReqData2 : 23|8@0+ (1,0) [0|255] "" EPS
+ SG_ EPS_DiagReqData3 : 31|8@0+ (1,0) [0|255] "" EPS
+ SG_ EPS_DiagReqData4 : 39|8@0+ (1,0) [0|255] "" EPS
+ SG_ EPS_DiagReqData5 : 47|8@0+ (1,0) [0|255] "" EPS
+ SG_ EPS_DiagReqData6 : 55|8@0+ (1,0) [0|255] "" EPS
+ SG_ EPS_DiagReqData7 : 63|8@0+ (1,0) [0|255] "" EPS
+BO_ 1576 EPS_DiagResp: 8 EPS
+ SG_ EPS_DiagRespData0 : 7|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ EPS_DiagRespData1 : 15|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ EPS_DiagRespData2 : 23|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ EPS_DiagRespData3 : 31|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ EPS_DiagRespData4 : 39|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ EPS_DiagRespData5 : 47|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ EPS_DiagRespData6 : 55|8@0+ (1,0) [0|255] "" Vector__XXX
+ SG_ EPS_DiagRespData7 : 63|8@0+ (1,0) [0|255] "" Vector__XXX
+BO_ 1791 GW_DiagFunctionalAddressing: 8 Vector__XXX
+ SG_ GW_DiagFunctionalAddressingData0 : 7|8@0+ (1,0) [0|255] "" EPS
+ SG_ GW_DiagFunctionalAddressingData1 : 15|8@0+ (1,0) [0|255] "" EPS
+ SG_ GW_DiagFunctionalAddressingData2 : 23|8@0+ (1,0) [0|255] "" EPS
+ SG_ GW_DiagFunctionalAddressingData3 : 31|8@0+ (1,0) [0|255] "" EPS
+ SG_ GW_DiagFunctionalAddressingData4 : 39|8@0+ (1,0) [0|255] "" EPS
+ SG_ GW_DiagFunctionalAddressingData5 : 47|8@0+ (1,0) [0|255] "" EPS
+ SG_ GW_DiagFunctionalAddressingData6 : 55|8@0+ (1,0) [0|255] "" EPS
+ SG_ GW_DiagFunctionalAddressingData7 : 63|8@0+ (1,0) [0|255] "" EPS
+CM_ SG_ 834 Checksum_0x342 "Check sum";
+CM_ SG_ 834 RollingCounter_0x342 "Rolling Counter";
+CM_ SG_ 834 ABS_LRWhlSpdRaw "Current Raw wheel speed information of rear left wheel.";
+CM_ SG_ 834 ABS_LRWhlSpdRawValid "Current Raw wheel speed information valid flag of rear left wheel.";
+CM_ SG_ 834 ABS_RRWhlSpdRaw "Current Raw wheel speed information of rear right wheel.,";
+CM_ SG_ 834 ABS_RRWhlSpdRawValid "Current Raw wheel speed information valid flag of rear right wheel";
+CM_ SG_ 834 ABS_VehSpd "Current Longitudinal Vehicle Speed";
+CM_ SG_ 834 ABS_VehSpdValid "Speed Valid Flag";
+CM_ SG_ 382 Checksum_0x17E "Check sum";
+CM_ SG_ 382 Rolling_counter_0x17E "Rolling Counter";
+CM_ SG_ 382 SAS_SteerWheelAngle "The current angle of the steering wheel(Positive, to left; Negative, to right)";
+CM_ SG_ 382 SAS_SteeringAngleValid "Effective signal for steering angle";
+CM_ SG_ 382 SAS_SASStsSnsr "the flag of  SAS status Punch:Steering angle status";
+CM_ SG_ 382 SAS_SteerWhlRotSpd "The current rotation speed of the steering wheel.";
+CM_ SG_ 382 SAS_SteerWhlRotSpdStatus "The status of SteerWheel Rotation Speed valid";
+CM_ SG_ 382 SAS_Calibrated "SAS calibration state of Steer Angle Sensor";
+CM_ SG_ 382 SAS_SASFailure "Angle sensor disabled.";
+CM_ SG_ 894 Checksum_0x37E "Check sum";
+CM_ SG_ 894 Rolling_counter_0x37E "Rolling Counter";
+CM_ SG_ 894 EPS_SteeringTorque "steering torque bosch(Positive, to left; Negative, to right)";
+CM_ SG_ 894 EPS_TorqSensorStatus "Validation bit of torsion bar torque";
+CM_ SG_ 894 EPS_EpsFailed "EPS failed bit";
+CM_ SG_ 894 EPS_Mode "Electric steering mode";
+CM_ SG_ 617 Checksum_0x269 "Check sum";
+CM_ SG_ 617 RollingCounter_0x269 "Rolling counter";
+CM_ SG_ 617 VCU_VehicleHVStatus "Vehicle High voltage Ready State";
+CM_ SG_ 617 VCU_ActualGear "actual gear,Provide gear shift signal";
+CM_ SG_ 617 VCU_ActualGearValid "Indicate the current gear position Valid";
+CM_ SG_ 617 VCU_AccPedalPosition "Indicate the acceleraton pedal position";
+CM_ SG_ 617 VCU_AccPedalPositionValid "Indicate the acceleration pedal position valid flag";
+CM_ SG_ 617 VCU_TqReductionRqstResponse "Indicate the response for the RBS/TCS request torqueRBS/TCS";
+CM_ SG_ 617 VCU_BrakePedalSts "Brake Pedal Sts";
+CM_ SG_ 524 Checksum_0x20C "Checksum";
+CM_ SG_ 524 Rolling_Counter_0x20C "Rolling_Counter";
+CM_ SG_ 524 IPC_ODO "odograph";
+CM_ SG_ 1087 IPC_Sec "Represents the current second.60 - 63 = Invalid";
+CM_ SG_ 1087 IPC_Min "Represents the current minute. 60 - 63 = Invalid";
+CM_ SG_ 1087 IPC_Hour "Represents the current hour, 24 - 30 = not used";
+CM_ SG_ 1087 IPC_Day "Represents the current dayInvalid value = 0";
+CM_ SG_ 1087 IPC_Month "Represents the current month.0, 13 to 15 = Invalid";
+CM_ SG_ 1087 IPC_Year "Represents the current year.";
+CM_ SG_ 1087 IPC_SelfCheckStatus "Power on self check status";
+CM_ SG_ 814 CCU_ExternalTemperature "External Temperature";
+CM_ SG_ 814 CCU_ExternalTemperatureFailSts "External Temperature Fail Sts";
+CM_ SG_ 266 Checksum_0x10a "Checksum";
+CM_ SG_ 266 Rolling_Counter_0x10a "Rolling Counter";
+CM_ SG_ 266 BCM_LVTop_up "LV  battery top up requice signal";
+CM_ SG_ 266 Ubatt_Reserved "Battery Voltage(UBatt to be received by all modules,Required for DTC snapshots)";
+CM_ SG_ 274 Checksum_0x112 "Checksum";
+CM_ SG_ 274 Rolling_Counter_0x112 "Rolling_Counter";
+CM_ SG_ 274 STAT_Terminal "Represent the status of physical terminal(STAT_Terminal to be received by all modules,Required for DTC snapshots and for FOTA)";
+CM_ SG_ 274 STAT_CL30s_L_Reserved "Status Clamp 30s Logical ON/OFF";
+CM_ SG_ 1704 EPS_DiagReqData0 "Data0";
+CM_ SG_ 1704 EPS_DiagReqData1 "Data1";
+CM_ SG_ 1704 EPS_DiagReqData2 "Data2";
+CM_ SG_ 1704 EPS_DiagReqData3 "Data3";
+CM_ SG_ 1704 EPS_DiagReqData4 "Data4";
+CM_ SG_ 1704 EPS_DiagReqData5 "Data5";
+CM_ SG_ 1704 EPS_DiagReqData6 "Data6";
+CM_ SG_ 1704 EPS_DiagReqData7 "Data7";
+CM_ SG_ 1576 EPS_DiagRespData0 "Data0";
+CM_ SG_ 1576 EPS_DiagRespData1 "Data1";
+CM_ SG_ 1576 EPS_DiagRespData2 "Data2";
+CM_ SG_ 1576 EPS_DiagRespData3 "Data3";
+CM_ SG_ 1576 EPS_DiagRespData4 "Data4";
+CM_ SG_ 1576 EPS_DiagRespData5 "Data5";
+CM_ SG_ 1576 EPS_DiagRespData6 "Data6";
+CM_ SG_ 1576 EPS_DiagRespData7 "Data7";
+CM_ SG_ 1791 GW_DiagFunctionalAddressingData0 "Data0";
+CM_ SG_ 1791 GW_DiagFunctionalAddressingData1 "Data1";
+CM_ SG_ 1791 GW_DiagFunctionalAddressingData2 "Data2";
+CM_ SG_ 1791 GW_DiagFunctionalAddressingData3 "Data3";
+CM_ SG_ 1791 GW_DiagFunctionalAddressingData4 "Data4";
+CM_ SG_ 1791 GW_DiagFunctionalAddressingData5 "Data5";
+CM_ SG_ 1791 GW_DiagFunctionalAddressingData6 "Data6";
+CM_ SG_ 1791 GW_DiagFunctionalAddressingData7 "Data7";
+BA_DEF_ BO_ "DiagRequest" ENUM "No","Yes"; 
+BA_DEF_ BO_ "DiagResponse" ENUM "No","Yes"; 
+BA_DEF_ BO_ "DiagState" ENUM "No","Yes"; 
+BA_DEF_ BO_ "GenMsgCycleTime" INT 0 65535; 
+BA_DEF_ BO_ "GenMsgCycleTimeActive" INT 0 65535; 
+BA_DEF_ BO_ "GenMsgCycleTimeFast" INT 0 65535; 
+BA_DEF_ BO_ "GenMsgDelayTime" INT 0 65535; 
+BA_DEF_ BO_ "GenMsgILSupport" ENUM "No","Yes"; 
+BA_DEF_ BO_ "GenMsgNrOfRepetition" INT 0 65535; 
+BA_DEF_ BO_ "GenMsgSendType" ENUM  "Cycle","Event","IfActive","CE","CA";
+BA_DEF_ BO_ "GenMsgStartDelayTime" INT 0 65535; 
+BA_DEF_ BO_ "NmAsrMessage" ENUM "No","Yes"; 
+BA_DEF_ BO_ "NmMessage" ENUM "No","Yes"; 
+BA_DEF_ SG_ "GenSigSendType" ENUM  "Cycle","OnWrite","OnWriteWithRepetition","OnChange","OnChangeWithRepetition","IfActive","IfActiveWithRepetition";
+BA_DEF_ SG_ "GenSigStartValue" INT 0 2147483647; 
+BA_DEF_ SG_ "GenSigTimeoutTime_ALL" INT 0 65535; 
+BA_DEF_ SG_ "GenSigInvalidValue" INT 0 2147483647; 
+BA_DEF_ SG_ "GenSigInactiveValue" INT 0 2147483647;
+BA_DEF_ SG_ "SystemSignalLongSymbol" STRING; 
+BA_DEF_ BU_ "ILUsed" ENUM  "No","Yes"; 
+BA_DEF_ BU_ "NmAsrCanMsgCycleOffset" INT 0 65535; 
+BA_DEF_ BU_ "NmAsrCanMsgReducedTime" INT 320 640; 
+BA_DEF_ BU_ "NmAsrNode" ENUM  "No","Yes"; 
+BA_DEF_ BU_ "NmAsrNodeIdentifier" HEX 0 255; 
+BA_DEF_ BU_ "TpSTMin" INT 0 255; 
+BA_DEF_ BU_ "Version" STRING; 
+BA_DEF_  "Baudrate" INT 0 1000000; 
+BA_DEF_  "BusType" STRING; 
+BA_DEF_  "Manufacturer" STRING; 
+BA_DEF_  "NmAsrBaseAddress" HEX 0 2047; 
+BA_DEF_  "NmAsrCanMsgCycleTime" INT 0 65535; 
+BA_DEF_  "NmAsrMessageCount" INT 1 256; 
+BA_DEF_  "NmAsrRepeatMessageTime" INT 0 65535; 
+BA_DEF_  "NmAsrTimeoutTime" INT 0 65535; 
+BA_DEF_  "NmAsrWaitBusSleepTime" INT 0 65535; 
+BA_DEF_  "NmType" STRING; 
+BA_DEF_DEF_ "Baudrate" 500000; 
+BA_DEF_DEF_ "BusType" "CAN"; 
+BA_DEF_DEF_ "DiagRequest" "No"; 
+BA_DEF_DEF_ "DiagResponse" "No"; 
+BA_DEF_DEF_ "DiagState" "No"; 
+BA_DEF_DEF_ "GenMsgCycleTime" 0; 
+BA_DEF_DEF_ "GenMsgCycleTimeFast" 0; 
+BA_DEF_DEF_ "GenMsgDelayTime" 0; 
+BA_DEF_DEF_ "GenMsgILSupport" "Yes"; 
+BA_DEF_DEF_ "GenMsgNrOfRepetition" 0; 
+BA_DEF_DEF_ "GenMsgSendType" "NoMsgSendType"; 
+BA_DEF_DEF_ "GenMsgStartDelayTime" 0; 
+BA_DEF_DEF_ "GenSigSendType" "NoSigSendType"; 
+BA_DEF_DEF_ "GenSigStartValue" 0; 
+BA_DEF_DEF_  "GenSigInvalidValue" 0;
+BA_DEF_DEF_ "GenSigInactiveValue" 0;
+BA_DEF_DEF_ "GenSigTimeoutTime_ALL" 0; 
+BA_DEF_DEF_ "ILUsed" "Yes"; 
+BA_DEF_DEF_ "Manufacturer" "Launch"; 
+BA_DEF_DEF_ "NmAsrBaseAddress" 1280; 
+BA_DEF_DEF_ "NmAsrCanMsgCycleOffset" 0; 
+BA_DEF_DEF_ "NmAsrCanMsgCycleTime" 640; 
+BA_DEF_DEF_ "NmAsrCanMsgReducedTime" 320; 
+BA_DEF_DEF_ "NmAsrMessage" "No"; 
+BA_DEF_DEF_ "NmAsrMessageCount" 128; 
+BA_DEF_DEF_ "NmAsrNode" "No"; 
+BA_DEF_DEF_ "NmAsrNodeIdentifier" 0; 
+BA_DEF_DEF_ "NmAsrRepeatMessageTime" 3200; 
+BA_DEF_DEF_ "NmAsrTimeoutTime" 2000; 
+BA_DEF_DEF_ "NmAsrWaitBusSleepTime" 1500; 
+BA_DEF_DEF_ "NmMessage" "No"; 
+BA_DEF_DEF_ "NmType" "NmAsr"; 
+BA_DEF_DEF_ "TpSTMin" 0; 
+BA_DEF_DEF_ "Version" ""; 
+
+BA_ "GenMsgSendType" BO_ 834 0;
+BA_ "GenMsgNrOfRepetition" BO_ 834 0;
+BA_ "GenMsgDelayTime" BO_ 834 0;
+BA_ "GenMsgCycleTimeFast" BO_ 834 0;
+BA_ "GenMsgCycleTime" BO_ 834 10;
+BA_ "GenMsgSendType" BO_ 382 0;
+BA_ "GenMsgNrOfRepetition" BO_ 382 0;
+BA_ "GenMsgDelayTime" BO_ 382 0;
+BA_ "GenMsgCycleTimeFast" BO_ 382 0;
+BA_ "GenMsgCycleTime" BO_ 382 10;
+BA_ "GenMsgSendType" BO_ 894 0;
+BA_ "GenMsgNrOfRepetition" BO_ 894 0;
+BA_ "GenMsgDelayTime" BO_ 894 0;
+BA_ "GenMsgCycleTimeFast" BO_ 894 0;
+BA_ "GenMsgCycleTime" BO_ 894 20;
+BA_ "GenMsgSendType" BO_ 617 0;
+BA_ "GenMsgNrOfRepetition" BO_ 617 0;
+BA_ "GenMsgDelayTime" BO_ 617 0;
+BA_ "GenMsgCycleTimeFast" BO_ 617 0;
+BA_ "GenMsgCycleTime" BO_ 617 20;
+BA_ "GenMsgSendType" BO_ 524 0;
+BA_ "GenMsgNrOfRepetition" BO_ 524 0;
+BA_ "GenMsgDelayTime" BO_ 524 0;
+BA_ "GenMsgCycleTimeFast" BO_ 524 0;
+BA_ "GenMsgCycleTime" BO_ 524 100;
+BA_ "GenMsgSendType" BO_ 1087 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1087 0;
+BA_ "GenMsgDelayTime" BO_ 1087 0;
+BA_ "GenMsgCycleTimeFast" BO_ 1087 0;
+BA_ "GenMsgCycleTime" BO_ 1087 1000;
+BA_ "GenMsgSendType" BO_ 814 0;
+BA_ "GenMsgNrOfRepetition" BO_ 814 0;
+BA_ "GenMsgDelayTime" BO_ 814 0;
+BA_ "GenMsgCycleTimeFast" BO_ 814 0;
+BA_ "GenMsgCycleTime" BO_ 814 50;
+BA_ "GenMsgSendType" BO_ 266 0;
+BA_ "GenMsgNrOfRepetition" BO_ 266 0;
+BA_ "GenMsgDelayTime" BO_ 266 0;
+BA_ "GenMsgCycleTimeFast" BO_ 266 0;
+BA_ "GenMsgCycleTime" BO_ 266 100;
+BA_ "GenMsgSendType" BO_ 274 0;
+BA_ "GenMsgNrOfRepetition" BO_ 274 0;
+BA_ "GenMsgDelayTime" BO_ 274 0;
+BA_ "GenMsgCycleTimeFast" BO_ 274 0;
+BA_ "GenMsgCycleTime" BO_ 274 100;
+BA_ "GenMsgSendType" BO_ 1704 1;
+BA_ "GenMsgNrOfRepetition" BO_ 1704 0;
+BA_ "GenMsgDelayTime" BO_ 1704 0;
+BA_ "GenMsgCycleTimeFast" BO_ 1704 0;
+BA_ "GenMsgCycleTime" BO_ 1704 0;
+BA_ "DiagRequest" BO_ 1704 1;
+BA_ "GenMsgSendType" BO_ 1576 1;
+BA_ "GenMsgNrOfRepetition" BO_ 1576 0;
+BA_ "GenMsgDelayTime" BO_ 1576 0;
+BA_ "GenMsgCycleTimeFast" BO_ 1576 0;
+BA_ "GenMsgCycleTime" BO_ 1576 0;
+BA_ "DiagResponse" BO_ 1576 1;
+BA_ "GenMsgSendType" BO_ 1791 1;
+BA_ "GenMsgNrOfRepetition" BO_ 1791 0;
+BA_ "GenMsgDelayTime" BO_ 1791 0;
+BA_ "GenMsgCycleTimeFast" BO_ 1791 0;
+BA_ "GenMsgCycleTime" BO_ 1791 0;
+BA_ "DiagState" BO_ 1791 1;
+BA_ "GenSigSendType" SG_ 834 Checksum_0x342 0;
+BA_ "GenSigInvalidValue" SG_ 834 Checksum_0x342 0;
+BA_ "GenSigStartValue" SG_ 834 Checksum_0x342 0;
+BA_ "GenSigInactiveValue" SG_ 834 Checksum_0x342 0;
+BA_ "GenSigSendType" SG_ 834 RollingCounter_0x342 0;
+BA_ "GenSigInvalidValue" SG_ 834 RollingCounter_0x342 15;
+BA_ "GenSigStartValue" SG_ 834 RollingCounter_0x342 0;
+BA_ "GenSigInactiveValue" SG_ 834 RollingCounter_0x342 0;
+BA_ "GenSigSendType" SG_ 834 ABS_LRWhlSpdRaw 0;
+BA_ "GenSigInvalidValue" SG_ 834 ABS_LRWhlSpdRaw 32767;
+BA_ "GenSigStartValue" SG_ 834 ABS_LRWhlSpdRaw 0;
+BA_ "GenSigInactiveValue" SG_ 834 ABS_LRWhlSpdRaw 0;
+BA_ "GenSigSendType" SG_ 834 ABS_LRWhlSpdRawValid 0;
+BA_ "GenSigInvalidValue" SG_ 834 ABS_LRWhlSpdRawValid 0;
+BA_ "GenSigStartValue" SG_ 834 ABS_LRWhlSpdRawValid 0;
+BA_ "GenSigInactiveValue" SG_ 834 ABS_LRWhlSpdRawValid 0;
+BA_ "GenSigSendType" SG_ 834 ABS_RRWhlSpdRaw 0;
+BA_ "GenSigInvalidValue" SG_ 834 ABS_RRWhlSpdRaw 32767;
+BA_ "GenSigStartValue" SG_ 834 ABS_RRWhlSpdRaw 0;
+BA_ "GenSigInactiveValue" SG_ 834 ABS_RRWhlSpdRaw 0;
+BA_ "GenSigSendType" SG_ 834 ABS_RRWhlSpdRawValid 0;
+BA_ "GenSigInvalidValue" SG_ 834 ABS_RRWhlSpdRawValid 0;
+BA_ "GenSigStartValue" SG_ 834 ABS_RRWhlSpdRawValid 0;
+BA_ "GenSigInactiveValue" SG_ 834 ABS_RRWhlSpdRawValid 0;
+BA_ "GenSigSendType" SG_ 834 ABS_VehSpd 0;
+BA_ "GenSigInvalidValue" SG_ 834 ABS_VehSpd 32767;
+BA_ "GenSigStartValue" SG_ 834 ABS_VehSpd 0;
+BA_ "GenSigInactiveValue" SG_ 834 ABS_VehSpd 0;
+BA_ "GenSigSendType" SG_ 834 ABS_VehSpdValid 0;
+BA_ "GenSigInvalidValue" SG_ 834 ABS_VehSpdValid 0;
+BA_ "GenSigStartValue" SG_ 834 ABS_VehSpdValid 0;
+BA_ "GenSigInactiveValue" SG_ 834 ABS_VehSpdValid 0;
+BA_ "GenSigSendType" SG_ 382 Checksum_0x17E 0;
+BA_ "GenSigInvalidValue" SG_ 382 Checksum_0x17E 0;
+BA_ "GenSigStartValue" SG_ 382 Checksum_0x17E 0;
+BA_ "GenSigInactiveValue" SG_ 382 Checksum_0x17E 0;
+BA_ "GenSigSendType" SG_ 382 Rolling_counter_0x17E 0;
+BA_ "GenSigInvalidValue" SG_ 382 Rolling_counter_0x17E 15;
+BA_ "GenSigStartValue" SG_ 382 Rolling_counter_0x17E 0;
+BA_ "GenSigInactiveValue" SG_ 382 Rolling_counter_0x17E 0;
+BA_ "GenSigSendType" SG_ 382 SAS_SteerWheelAngle 0;
+BA_ "GenSigInvalidValue" SG_ 382 SAS_SteerWheelAngle 65535;
+BA_ "GenSigStartValue" SG_ 382 SAS_SteerWheelAngle 32773;
+BA_ "GenSigInactiveValue" SG_ 382 SAS_SteerWheelAngle 0;
+BA_ "GenSigSendType" SG_ 382 SAS_SteeringAngleValid 0;
+BA_ "GenSigInvalidValue" SG_ 382 SAS_SteeringAngleValid 0;
+BA_ "GenSigStartValue" SG_ 382 SAS_SteeringAngleValid 0;
+BA_ "GenSigInactiveValue" SG_ 382 SAS_SteeringAngleValid 0;
+BA_ "GenSigSendType" SG_ 382 SAS_SASStsSnsr 0;
+BA_ "GenSigInvalidValue" SG_ 382 SAS_SASStsSnsr 0;
+BA_ "GenSigStartValue" SG_ 382 SAS_SASStsSnsr 0;
+BA_ "GenSigInactiveValue" SG_ 382 SAS_SASStsSnsr 0;
+BA_ "GenSigSendType" SG_ 382 SAS_SteerWhlRotSpd 0;
+BA_ "GenSigInvalidValue" SG_ 382 SAS_SteerWhlRotSpd 16383;
+BA_ "GenSigStartValue" SG_ 382 SAS_SteerWhlRotSpd 0;
+BA_ "GenSigInactiveValue" SG_ 382 SAS_SteerWhlRotSpd 0;
+BA_ "GenSigSendType" SG_ 382 SAS_SteerWhlRotSpdStatus 0;
+BA_ "GenSigInvalidValue" SG_ 382 SAS_SteerWhlRotSpdStatus 0;
+BA_ "GenSigStartValue" SG_ 382 SAS_SteerWhlRotSpdStatus 0;
+BA_ "GenSigInactiveValue" SG_ 382 SAS_SteerWhlRotSpdStatus 0;
+BA_ "GenSigSendType" SG_ 382 SAS_Calibrated 0;
+BA_ "GenSigInvalidValue" SG_ 382 SAS_Calibrated 0;
+BA_ "GenSigStartValue" SG_ 382 SAS_Calibrated 0;
+BA_ "GenSigInactiveValue" SG_ 382 SAS_Calibrated 0;
+BA_ "GenSigSendType" SG_ 382 SAS_SASFailure 0;
+BA_ "GenSigInvalidValue" SG_ 382 SAS_SASFailure 0;
+BA_ "GenSigStartValue" SG_ 382 SAS_SASFailure 0;
+BA_ "GenSigInactiveValue" SG_ 382 SAS_SASFailure 0;
+BA_ "GenSigSendType" SG_ 894 Checksum_0x37E 0;
+BA_ "GenSigInvalidValue" SG_ 894 Checksum_0x37E 0;
+BA_ "GenSigStartValue" SG_ 894 Checksum_0x37E 0;
+BA_ "GenSigInactiveValue" SG_ 894 Checksum_0x37E 0;
+BA_ "GenSigSendType" SG_ 894 Rolling_counter_0x37E 0;
+BA_ "GenSigInvalidValue" SG_ 894 Rolling_counter_0x37E 15;
+BA_ "GenSigStartValue" SG_ 894 Rolling_counter_0x37E 0;
+BA_ "GenSigInactiveValue" SG_ 894 Rolling_counter_0x37E 0;
+BA_ "GenSigSendType" SG_ 894 EPS_SteeringTorque 0;
+BA_ "GenSigInvalidValue" SG_ 894 EPS_SteeringTorque 4095;
+BA_ "GenSigStartValue" SG_ 894 EPS_SteeringTorque 0;
+BA_ "GenSigInactiveValue" SG_ 894 EPS_SteeringTorque 0;
+BA_ "GenSigSendType" SG_ 894 EPS_TorqSensorStatus 0;
+BA_ "GenSigInvalidValue" SG_ 894 EPS_TorqSensorStatus 1;
+BA_ "GenSigStartValue" SG_ 894 EPS_TorqSensorStatus 0;
+BA_ "GenSigInactiveValue" SG_ 894 EPS_TorqSensorStatus 0;
+BA_ "GenSigSendType" SG_ 894 EPS_EpsFailed 0;
+BA_ "GenSigInvalidValue" SG_ 894 EPS_EpsFailed 1;
+BA_ "GenSigStartValue" SG_ 894 EPS_EpsFailed 1;
+BA_ "GenSigInactiveValue" SG_ 894 EPS_EpsFailed 0;
+BA_ "GenSigSendType" SG_ 894 EPS_Mode 0;
+BA_ "GenSigInvalidValue" SG_ 894 EPS_Mode 3;
+BA_ "GenSigStartValue" SG_ 894 EPS_Mode 0;
+BA_ "GenSigInactiveValue" SG_ 894 EPS_Mode 0;
+BA_ "GenSigSendType" SG_ 617 Checksum_0x269 0;
+BA_ "GenSigInvalidValue" SG_ 617 Checksum_0x269 0;
+BA_ "GenSigStartValue" SG_ 617 Checksum_0x269 0;
+BA_ "GenSigInactiveValue" SG_ 617 Checksum_0x269 0;
+BA_ "GenSigSendType" SG_ 617 RollingCounter_0x269 0;
+BA_ "GenSigInvalidValue" SG_ 617 RollingCounter_0x269 15;
+BA_ "GenSigStartValue" SG_ 617 RollingCounter_0x269 0;
+BA_ "GenSigInactiveValue" SG_ 617 RollingCounter_0x269 0;
+BA_ "GenSigSendType" SG_ 617 VCU_VehicleHVStatus 0;
+BA_ "GenSigInvalidValue" SG_ 617 VCU_VehicleHVStatus 3;
+BA_ "GenSigStartValue" SG_ 617 VCU_VehicleHVStatus 0;
+BA_ "GenSigInactiveValue" SG_ 617 VCU_VehicleHVStatus 0;
+BA_ "GenSigSendType" SG_ 617 VCU_ActualGear 0;
+BA_ "GenSigInvalidValue" SG_ 617 VCU_ActualGear 7;
+BA_ "GenSigStartValue" SG_ 617 VCU_ActualGear 2;
+BA_ "GenSigInactiveValue" SG_ 617 VCU_ActualGear 0;
+BA_ "GenSigSendType" SG_ 617 VCU_ActualGearValid 0;
+BA_ "GenSigInvalidValue" SG_ 617 VCU_ActualGearValid 1;
+BA_ "GenSigStartValue" SG_ 617 VCU_ActualGearValid 0;
+BA_ "GenSigInactiveValue" SG_ 617 VCU_ActualGearValid 0;
+BA_ "GenSigSendType" SG_ 617 VCU_AccPedalPosition 0;
+BA_ "GenSigInvalidValue" SG_ 617 VCU_AccPedalPosition 255;
+BA_ "GenSigStartValue" SG_ 617 VCU_AccPedalPosition 0;
+BA_ "GenSigInactiveValue" SG_ 617 VCU_AccPedalPosition 0;
+BA_ "GenSigSendType" SG_ 617 VCU_AccPedalPositionValid 0;
+BA_ "GenSigInvalidValue" SG_ 617 VCU_AccPedalPositionValid 1;
+BA_ "GenSigStartValue" SG_ 617 VCU_AccPedalPositionValid 0;
+BA_ "GenSigInactiveValue" SG_ 617 VCU_AccPedalPositionValid 0;
+BA_ "GenSigSendType" SG_ 617 VCU_TqReductionRqstResponse 0;
+BA_ "GenSigInvalidValue" SG_ 617 VCU_TqReductionRqstResponse 0;
+BA_ "GenSigStartValue" SG_ 617 VCU_TqReductionRqstResponse 1;
+BA_ "GenSigInactiveValue" SG_ 617 VCU_TqReductionRqstResponse 0;
+BA_ "GenSigSendType" SG_ 617 VCU_BrakePedalSts 0;
+BA_ "GenSigInvalidValue" SG_ 617 VCU_BrakePedalSts 3;
+BA_ "GenSigStartValue" SG_ 617 VCU_BrakePedalSts 0;
+BA_ "GenSigInactiveValue" SG_ 617 VCU_BrakePedalSts 0;
+BA_ "GenSigSendType" SG_ 524 Checksum_0x20C 0;
+BA_ "GenSigInvalidValue" SG_ 524 Checksum_0x20C 0;
+BA_ "GenSigStartValue" SG_ 524 Checksum_0x20C 0;
+BA_ "GenSigInactiveValue" SG_ 524 Checksum_0x20C 0;
+BA_ "GenSigSendType" SG_ 524 Rolling_Counter_0x20C 0;
+BA_ "GenSigInvalidValue" SG_ 524 Rolling_Counter_0x20C 15;
+BA_ "GenSigStartValue" SG_ 524 Rolling_Counter_0x20C 0;
+BA_ "GenSigInactiveValue" SG_ 524 Rolling_Counter_0x20C 0;
+BA_ "GenSigSendType" SG_ 524 IPC_ODO 0;
+BA_ "GenSigInvalidValue" SG_ 524 IPC_ODO 1048575;
+BA_ "GenSigStartValue" SG_ 524 IPC_ODO 0;
+BA_ "GenSigInactiveValue" SG_ 524 IPC_ODO 0;
+BA_ "GenSigSendType" SG_ 1087 IPC_Sec 0;
+BA_ "GenSigInvalidValue" SG_ 1087 IPC_Sec 63;
+BA_ "GenSigStartValue" SG_ 1087 IPC_Sec 0;
+BA_ "GenSigInactiveValue" SG_ 1087 IPC_Sec 0;
+BA_ "GenSigSendType" SG_ 1087 IPC_Min 0;
+BA_ "GenSigInvalidValue" SG_ 1087 IPC_Min 63;
+BA_ "GenSigStartValue" SG_ 1087 IPC_Min 0;
+BA_ "GenSigInactiveValue" SG_ 1087 IPC_Min 0;
+BA_ "GenSigSendType" SG_ 1087 IPC_Hour 0;
+BA_ "GenSigInvalidValue" SG_ 1087 IPC_Hour 31;
+BA_ "GenSigStartValue" SG_ 1087 IPC_Hour 0;
+BA_ "GenSigInactiveValue" SG_ 1087 IPC_Hour 0;
+BA_ "GenSigSendType" SG_ 1087 IPC_Day 0;
+BA_ "GenSigInvalidValue" SG_ 1087 IPC_Day 31;
+BA_ "GenSigStartValue" SG_ 1087 IPC_Day 1;
+BA_ "GenSigInactiveValue" SG_ 1087 IPC_Day 0;
+BA_ "GenSigSendType" SG_ 1087 IPC_Month 0;
+BA_ "GenSigInvalidValue" SG_ 1087 IPC_Month 15;
+BA_ "GenSigStartValue" SG_ 1087 IPC_Month 1;
+BA_ "GenSigInactiveValue" SG_ 1087 IPC_Month 0;
+BA_ "GenSigSendType" SG_ 1087 IPC_Year 0;
+BA_ "GenSigInvalidValue" SG_ 1087 IPC_Year 255;
+BA_ "GenSigStartValue" SG_ 1087 IPC_Year 0;
+BA_ "GenSigInactiveValue" SG_ 1087 IPC_Year 0;
+BA_ "GenSigSendType" SG_ 1087 IPC_SelfCheckStatus 0;
+BA_ "GenSigInvalidValue" SG_ 1087 IPC_SelfCheckStatus 0;
+BA_ "GenSigStartValue" SG_ 1087 IPC_SelfCheckStatus 0;
+BA_ "GenSigInactiveValue" SG_ 1087 IPC_SelfCheckStatus 0;
+BA_ "GenSigSendType" SG_ 814 CCU_ExternalTemperature 0;
+BA_ "GenSigInvalidValue" SG_ 814 CCU_ExternalTemperature 255;
+BA_ "GenSigStartValue" SG_ 814 CCU_ExternalTemperature 255;
+BA_ "GenSigInactiveValue" SG_ 814 CCU_ExternalTemperature 0;
+BA_ "GenSigSendType" SG_ 814 CCU_ExternalTemperatureFailSts 0;
+BA_ "GenSigInvalidValue" SG_ 814 CCU_ExternalTemperatureFailSts 1;
+BA_ "GenSigStartValue" SG_ 814 CCU_ExternalTemperatureFailSts 1;
+BA_ "GenSigInactiveValue" SG_ 814 CCU_ExternalTemperatureFailSts 0;
+BA_ "GenSigSendType" SG_ 266 Checksum_0x10a 0;
+BA_ "GenSigInvalidValue" SG_ 266 Checksum_0x10a 0;
+BA_ "GenSigStartValue" SG_ 266 Checksum_0x10a 0;
+BA_ "GenSigInactiveValue" SG_ 266 Checksum_0x10a 0;
+BA_ "GenSigSendType" SG_ 266 Rolling_Counter_0x10a 0;
+BA_ "GenSigInvalidValue" SG_ 266 Rolling_Counter_0x10a 15;
+BA_ "GenSigStartValue" SG_ 266 Rolling_Counter_0x10a 0;
+BA_ "GenSigInactiveValue" SG_ 266 Rolling_Counter_0x10a 0;
+BA_ "GenSigSendType" SG_ 266 BCM_LVTop_up 0;
+BA_ "GenSigInvalidValue" SG_ 266 BCM_LVTop_up 0;
+BA_ "GenSigStartValue" SG_ 266 BCM_LVTop_up 0;
+BA_ "GenSigInactiveValue" SG_ 266 BCM_LVTop_up 0;
+BA_ "GenSigSendType" SG_ 266 Ubatt_Reserved 0;
+BA_ "GenSigInvalidValue" SG_ 266 Ubatt_Reserved 16383;
+BA_ "GenSigStartValue" SG_ 266 Ubatt_Reserved 9000;
+BA_ "GenSigInactiveValue" SG_ 266 Ubatt_Reserved 0;
+BA_ "GenSigSendType" SG_ 274 Checksum_0x112 0;
+BA_ "GenSigInvalidValue" SG_ 274 Checksum_0x112 0;
+BA_ "GenSigStartValue" SG_ 274 Checksum_0x112 0;
+BA_ "GenSigInactiveValue" SG_ 274 Checksum_0x112 0;
+BA_ "GenSigSendType" SG_ 274 Rolling_Counter_0x112 0;
+BA_ "GenSigInvalidValue" SG_ 274 Rolling_Counter_0x112 15;
+BA_ "GenSigStartValue" SG_ 274 Rolling_Counter_0x112 0;
+BA_ "GenSigInactiveValue" SG_ 274 Rolling_Counter_0x112 0;
+BA_ "GenSigSendType" SG_ 274 STAT_Terminal 0;
+BA_ "GenSigInvalidValue" SG_ 274 STAT_Terminal 0;
+BA_ "GenSigStartValue" SG_ 274 STAT_Terminal 0;
+BA_ "GenSigInactiveValue" SG_ 274 STAT_Terminal 0;
+BA_ "GenSigSendType" SG_ 274 STAT_CL30s_L_Reserved 0;
+BA_ "GenSigInvalidValue" SG_ 274 STAT_CL30s_L_Reserved 0;
+BA_ "GenSigStartValue" SG_ 274 STAT_CL30s_L_Reserved 3;
+BA_ "GenSigInactiveValue" SG_ 274 STAT_CL30s_L_Reserved 0;
+BA_ "GenSigSendType" SG_ 1704 EPS_DiagReqData0 0;
+BA_ "GenSigInvalidValue" SG_ 1704 EPS_DiagReqData0 0;
+BA_ "GenSigStartValue" SG_ 1704 EPS_DiagReqData0 0;
+BA_ "GenSigInactiveValue" SG_ 1704 EPS_DiagReqData0 0;
+BA_ "GenSigSendType" SG_ 1704 EPS_DiagReqData1 0;
+BA_ "GenSigInvalidValue" SG_ 1704 EPS_DiagReqData1 0;
+BA_ "GenSigStartValue" SG_ 1704 EPS_DiagReqData1 0;
+BA_ "GenSigInactiveValue" SG_ 1704 EPS_DiagReqData1 0;
+BA_ "GenSigSendType" SG_ 1704 EPS_DiagReqData2 0;
+BA_ "GenSigInvalidValue" SG_ 1704 EPS_DiagReqData2 0;
+BA_ "GenSigStartValue" SG_ 1704 EPS_DiagReqData2 0;
+BA_ "GenSigInactiveValue" SG_ 1704 EPS_DiagReqData2 0;
+BA_ "GenSigSendType" SG_ 1704 EPS_DiagReqData3 0;
+BA_ "GenSigInvalidValue" SG_ 1704 EPS_DiagReqData3 0;
+BA_ "GenSigStartValue" SG_ 1704 EPS_DiagReqData3 0;
+BA_ "GenSigInactiveValue" SG_ 1704 EPS_DiagReqData3 0;
+BA_ "GenSigSendType" SG_ 1704 EPS_DiagReqData4 0;
+BA_ "GenSigInvalidValue" SG_ 1704 EPS_DiagReqData4 0;
+BA_ "GenSigStartValue" SG_ 1704 EPS_DiagReqData4 0;
+BA_ "GenSigInactiveValue" SG_ 1704 EPS_DiagReqData4 0;
+BA_ "GenSigSendType" SG_ 1704 EPS_DiagReqData5 0;
+BA_ "GenSigInvalidValue" SG_ 1704 EPS_DiagReqData5 0;
+BA_ "GenSigStartValue" SG_ 1704 EPS_DiagReqData5 0;
+BA_ "GenSigInactiveValue" SG_ 1704 EPS_DiagReqData5 0;
+BA_ "GenSigSendType" SG_ 1704 EPS_DiagReqData6 0;
+BA_ "GenSigInvalidValue" SG_ 1704 EPS_DiagReqData6 0;
+BA_ "GenSigStartValue" SG_ 1704 EPS_DiagReqData6 0;
+BA_ "GenSigInactiveValue" SG_ 1704 EPS_DiagReqData6 0;
+BA_ "GenSigSendType" SG_ 1704 EPS_DiagReqData7 0;
+BA_ "GenSigInvalidValue" SG_ 1704 EPS_DiagReqData7 0;
+BA_ "GenSigStartValue" SG_ 1704 EPS_DiagReqData7 0;
+BA_ "GenSigInactiveValue" SG_ 1704 EPS_DiagReqData7 0;
+BA_ "GenSigSendType" SG_ 1576 EPS_DiagRespData0 0;
+BA_ "GenSigInvalidValue" SG_ 1576 EPS_DiagRespData0 0;
+BA_ "GenSigStartValue" SG_ 1576 EPS_DiagRespData0 0;
+BA_ "GenSigInactiveValue" SG_ 1576 EPS_DiagRespData0 0;
+BA_ "GenSigSendType" SG_ 1576 EPS_DiagRespData1 0;
+BA_ "GenSigInvalidValue" SG_ 1576 EPS_DiagRespData1 0;
+BA_ "GenSigStartValue" SG_ 1576 EPS_DiagRespData1 0;
+BA_ "GenSigInactiveValue" SG_ 1576 EPS_DiagRespData1 0;
+BA_ "GenSigSendType" SG_ 1576 EPS_DiagRespData2 0;
+BA_ "GenSigInvalidValue" SG_ 1576 EPS_DiagRespData2 0;
+BA_ "GenSigStartValue" SG_ 1576 EPS_DiagRespData2 0;
+BA_ "GenSigInactiveValue" SG_ 1576 EPS_DiagRespData2 0;
+BA_ "GenSigSendType" SG_ 1576 EPS_DiagRespData3 0;
+BA_ "GenSigInvalidValue" SG_ 1576 EPS_DiagRespData3 0;
+BA_ "GenSigStartValue" SG_ 1576 EPS_DiagRespData3 0;
+BA_ "GenSigInactiveValue" SG_ 1576 EPS_DiagRespData3 0;
+BA_ "GenSigSendType" SG_ 1576 EPS_DiagRespData4 0;
+BA_ "GenSigInvalidValue" SG_ 1576 EPS_DiagRespData4 0;
+BA_ "GenSigStartValue" SG_ 1576 EPS_DiagRespData4 0;
+BA_ "GenSigInactiveValue" SG_ 1576 EPS_DiagRespData4 0;
+BA_ "GenSigSendType" SG_ 1576 EPS_DiagRespData5 0;
+BA_ "GenSigInvalidValue" SG_ 1576 EPS_DiagRespData5 0;
+BA_ "GenSigStartValue" SG_ 1576 EPS_DiagRespData5 0;
+BA_ "GenSigInactiveValue" SG_ 1576 EPS_DiagRespData5 0;
+BA_ "GenSigSendType" SG_ 1576 EPS_DiagRespData6 0;
+BA_ "GenSigInvalidValue" SG_ 1576 EPS_DiagRespData6 0;
+BA_ "GenSigStartValue" SG_ 1576 EPS_DiagRespData6 0;
+BA_ "GenSigInactiveValue" SG_ 1576 EPS_DiagRespData6 0;
+BA_ "GenSigSendType" SG_ 1576 EPS_DiagRespData7 0;
+BA_ "GenSigInvalidValue" SG_ 1576 EPS_DiagRespData7 0;
+BA_ "GenSigStartValue" SG_ 1576 EPS_DiagRespData7 0;
+BA_ "GenSigInactiveValue" SG_ 1576 EPS_DiagRespData7 0;
+BA_ "GenSigSendType" SG_ 1791 GW_DiagFunctionalAddressingData0 0;
+BA_ "GenSigInvalidValue" SG_ 1791 GW_DiagFunctionalAddressingData0 0;
+BA_ "GenSigStartValue" SG_ 1791 GW_DiagFunctionalAddressingData0 0;
+BA_ "GenSigInactiveValue" SG_ 1791 GW_DiagFunctionalAddressingData0 0;
+BA_ "GenSigSendType" SG_ 1791 GW_DiagFunctionalAddressingData1 0;
+BA_ "GenSigInvalidValue" SG_ 1791 GW_DiagFunctionalAddressingData1 0;
+BA_ "GenSigStartValue" SG_ 1791 GW_DiagFunctionalAddressingData1 0;
+BA_ "GenSigInactiveValue" SG_ 1791 GW_DiagFunctionalAddressingData1 0;
+BA_ "GenSigSendType" SG_ 1791 GW_DiagFunctionalAddressingData2 0;
+BA_ "GenSigInvalidValue" SG_ 1791 GW_DiagFunctionalAddressingData2 0;
+BA_ "GenSigStartValue" SG_ 1791 GW_DiagFunctionalAddressingData2 0;
+BA_ "GenSigInactiveValue" SG_ 1791 GW_DiagFunctionalAddressingData2 0;
+BA_ "GenSigSendType" SG_ 1791 GW_DiagFunctionalAddressingData3 0;
+BA_ "GenSigInvalidValue" SG_ 1791 GW_DiagFunctionalAddressingData3 0;
+BA_ "GenSigStartValue" SG_ 1791 GW_DiagFunctionalAddressingData3 0;
+BA_ "GenSigInactiveValue" SG_ 1791 GW_DiagFunctionalAddressingData3 0;
+BA_ "GenSigSendType" SG_ 1791 GW_DiagFunctionalAddressingData4 0;
+BA_ "GenSigInvalidValue" SG_ 1791 GW_DiagFunctionalAddressingData4 0;
+BA_ "GenSigStartValue" SG_ 1791 GW_DiagFunctionalAddressingData4 0;
+BA_ "GenSigInactiveValue" SG_ 1791 GW_DiagFunctionalAddressingData4 0;
+BA_ "GenSigSendType" SG_ 1791 GW_DiagFunctionalAddressingData5 0;
+BA_ "GenSigInvalidValue" SG_ 1791 GW_DiagFunctionalAddressingData5 0;
+BA_ "GenSigStartValue" SG_ 1791 GW_DiagFunctionalAddressingData5 0;
+BA_ "GenSigInactiveValue" SG_ 1791 GW_DiagFunctionalAddressingData5 0;
+BA_ "GenSigSendType" SG_ 1791 GW_DiagFunctionalAddressingData6 0;
+BA_ "GenSigInvalidValue" SG_ 1791 GW_DiagFunctionalAddressingData6 0;
+BA_ "GenSigStartValue" SG_ 1791 GW_DiagFunctionalAddressingData6 0;
+BA_ "GenSigInactiveValue" SG_ 1791 GW_DiagFunctionalAddressingData6 0;
+BA_ "GenSigSendType" SG_ 1791 GW_DiagFunctionalAddressingData7 0;
+BA_ "GenSigInvalidValue" SG_ 1791 GW_DiagFunctionalAddressingData7 0;
+BA_ "GenSigStartValue" SG_ 1791 GW_DiagFunctionalAddressingData7 0;
+BA_ "GenSigInactiveValue" SG_ 1791 GW_DiagFunctionalAddressingData7 0;
+VAL_ 834 RollingCounter_0x342 15 "Invalid";
+VAL_ 834 ABS_LRWhlSpdRaw 32767 "Invalid";
+VAL_ 834 ABS_LRWhlSpdRawValid 1 "Valid" 0 "Invalid";
+VAL_ 834 ABS_RRWhlSpdRaw 32767 "Invalid";
+VAL_ 834 ABS_RRWhlSpdRawValid 1 "Valid" 0 "Invalid";
+VAL_ 834 ABS_VehSpd 32767 "Invalid";
+VAL_ 834 ABS_VehSpdValid 1 "Valid" 0 "Invalid";
+VAL_ 382 Rolling_counter_0x17E 15 "Invalid";
+VAL_ 382 SAS_SteerWheelAngle 65535 "Invalid";
+VAL_ 382 SAS_SteeringAngleValid 1 "Valid" 0 "Invalid";
+VAL_ 382 SAS_SASStsSnsr 1 "sensor value valid" 0 "sensor value Invalid";
+VAL_ 382 SAS_SteerWhlRotSpd 16383 "Invalid";
+VAL_ 382 SAS_SteerWhlRotSpdStatus 1 "Valid" 0 "Invalid";
+VAL_ 382 SAS_Calibrated 1 "Calibrated" 0 "Not Calibrated";
+VAL_ 382 SAS_SASFailure 1 "No Failure" 0 "Failure";
+VAL_ 894 Rolling_counter_0x37E 15 "Invalid";
+VAL_ 894 EPS_SteeringTorque 4095 "Invalid";
+VAL_ 894 EPS_TorqSensorStatus 1 "Invalid" 0 "Valid";
+VAL_ 894 EPS_EpsFailed 1 "failed" 0 "not failed";
+VAL_ 894 EPS_Mode 3 " Invalid" 1 "low assist" 0 "full assist";
+VAL_ 617 RollingCounter_0x269 15 "Invalid";
+VAL_ 617 VCU_VehicleHVStatus 3 "Reserved" 2 "ReadyToDrive" 1 "HV On" 0 "Not ready";
+VAL_ 617 VCU_ActualGear 7 "Fault" 6 "Reserved" 5 "Reserved" 4 "Reserved" 3 "D" 2 "N" 1 "R" 0 "P reserved";
+VAL_ 617 VCU_ActualGearValid 1 "Invalid" 0 "Valid";
+VAL_ 617 VCU_AccPedalPosition 255 "Invalid";
+VAL_ 617 VCU_AccPedalPositionValid 1 "Invalid" 0 "Valid";
+VAL_ 617 VCU_TqReductionRqstResponse 1 "active" 0 "inactive";
+VAL_ 617 VCU_BrakePedalSts 3 "Invalid" 2 "Reserved" 1 "pressed" 0 "Not pressed";
+VAL_ 524 Rolling_Counter_0x20C 15 "Invalid";
+VAL_ 524 IPC_ODO 1048575 "Invalid";
+VAL_ 1087 IPC_Sec 63 "Invalid";
+VAL_ 1087 IPC_Min 63 "Invalid";
+VAL_ 1087 IPC_Hour 31 "Invalid";
+VAL_ 1087 IPC_Day 31 "Invalid";
+VAL_ 1087 IPC_Month 15 "Invalid";
+VAL_ 1087 IPC_Year 255 "Invalid";
+VAL_ 1087 IPC_SelfCheckStatus 1 "self-check finish" 0 "self-checking";
+VAL_ 814 CCU_ExternalTemperature 255 "Invaild";
+VAL_ 814 CCU_ExternalTemperatureFailSts 1 "invalid" 0 "valid";
+VAL_ 266 Rolling_Counter_0x10a 15 "Invalid";
+VAL_ 266 BCM_LVTop_up 1 "start Top up" 0 "stop Top up";
+VAL_ 274 Rolling_Counter_0x112 15 "Invalid";
+VAL_ 274 STAT_Terminal 7 "Signal invalid" 6 "Reserved" 5 "Reserved" 4 "SW update OTA (Not used in VFe34)" 3 "Engine start (eMotor running)" 2 "ON (Driver Present)" 1 "ACC (Park)" 0 "OFF(Comfort Enable)";
+VAL_ 274 STAT_CL30s_L_Reserved 3 "Signal invalid" 2 "Failure" 1 "ON" 0 "OFF";
