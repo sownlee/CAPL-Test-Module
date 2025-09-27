@@ -13,6 +13,21 @@ variables
   Message 0x681 msg_tx;
   Message 0x601 msg_rx;
   
+  // ISO-TP buffer/state
+  byte udsPayload[512];
+  int totalLen = 0;
+  int wroteLen = 0;
+  int nextSN   = 1;
+  
+  // Local variables for message processing
+  int i;
+  int firstChunk;
+  int remaining;
+  int chunk;
+  int vinLen;
+  char vin[64];
+  byte sn;
+  int L;
 }
 
 on start{}
@@ -31,35 +46,105 @@ on key 'd'
   msg_tx.byte(0) = 0x03; // SF, length = 3
   msg_tx.byte(1) = 0x22; // SID: ReadDataByIdentifier
   msg_tx.byte(2) = 0xF1; // DID High
-  msg_tx.byte(3) = 0x90; // DID Low (=> DID 0x0619)
-  msg_tx.byte(4) = 0x00;
-  msg_tx.byte(5) = 0x00;
-  msg_tx.byte(6) = 0x00;
-  msg_tx.byte(7) = 0x00;
+  msg_tx.byte(3) = 0x90; // DID Low (=> DID 0xF190 VIN)
+  msg_tx.byte(4) = msg_tx.byte(5) = msg_tx.byte(6) = msg_tx.byte(7) = 0x00;
   output(msg_tx); 
-  write("Sent RDBI DID 0xF190");
+
+  // reset ISO-TP state for new response
+  totalLen = 0;
+  wroteLen = 0;
+  nextSN   = 1;
 }
 
 on message 0x601
 {
- // In ra hex d? d? debug
-  write("Rx: %02X %02X %02X %02X %02X %02X %02X %02X", 
+  msg_rx = this;
+  
+  // Log in HEX
+  write("RX 0x601: %02X %02X %02X %02X %02X %02X %02X %02X",
         msg_rx.byte(0), msg_rx.byte(1), msg_rx.byte(2), msg_rx.byte(3),
         msg_rx.byte(4), msg_rx.byte(5), msg_rx.byte(6), msg_rx.byte(7));
- // check_byte0 = this.byte(0) & 0x30;
- // Ki?m tra First Frame (FF)
-  msg_rx = this;
-  if((msg_rx.byte(0) & 0xF0) == 0x10)  // 16 decimal = 0x10 hex
+
+  // First Frame (FF)
+  if ((msg_rx.byte(0) & 0xF0) == 0x10)
   {
-  msg_tx.dlc = 8;
-  msg_tx.byte(0) = 0x30; // SF, length = 3
-  msg_tx.byte(1) = 0x00; // SID: ReadDataByIdentifier
-  msg_tx.byte(2) = 0x00; // DID High
-  msg_tx.byte(3) = 0x00; // DID Low (=> DID 0x0619)
-  msg_tx.byte(4) = 0x00;
-  msg_tx.byte(5) = 0x00;
-  msg_tx.byte(6) = 0x00;
-  msg_tx.byte(7) = 0x00;
-  output(msg_tx);
+    totalLen = ((msg_rx.byte(0) & 0x0F) << 8) | msg_rx.byte(1);
+    
+    firstChunk = totalLen;
+    if (firstChunk > 6) firstChunk = 6;
+    
+    for (i = 0; i < firstChunk; i++) 
+    {
+      udsPayload[i] = msg_rx.byte(2 + i);
+    }
+    wroteLen = firstChunk;
+
+    // Send Flow Control CTS
+    msg_tx.dlc = 8;
+    msg_tx.byte(0) = 0x30;
+    msg_tx.byte(1) = 0x00; // BlockSize
+    msg_tx.byte(2) = 0x00; // STmin
+    msg_tx.byte(3) = 0x00;
+    msg_tx.byte(4) = 0x00;
+    msg_tx.byte(5) = 0x00;
+    msg_tx.byte(6) = 0x00;
+    msg_tx.byte(7) = 0x00;
+    output(msg_tx);
+    nextSN = 1;
+  }
+  // Consecutive Frame (CF)
+  else if ((msg_rx.byte(0) & 0xF0) == 0x20)
+  {
+    sn = msg_rx.byte(0) & 0x0F;
+    if (sn != (nextSN & 0x0F)) 
+    {
+      write("CF SN mismatch: got %d exp %d", sn, nextSN & 0x0F);
+      return;
+    }
+    
+    remaining = totalLen - wroteLen;
+    chunk = remaining;
+    if (chunk > 7) chunk = 7;
+    
+    for (i = 0; i < chunk; i++) 
+    {
+      udsPayload[wroteLen + i] = msg_rx.byte(1 + i);
+    }
+    wroteLen += chunk;
+    
+    nextSN++;
+    if (nextSN > 15) nextSN = 0;
+
+    if (wroteLen >= totalLen && totalLen >= 3)
+    {
+      if (udsPayload[0] == 0x62 && udsPayload[1] == 0xF1 && udsPayload[2] == 0x90)
+      {
+        vinLen = totalLen - 3; 
+        if (vinLen > 31) vinLen = 31;
+        
+        for (i = 0; i < vinLen; i++) 
+        {
+          vin[i] = udsPayload[3 + i];
+        }
+        vin[vinLen] = 0;
+        write("VIN: %s", vin);
+        
+        // Simple file write alternative - just print to write window
+        write("VIN exported: %s", vin);
+      }
+    }
+  }
+  // Single Frame (edge)
+  else if ((msg_rx.byte(0) & 0xF0) == 0x00)
+  {
+    L = msg_rx.byte(0) & 0x0F; 
+    if (L > 7) L = 7;
+    
+    for (i = 0; i < L; i++) 
+    {
+      udsPayload[i] = msg_rx.byte(1 + i);
+    }
+    totalLen = L; 
+    wroteLen = L;
   }
 }
