@@ -1,0 +1,143 @@
+/*@!Encoding:1252*/
+includes
+{
+}
+
+variables
+{
+  // === TIMER & MESSAGE OBJECTS ===
+  msTimer Timer_BCM;
+  Message 0x681 msg_tx;    // Tester -> BCM
+  Message 0x601 msg_rx;    // BCM -> Tester
+  
+  // === ISO-TP BUFFER ===
+  byte udsPayload[512];
+  int totalLen = 0;
+  int wroteLen = 0;
+  int nextSN   = 1;
+  
+  // === LOCAL VARIABLES ===
+  int i;
+  int firstChunk;
+  int remaining;
+  int chunk;
+  byte sn;
+  int L;
+
+  int dtcCount;
+  long dtcCode;
+}
+
+on start {}
+
+on key 'd'   // g?i request d?c DTC
+{
+  // Request: 0x19 02 FF
+  msg_tx.dlc = 8;
+  msg_tx.byte(0) = 0x03;   // SF, length = 3
+  msg_tx.byte(1) = 0x19;   // SID = ReadDTCInformation
+  msg_tx.byte(2) = 0x02;   // Sub-function = ReportDTCByStatusMask
+  msg_tx.byte(3) = 0xFF;   // StatusMask = 0xFF (t?t c? DTC)
+  msg_tx.byte(4) = 0x00;
+  msg_tx.byte(5) = 0x00;
+  msg_tx.byte(6) = 0x00;
+  msg_tx.byte(7) = 0x00;
+  output(msg_tx);
+
+  totalLen = 0;
+  wroteLen = 0;
+  nextSN   = 1;
+}
+
+on message 0x601
+{
+  msg_rx = this;
+  
+  // Debug log
+  write("RX 0x601: %02X %02X %02X %02X %02X %02X %02X %02X",
+        msg_rx.byte(0), msg_rx.byte(1), msg_rx.byte(2), msg_rx.byte(3),
+        msg_rx.byte(4), msg_rx.byte(5), msg_rx.byte(6), msg_rx.byte(7));
+
+  // === FIRST FRAME ===
+  if ((msg_rx.byte(0) & 0xF0) == 0x10)
+  {
+    totalLen = ((msg_rx.byte(0) & 0x0F) << 8) | msg_rx.byte(1);
+    firstChunk = totalLen;
+    if (firstChunk > 6) firstChunk = 6;
+
+    for (i = 0; i < firstChunk; i++)
+      udsPayload[i] = msg_rx.byte(2+i);
+    wroteLen = firstChunk;
+
+    // Send Flow Control
+    msg_tx.dlc = 8;
+    msg_tx.byte(0) = 0x30;
+    msg_tx.byte(1) = 0x00;
+    msg_tx.byte(2) = 0x00;
+    for (i = 3; i < 8; i++) msg_tx.byte(i)=0x00;
+    output(msg_tx);
+    nextSN = 1;
+  }
+  // === CONSECUTIVE FRAME ===
+  else if ((msg_rx.byte(0) & 0xF0) == 0x20)
+  {
+    sn = msg_rx.byte(0) & 0x0F;
+    if (sn != (nextSN & 0x0F)) return;
+
+    remaining = totalLen - wroteLen;
+    chunk = remaining;
+    if (chunk > 7) chunk = 7;
+
+    for (i = 0; i < chunk; i++)
+      udsPayload[wroteLen+i] = msg_rx.byte(1+i);
+    wroteLen += chunk;
+
+    nextSN++;
+    if (nextSN > 15) nextSN = 0;
+
+    if (wroteLen >= totalLen)
+    {
+      parseDTC();
+    }
+  }
+  // === SINGLE FRAME ===
+  else if ((msg_rx.byte(0) & 0xF0) == 0x00)
+  {
+    L = msg_rx.byte(0) & 0x0F;
+    if (L > 7) L = 7;
+    for (i=0;i<L;i++)
+      udsPayload[i] = msg_rx.byte(1+i);
+    totalLen = L;
+    wroteLen = L;
+    parseDTC();
+  }
+}
+
+// === PARSE DTC RESPONSE ===
+void parseDTC()
+{
+  // Expect Positive Response: 0x59 02 <statusAvailabilityMask> <DTCs...>
+  if (udsPayload[0] == 0x59 && udsPayload[1] == 0x02)
+  {
+    dtcCount = (totalLen - 3) / 4;  // m?i DTC: 3 bytes code + 1 byte status
+
+    if (dtcCount <= 0)
+    {
+      write("No DTC");
+      return;
+    }
+
+    for (i=0; i<dtcCount; i++)
+    {
+      dtcCode = (udsPayload[3 + i*4] << 16) |
+                (udsPayload[4 + i*4] << 8) |
+                 udsPayload[5 + i*4];
+      write("DTC[%d] = %06X (Status=0x%02X)", 
+            i+1, dtcCode, udsPayload[6 + i*4]);
+    }
+  }
+  else
+  {
+    write("Unexpected response: %02X", udsPayload[0]);
+  }
+}
