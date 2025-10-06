@@ -1,34 +1,73 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Sil-Testing
 
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
+    pull_request:
+permissions:
+    checks: write
+    contents: read
   # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
+  #Job to build the System Under Test (SUT)
+  build-sut:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
+    name: Build SUT
+    runs-on: vtt
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      # check out the repository containing the codebase
+      - name: Checkout repository
       - uses: actions/checkout@v4
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      # cache the SUT directory to speed up subsequent builds
+      - name: Cache SUT
+        id: cache-sut
+        uses: actions/cache@v4
+        with:
+          path: |
+            .ECU/SUT
+            ket: ${{ hashFiles(' ./ECU/**') }}
+       # cache the BSW directory to speed up subsequent builds
+      - name: Cache BSW
+        id: cache-bsw
+        uses: actions/cache@v4
+        with:
+          path: |
+            ./ECU/Appl/GenDataVTT
+          key: ${{ hashFiles('./ECU/LightControl.dpa','./ECU/Config') }}
+    # Job to build the simulation environment and compile test units
+  build-simulation:
+    name: Build simulation
+    needs: [build-sut]
+    runs-on: canoe-small
+    steps:
+      # check out the repository containing the codebase
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
+      # download the SUT artifact produced by the build-sut job
+      - name: Fetch SUT artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: SUT
+          path: ECU/SUT
+      # Job to run the simulation tests
+  run-tests-simulation:
+    name: Run simulation
+    needs: build-simulation
+    runs-on: canoe-large
+    strategy:
+      matrix:
+        TESTNAME: [auto, basic]
+      fail-fast: false
+    steps:
+      # check out the repository containing the codebase
+      - name: Checkout repository
+        uses: actions/checkout@v4
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
