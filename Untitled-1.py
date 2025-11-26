@@ -15,28 +15,30 @@ class CANoeAuto:
     def __init__(self):
         self.app = None
 
-    def mo_canoe(self):
+    # 1. Connection and Basic Control
+    def connect_to_canoe(self):
         if not os.path.exists(cfg_path):
-            print("Khong tim thay file config!")
+            print("[ERROR] Configuration file not found!")
             return False
         
-        print("Dang mo CANoe bang file .cfg...")
+        print("Opening CANoe with .cfg file...")
         os.startfile(cfg_path)           # Cách của bạn - SIÊU ỔN ĐỊNH
-        print("Dang cho CANoe khoi dong (15s)...")
+        print("Waiting for CANoe to fully start (15s)...")
         time.sleep(15)                    # CANoe 17/18 cần 12-18s
         
         try:
             self.app = win32com.client.Dispatch("CANoe.Application")
             ten_cfg = self.app.Configuration.Name
-            print(f"DA KET NOI CANOE THANH CONG!")
-            print(f"Config dang chay: {ten_cfg}")
+            print("CONNECTED TO CANoe SUCCESSFULLY!")
+            print(f"Loaded configuration: {ten_cfg}")
             return True
         except Exception as e:
-            print(f"Ket noi that bai: {e}")
-            print("Loi nay thuong do CANoe chua load xong -> tang time.sleep len 20")
+            print(f"[ERROR] Connection failed: {e}")
+            print("Tip: CANoe may still be loading -> increase sleep time to 20s")
             return False
 
-    def cau_hinh_report(self):
+    # 2. Test Report Configuration
+    def configure_test_report(self):
         try:
             os.makedirs(report_dir, exist_ok=True)
             ten_file = f"Report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.html"
@@ -49,26 +51,28 @@ class CANoeAuto:
             rp.GenerateReportAfterTest = True
             rp.Verbosity = 2
 
-            print(f"Report HTML se luu tai:")
+            print(f"HTML report will be saved to:")
             print(f"   {duong_dan}")
             return True
         except Exception as e:
-            print(f"Loi cau hinh report: {e}")
+            print(f"[ERROR] Report configuration failed: {e}")
             return False
 
-    def bat_measurement(self):
+    # 3. Measurement Control - Start
+    def start_measurement(self):
         try:
             if self.app.Measurement.Running:
-                print("Measurement da chay san")
+                print("Measurement is already running")
             else:
                 self.app.Measurement.Start()
-                print("Da BAT Measurement")
+                print("Measurement STARTED")
             return True
         except Exception as e:
-            print(f"Loi bat measurement: {e}")
+            print(f"[ERROR] Failed to start measurement: {e}")
             return False
 
-    def chay_sequence(self, ten_seq, timeout=1200):
+    # 4. Test Execution - Run Sequence
+    def run_test_sequence(self, ten_seq, timeout=1200):
         try:
             env = self.app.Configuration.TestSetup.TestEnvironments.Item(1)
             seq = None
@@ -78,36 +82,37 @@ class CANoeAuto:
                     seq = s
                     break
             if not seq:
-                print(f"Khong tim thay sequence: {ten_seq}")
+                print(f"[ERROR] Test sequence not found: {ten_seq}")
                 return False
 
-            print(f"Dang chay sequence: {ten_seq}")
+            print(f"Executing test sequence: {ten_seq}")
             seq.Start()
             start = time.time()
             while seq.Running:
                 if time.time() - start > timeout:
                     seq.Stop()
-                    print("HET THOI GIAN - Da dung sequence!")
+                    print("TIMEOUT - Sequence stopped!")
                     return False
                 time.sleep(1)
-            print(f"SEQUENCE HOAN TAT: {ten_seq}")
+            print(f"SEQUENCE COMPLETED: {ten_seq}")
             return True
         except Exception as e:
-            print(f"Loi chay sequence: {e}")
+            print(f"[ERROR] Sequence execution failed: {e}")
             return False
 
-    def tao_summary_txt(self):
+    # 5. Test Result Statistics and Analysis
+    def generate_statistics_report(self):
         try:
             ts = self.app.GetTestService()
             rs = ts.Results
             tong = rs.Count
             ok = fail = inc = 0
-            tong_tg = 0
+            tong_tg = 0.0
 
             file_txt = os.path.join(report_dir, f"Summary_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt")
             with open(file_txt, "w", encoding="utf-8") as f:
                 f.write("="*70 + "\n")
-                f.write("KET QUA TEST CANOE\n")
+                f.write("CANoe TEST RESULTS SUMMARY\n")
                 f.write("="*70 + "\n\n")
                 for i in range(1, tong + 1):
                     r = rs.Item(i)
@@ -119,35 +124,40 @@ class CANoeAuto:
                     status = "PASS" if v == 1 else "FAIL" if v == 2 else "INCONCLUSIVE"
                     f.write(f"{i:3}. {r.Name} -> {status} ({r.ExecutionTime:.2f}s)\n")
                 f.write("\n" + "="*70 + "\n")
-                f.write(f"TONG TC: {tong} | PASS: {ok} | FAIL: {fail} | INCONCLUSIVE: {inc}\n")
-                f.write(f"TY LE PASS: {ok/tong*100:5.1f}% | Tong thoi gian: {tong_tg:.1f}s\n")
-            print(f"Da luu bao cao text: {file_txt}")
+                f.write(f"TOTAL TC: {tong} | PASS: {ok} | FAIL: {fail} | INCONCLUSIVE: {inc}\n")
+                f.write(f"PASS RATE: {ok/tong*100:5.1f}% | Total time: {tong_tg:.1f}s\n")
+            print(f"Text summary report saved: {file_txt}")
         except Exception as e:
-            print(f"Loi tao bao cao: {e}")
+            print(f"[ERROR] Failed to generate summary: {e}")
 
-# ====================== CHAY CHINH ======================
+    # 6. Measurement Control - Stop (dùng trong finally)
+    def stop_measurement(self):
+        try:
+            if self.app.Measurement.Running:
+                self.app.Measurement.Stop()
+                print("Measurement STOPPED")
+        except:
+            pass
+
+# ====================== MAIN ======================
 def main():
     can = CANoeAuto()
 
-    if not can.mo_canoe():
+    if not can.connect_to_canoe():
         return
 
-    if not can.cau_hinh_report():
+    if not can.configure_test_report():
         return
 
-    if not can.bat_measurement():
+    if not can.start_measurement():
         return
 
     try:
-        if can.chay_sequence(sequence_name, timeout=1800):
-            can.tao_summary_txt()
+        if can.run_test_sequence(sequence_name, timeout=1800):
+            can.generate_statistics_report()
     finally:
-        try:
-            can.app.Measurement.Stop()
-            print("Da dung measurement")
-        except:
-            pass
-        print("HOAN TAT! Ban co the dong CANoe hoac de do")
+        can.stop_measurement()
+        print("ALL DONE! You can now close CANoe or leave it open.")
 
 if __name__ == "__main__":
     main()
