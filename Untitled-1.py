@@ -85,7 +85,16 @@ class CANoeAuto:
         except Exception as e:
             print(f"[ERROR] Failed to start measurement: {e}")
             return False
-
+    def stop_measurement(self):
+        """Stop measurement"""
+        try:
+            if self.can_app.Measurement.Running:
+                self.can_app.Measurement.Stop()
+                print("Measurement stopped")
+            return True
+        except Exception as e:
+            print(f"Failed to stop measurement: {e}")
+            return False
     # 4. Test Execution - Run Sequence
     def run_test_sequence(self, ten_seq, timeout=1200):
         try:
