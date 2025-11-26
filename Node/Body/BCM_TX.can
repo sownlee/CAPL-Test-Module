@@ -1,0 +1,781 @@
+/*@!Encoding:1252*/
+includes
+{
+   #include "crc_calc.cin"
+}
+variables
+{
+    Message BAS_DiagResp msgBAS_DiagResp;
+    Message BAS_Measured_Data msgBAS_Measured_Data;
+    Message BCM_ALM_warning msgBCM_ALM_warning;
+    Message BCM_Auth_Immo msgBCM_Auth_Immo;
+    Message BCM_BPM_Data msgBCM_BPM_Data;
+    Message BCM_BPM_DiagResp msgBCM_BPM_DiagResp;
+    Message BCM_Childlock msgBCM_Childlock;
+    Message BCM_CLAMP_STAT msgBCM_CLAMP_STAT;
+    Message BCM_Comfort_Confirm_sts msgBCM_Comfort_Confirm_sts;
+    Message BCM_Data msgBCM_Data;
+    Message BCM_DiagResp msgBCM_DiagResp;
+    Message BCM_ENERGY_MANAGEMENT msgBCM_ENERGY_MANAGEMENT;
+    Message BCM_ENTRY_CONTROL msgBCM_ENTRY_CONTROL;
+    Message BCM_HighBeam_PosReq msgBCM_HighBeam_PosReq;
+    Message BCM_Immo_MHU_Byte_0 msgBCM_Immo_MHU_Byte_0;
+    Message BCM_LIGHT msgBCM_LIGHT;
+    Message BCM_LOGICAL_CLAMP msgBCM_LOGICAL_CLAMP;
+    Message BCM_Mirror_Confirm_sts msgBCM_Mirror_Confirm_sts;
+    Message BCM_NM msgBCM_NM;
+    Message BCM_ODO msgBCM_ODO;
+    Message BCM_RainLightSnr msgBCM_RainLightSnr;
+    Message BCM_RemoteCtrlSts msgBCM_RemoteCtrlSts;
+    Message BCM_SCM_LIN_Info msgBCM_SCM_LIN_Info;
+    Message BCM_STAT_CENTRAL_LOCK msgBCM_STAT_CENTRAL_LOCK;
+    Message BCM_STAT_DOOR_FLAP msgBCM_STAT_DOOR_FLAP;
+    Message BCM_Stat_SwitchLightBrightness msgBCM_Stat_SwitchLightBrightness;
+    Message BCM_SwitchSts msgBCM_SwitchSts;
+    Message BCM_TERMINAL msgBCM_TERMINAL;
+    Message BCM_VEHICLE_IDENT_NUMBER msgBCM_VEHICLE_IDENT_NUMBER;
+    Message BCM_VOLTAGE msgBCM_VOLTAGE;
+    Message BCM_WarnMsg msgBCM_WarnMsg;
+    Message DoorFLCommand msgDoorFLCommand;
+    Message DoorFRCommand msgDoorFRCommand;
+    Message DoorRLCommand msgDoorRLCommand;
+    Message DoorRRCommand msgDoorRRCommand;
+    Message Frm_MainStatus_L msgFrm_MainStatus_L;
+    Message Frm_MainStatus_R msgFrm_MainStatus_R;
+    Message IC_MILEAGE msgIC_MILEAGE;
+    Message IC_RELATIVTIME msgIC_RELATIVTIME;
+    Message IC_TEMP msgIC_TEMP;
+    Message SCM_Raw_Status msgSCM_Raw_Status;
+    Message SEAT_POSITION msgSEAT_POSITION;
+    Message SEED_CAN_Req6_BCM msgSEED_CAN_Req6_BCM;
+    Message TPMS_TirePressure msgTPMS_TirePressure;
+    Message TPMS_TirePressure2 msgTPMS_TirePressure2;
+    Message WLC_Status msgWLC_Status;
+}
+
+ on message CAN1.BAS_DiagResp
+ {
+    msgBAS_DiagResp.CAN = 2;
+    msgBAS_DiagResp= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgBAS_DiagResp);
+       }
+    else
+       {
+            output(msgBAS_DiagResp);
+       }
+ }
+ on message CAN1.BAS_Measured_Data
+ {
+    msgBAS_Measured_Data.CAN = 2;
+    msgBAS_Measured_Data= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgBAS_Measured_Data);
+       }
+    else
+       {
+            output(msgBAS_Measured_Data);
+       }
+ }
+ on message CAN1.BCM_ALM_warning
+ {
+    msgBCM_ALM_warning.CAN = 2;
+    msgBCM_ALM_warning= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgBCM_ALM_warning);
+       }
+    else
+       {
+            output(msgBCM_ALM_warning);
+       }
+ }
+ on message CAN1.BCM_Auth_Immo
+ {
+    msgBCM_Auth_Immo.CAN = 2;
+    msgBCM_Auth_Immo= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgBCM_Auth_Immo);
+       }
+    else
+       {
+            output(msgBCM_Auth_Immo);
+       }
+ }
+ on message CAN1.BCM_BPM_Data
+ {
+    msgBCM_BPM_Data.CAN = 2;
+    msgBCM_BPM_Data= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgBCM_BPM_Data);
+       }
+    else
+       {
+            output(msgBCM_BPM_Data);
+       }
+ }
+ on message CAN1.BCM_BPM_DiagResp
+ {
+    msgBCM_BPM_DiagResp.CAN = 2;
+    msgBCM_BPM_DiagResp= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgBCM_BPM_DiagResp);
+       }
+    else
+       {
+            output(msgBCM_BPM_DiagResp);
+       }
+ }
+ on message CAN1.BCM_Childlock
+ {
+    msgBCM_Childlock.CAN = 2;
+    msgBCM_Childlock= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgBCM_Childlock);
+       }
+    else
+       {
+            output(msgBCM_Childlock);
+       }
+ }
+ on message CAN1.BCM_CLAMP_STAT
+ {
+    msgBCM_CLAMP_STAT.CAN = 2;
+    msgBCM_CLAMP_STAT= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgBCM_CLAMP_STAT);
+       }
+    else
+       {
+            if((@Body_Variable::BCM_CLAMP_STAT::Var_BCM_Clamp_Transport_Enable==1) && (@Body_Variable::BCM_CLAMP_STAT::Var_BCM_Clamp_Transport!=20))
+                msgBCM_CLAMP_STAT.BCM_Clamp_Transport = @Body_Variable::BCM_CLAMP_STAT::Var_BCM_Clamp_Transport;
+
+            if((@Body_Variable::BCM_CLAMP_STAT::Var_BCM_CLAMP_STAT_E2E_Enable==1) && (@Body_Variable::BCM_CLAMP_STAT::Var_BCM_CLAMP_STAT_E2E == 3))
+                msgBCM_CLAMP_STAT.ALIVE_BCM_CLAMP_STAT = 14;
+            if((@Body_Variable::BCM_CLAMP_STAT::Var_BCM_CLAMP_STAT_E2E_Enable==1) && (@Body_Variable::BCM_CLAMP_STAT::Var_BCM_CLAMP_STAT_E2E == 2))
+                {
+                msgBCM_CLAMP_STAT.CHKSM_BCM_CLAMP_STAT = 255;
+                output(msgBCM_CLAMP_STAT);
+                }
+            else if ((@Body_Variable::BCM_CLAMP_STAT::Var_BCM_CLAMP_STAT_E2E_Enable==1) && (@Body_Variable::BCM_CLAMP_STAT::Var_BCM_CLAMP_STAT_E2E == 1))
+                { 
+                }
+            else
+            {
+                msgBCM_CLAMP_STAT.CHKSM_BCM_CLAMP_STAT = msg_crc(msgBCM_CLAMP_STAT);
+                output(msgBCM_CLAMP_STAT);
+            }
+       }
+ }
+ on message CAN1.BCM_Comfort_Confirm_sts
+ {
+    msgBCM_Comfort_Confirm_sts.CAN = 2;
+    msgBCM_Comfort_Confirm_sts= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgBCM_Comfort_Confirm_sts);
+       }
+    else
+       {
+            output(msgBCM_Comfort_Confirm_sts);
+       }
+ }
+ on message CAN1.BCM_Data
+ {
+    msgBCM_Data.CAN = 2;
+    msgBCM_Data= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgBCM_Data);
+       }
+    else
+       {
+            output(msgBCM_Data);
+       }
+ }
+ on message CAN1.BCM_DiagResp
+ {
+    msgBCM_DiagResp.CAN = 2;
+    msgBCM_DiagResp= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgBCM_DiagResp);
+       }
+    else
+       {
+            output(msgBCM_DiagResp);
+       }
+ }
+ on message CAN1.BCM_ENERGY_MANAGEMENT
+ {
+    msgBCM_ENERGY_MANAGEMENT.CAN = 2;
+    msgBCM_ENERGY_MANAGEMENT= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgBCM_ENERGY_MANAGEMENT);
+       }
+    else
+       {
+            output(msgBCM_ENERGY_MANAGEMENT);
+       }
+ }
+ on message CAN1.BCM_ENTRY_CONTROL
+ {
+    msgBCM_ENTRY_CONTROL.CAN = 2;
+    msgBCM_ENTRY_CONTROL= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgBCM_ENTRY_CONTROL);
+       }
+    else
+       {
+            output(msgBCM_ENTRY_CONTROL);
+       }
+ }
+ on message CAN1.BCM_HighBeam_PosReq
+ {
+    msgBCM_HighBeam_PosReq.CAN = 2;
+    msgBCM_HighBeam_PosReq= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgBCM_HighBeam_PosReq);
+       }
+    else
+       {
+            output(msgBCM_HighBeam_PosReq);
+       }
+ }
+ on message CAN1.BCM_Immo_MHU_Byte_0
+ {
+    msgBCM_Immo_MHU_Byte_0.CAN = 2;
+    msgBCM_Immo_MHU_Byte_0= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgBCM_Immo_MHU_Byte_0);
+       }
+    else
+       {
+            output(msgBCM_Immo_MHU_Byte_0);
+       }
+ }
+ on message CAN1.BCM_LIGHT
+ {
+    msgBCM_LIGHT.CAN = 2;
+    msgBCM_LIGHT= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgBCM_LIGHT);
+       }
+    else
+       {
+            if((@Body_Variable::BCM_LIGHT::Var_BCM_LIGHT_E2E_Enable==1) && (@Body_Variable::BCM_LIGHT::Var_BCM_LIGHT_E2E == 3))
+                msgBCM_LIGHT.ALIVE_BCM_LIGHT = 14;
+            if((@Body_Variable::BCM_LIGHT::Var_BCM_LIGHT_E2E_Enable==1) && (@Body_Variable::BCM_LIGHT::Var_BCM_LIGHT_E2E == 2))
+                {
+                msgBCM_LIGHT.CHKSM_BCM_LIGHT = 255;
+                output(msgBCM_LIGHT);
+                }
+            else if ((@Body_Variable::BCM_LIGHT::Var_BCM_LIGHT_E2E_Enable==1) && (@Body_Variable::BCM_LIGHT::Var_BCM_LIGHT_E2E == 1))
+                { 
+                }
+            else
+            {
+                msgBCM_LIGHT.CHKSM_BCM_LIGHT = msg_crc(msgBCM_LIGHT);
+                output(msgBCM_LIGHT);
+            }
+       }
+ }
+ on message CAN1.BCM_LOGICAL_CLAMP
+ {
+    msgBCM_LOGICAL_CLAMP.CAN = 2;
+    msgBCM_LOGICAL_CLAMP= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgBCM_LOGICAL_CLAMP);
+       }
+    else
+       {
+            output(msgBCM_LOGICAL_CLAMP);
+       }
+ }
+ on message CAN1.BCM_Mirror_Confirm_sts
+ {
+    msgBCM_Mirror_Confirm_sts.CAN = 2;
+    msgBCM_Mirror_Confirm_sts= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgBCM_Mirror_Confirm_sts);
+       }
+    else
+       {
+            output(msgBCM_Mirror_Confirm_sts);
+       }
+ }
+ on message CAN1.BCM_NM
+ {
+    msgBCM_NM.CAN = 2;
+    msgBCM_NM= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgBCM_NM);
+       }
+    else
+       {
+            output(msgBCM_NM);
+       }
+ }
+ on message CAN1.BCM_ODO
+ {
+    msgBCM_ODO.CAN = 2;
+    msgBCM_ODO= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgBCM_ODO);
+       }
+    else
+       {
+            output(msgBCM_ODO);
+       }
+ }
+ on message CAN1.BCM_RainLightSnr
+ {
+    msgBCM_RainLightSnr.CAN = 2;
+    msgBCM_RainLightSnr= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgBCM_RainLightSnr);
+       }
+    else
+       {
+            output(msgBCM_RainLightSnr);
+       }
+ }
+   on message CAN1.BCM_RemoteCtrlSts
+   {
+      msgBCM_RemoteCtrlSts.CAN = 2;
+      msgBCM_RemoteCtrlSts= this;
+      if (@System_Var::Start_Button == 0)
+         {
+           output(msgBCM_RemoteCtrlSts);
+         }
+      else
+         {
+              output(msgBCM_RemoteCtrlSts);
+         }
+ }
+ on message CAN1.BCM_SCM_LIN_Info
+ {
+    msgBCM_SCM_LIN_Info.CAN = 2;
+    msgBCM_SCM_LIN_Info= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgBCM_SCM_LIN_Info);
+       }
+    else
+       {
+            output(msgBCM_SCM_LIN_Info);
+       }
+ }
+ on message CAN1.BCM_STAT_CENTRAL_LOCK
+ {
+    msgBCM_STAT_CENTRAL_LOCK.CAN = 2;
+    msgBCM_STAT_CENTRAL_LOCK= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgBCM_STAT_CENTRAL_LOCK);
+       }
+    else
+       {
+            output(msgBCM_STAT_CENTRAL_LOCK);
+       }
+ }
+ on message CAN1.BCM_STAT_DOOR_FLAP
+ {
+    msgBCM_STAT_DOOR_FLAP.CAN = 2;
+    msgBCM_STAT_DOOR_FLAP= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgBCM_STAT_DOOR_FLAP);
+       }
+    else
+       {
+            if((@Body_Variable::BCM_STAT_DOOR_FLAP::Var_BCM_STAT_DOOR_FLAP_E2E_Enable==1) && (@Body_Variable::BCM_STAT_DOOR_FLAP::Var_BCM_STAT_DOOR_FLAP_E2E == 3))
+                msgBCM_STAT_DOOR_FLAP.ALIVE_BCM_STAT_DOOR_FLAP = 14;
+            if((@Body_Variable::BCM_STAT_DOOR_FLAP::Var_BCM_STAT_DOOR_FLAP_E2E_Enable==1) && (@Body_Variable::BCM_STAT_DOOR_FLAP::Var_BCM_STAT_DOOR_FLAP_E2E == 2))
+                {
+                msgBCM_STAT_DOOR_FLAP.CHKSM_BCM_STAT_DOOR_FLAP = 255;
+                output(msgBCM_STAT_DOOR_FLAP);
+                }
+            else if ((@Body_Variable::BCM_STAT_DOOR_FLAP::Var_BCM_STAT_DOOR_FLAP_E2E_Enable==1) && (@Body_Variable::BCM_STAT_DOOR_FLAP::Var_BCM_STAT_DOOR_FLAP_E2E == 1))
+                { 
+                }
+            else
+            {
+                msgBCM_STAT_DOOR_FLAP.CHKSM_BCM_STAT_DOOR_FLAP = msg_crc(msgBCM_STAT_DOOR_FLAP);
+                output(msgBCM_STAT_DOOR_FLAP);
+            }
+       }
+ }
+ on message CAN1.BCM_Stat_SwitchLightBrightness
+ {
+    msgBCM_Stat_SwitchLightBrightness.CAN = 2;
+    msgBCM_Stat_SwitchLightBrightness= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgBCM_Stat_SwitchLightBrightness);
+       }
+    else
+       {
+            output(msgBCM_Stat_SwitchLightBrightness);
+       }
+ }
+ on message CAN1.BCM_SwitchSts
+ {
+    msgBCM_SwitchSts.CAN = 2;
+    msgBCM_SwitchSts= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgBCM_SwitchSts);
+       }
+    else
+       {
+            if((@Body_Variable::BCM_SwitchSts::Var_BCM_SwitchSts_E2E_Enable==1) && (@Body_Variable::BCM_SwitchSts::Var_BCM_SwitchSts_E2E == 3))
+                msgBCM_SwitchSts.ALV_BCM_SWITCH_Sts = 14;
+            if((@Body_Variable::BCM_SwitchSts::Var_BCM_SwitchSts_E2E_Enable==1) && (@Body_Variable::BCM_SwitchSts::Var_BCM_SwitchSts_E2E == 2))
+                {
+                msgBCM_SwitchSts.CHKSM_BCM_SWITCH_Sts = 255;
+                output(msgBCM_SwitchSts);
+                }
+            else if ((@Body_Variable::BCM_SwitchSts::Var_BCM_SwitchSts_E2E_Enable==1) && (@Body_Variable::BCM_SwitchSts::Var_BCM_SwitchSts_E2E == 1))
+                { 
+                }
+            else
+            {
+                msgBCM_SwitchSts.CHKSM_BCM_SWITCH_Sts = msg_crc(msgBCM_SwitchSts);
+                output(msgBCM_SwitchSts);
+            }
+       }
+ }
+ on message CAN1.BCM_TERMINAL
+ {
+    msgBCM_TERMINAL.CAN = 2;
+    msgBCM_TERMINAL= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgBCM_TERMINAL);
+       }
+    else
+       {
+            output(msgBCM_TERMINAL);
+       }
+ }
+ on message CAN1.BCM_VEHICLE_IDENT_NUMBER
+ {
+    msgBCM_VEHICLE_IDENT_NUMBER.CAN = 2;
+    msgBCM_VEHICLE_IDENT_NUMBER= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgBCM_VEHICLE_IDENT_NUMBER);
+       }
+    else
+       {
+            output(msgBCM_VEHICLE_IDENT_NUMBER);
+       }
+ }
+ on message CAN1.BCM_VOLTAGE
+ {
+    msgBCM_VOLTAGE.CAN = 2;
+    msgBCM_VOLTAGE= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgBCM_VOLTAGE);
+       }
+    else
+       {
+            if((@Body_Variable::BCM_VOLTAGE::Var_LV_Batt_Temp_Enable==1) && (@Body_Variable::BCM_VOLTAGE::Var_LV_Batt_Temp!=20))
+                msgBCM_VOLTAGE.LV_Batt_Temp = @Body_Variable::BCM_VOLTAGE::Var_LV_Batt_Temp;
+
+            if((@Body_Variable::BCM_VOLTAGE::Var_LV_SOC_Enable==1) && (@Body_Variable::BCM_VOLTAGE::Var_LV_SOC!=20))
+                msgBCM_VOLTAGE.LV_SOC = @Body_Variable::BCM_VOLTAGE::Var_LV_SOC;
+
+            if((@Body_Variable::BCM_VOLTAGE::Var_BCM_VOLTAGE_E2E_Enable==1) && (@Body_Variable::BCM_VOLTAGE::Var_BCM_VOLTAGE_E2E == 3))
+                msgBCM_VOLTAGE.ALIVE_BCM_VOLTAGE = 14;
+            if((@Body_Variable::BCM_VOLTAGE::Var_BCM_VOLTAGE_E2E_Enable==1) && (@Body_Variable::BCM_VOLTAGE::Var_BCM_VOLTAGE_E2E == 2))
+                {
+                msgBCM_VOLTAGE.CHKSM_BCM_VOLTAGE = 255;
+                output(msgBCM_VOLTAGE);
+                }
+            else if ((@Body_Variable::BCM_VOLTAGE::Var_BCM_VOLTAGE_E2E_Enable==1) && (@Body_Variable::BCM_VOLTAGE::Var_BCM_VOLTAGE_E2E == 1))
+                { 
+                }
+            else
+            {
+                msgBCM_VOLTAGE.CHKSM_BCM_VOLTAGE = msg_crc(msgBCM_VOLTAGE);
+                output(msgBCM_VOLTAGE);
+            }
+       }
+ }
+ on message CAN1.BCM_WarnMsg
+ {
+    msgBCM_WarnMsg.CAN = 2;
+    msgBCM_WarnMsg= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgBCM_WarnMsg);
+       }
+    else
+       {
+            if((@Body_Variable::BCM_WarnMsg::Var_BCM_dTPMS_Malfunc_Enable==1) && (@Body_Variable::BCM_WarnMsg::Var_BCM_dTPMS_Malfunc!=20))
+                msgBCM_WarnMsg.BCM_dTPMS_Malfunc = @Body_Variable::BCM_WarnMsg::Var_BCM_dTPMS_Malfunc;
+
+            if((@Body_Variable::BCM_WarnMsg::Var_BCM_FrontFog_Defect_Enable==1) && (@Body_Variable::BCM_WarnMsg::Var_BCM_FrontFog_Defect!=20))
+                msgBCM_WarnMsg.BCM_FrontFog_Defect = @Body_Variable::BCM_WarnMsg::Var_BCM_FrontFog_Defect;
+
+            if((@Body_Variable::BCM_WarnMsg::Var_BCM_RearFog_Defect_Enable==1) && (@Body_Variable::BCM_WarnMsg::Var_BCM_RearFog_Defect!=20))
+                msgBCM_WarnMsg.BCM_RearFog_Defect = @Body_Variable::BCM_WarnMsg::Var_BCM_RearFog_Defect;
+
+            if((@Body_Variable::BCM_WarnMsg::Var_BCM_LowBeamDefect_Enable==1) && (@Body_Variable::BCM_WarnMsg::Var_BCM_LowBeamDefect!=20))
+                msgBCM_WarnMsg.BCM_LowBeamDefect = @Body_Variable::BCM_WarnMsg::Var_BCM_LowBeamDefect;
+
+            if((@Body_Variable::BCM_WarnMsg::Var_BCM_HighBeamDefect_Enable==1) && (@Body_Variable::BCM_WarnMsg::Var_BCM_HighBeamDefect!=20))
+                msgBCM_WarnMsg.BCM_HighBeamDefect = @Body_Variable::BCM_WarnMsg::Var_BCM_HighBeamDefect;
+
+            if((@Body_Variable::BCM_WarnMsg::Var_BCM_WarnMsg_E2E_Enable==1) && (@Body_Variable::BCM_WarnMsg::Var_BCM_WarnMsg_E2E == 3))
+                msgBCM_WarnMsg.ALV_BCM_WarnMsg = 14;
+            if((@Body_Variable::BCM_WarnMsg::Var_BCM_WarnMsg_E2E_Enable==1) && (@Body_Variable::BCM_WarnMsg::Var_BCM_WarnMsg_E2E == 2))
+                {
+                msgBCM_WarnMsg.CHSKM_BCM_WarnMsg = 255;
+                output(msgBCM_WarnMsg);
+                }
+            else if ((@Body_Variable::BCM_WarnMsg::Var_BCM_WarnMsg_E2E_Enable==1) && (@Body_Variable::BCM_WarnMsg::Var_BCM_WarnMsg_E2E == 1))
+                { 
+                }
+            else
+            {
+                msgBCM_WarnMsg.CHSKM_BCM_WarnMsg = msg_crc(msgBCM_WarnMsg);
+                output(msgBCM_WarnMsg);
+            }
+       }
+ }
+ on message CAN1.DoorFLCommand
+ {
+    msgDoorFLCommand.CAN = 2;
+    msgDoorFLCommand= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgDoorFLCommand);
+       }
+    else
+       {
+            output(msgDoorFLCommand);
+       }
+ }
+ on message CAN1.DoorFRCommand
+ {
+    msgDoorFRCommand.CAN = 2;
+    msgDoorFRCommand= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgDoorFRCommand);
+       }
+    else
+       {
+            output(msgDoorFRCommand);
+       }
+ }
+ on message CAN1.DoorRLCommand
+ {
+    msgDoorRLCommand.CAN = 2;
+    msgDoorRLCommand= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgDoorRLCommand);
+       }
+    else
+       {
+            output(msgDoorRLCommand);
+       }
+ }
+ on message CAN1.DoorRRCommand
+ {
+    msgDoorRRCommand.CAN = 2;
+    msgDoorRRCommand= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgDoorRRCommand);
+       }
+    else
+       {
+            output(msgDoorRRCommand);
+       }
+ }
+ on message CAN1.Frm_MainStatus_L
+ {
+    msgFrm_MainStatus_L.CAN = 2;
+    msgFrm_MainStatus_L= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgFrm_MainStatus_L);
+       }
+    else
+       {
+            output(msgFrm_MainStatus_L);
+       }
+ }
+ on message CAN1.Frm_MainStatus_R
+ {
+    msgFrm_MainStatus_R.CAN = 2;
+    msgFrm_MainStatus_R= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgFrm_MainStatus_R);
+       }
+    else
+       {
+            output(msgFrm_MainStatus_R);
+       }
+ }
+ on message CAN1.IC_MILEAGE
+ {
+    msgIC_MILEAGE.CAN = 2;
+    msgIC_MILEAGE= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgIC_MILEAGE);
+       }
+    else
+       {
+            output(msgIC_MILEAGE);
+       }
+ }
+ on message CAN1.IC_RELATIVTIME
+ {
+    msgIC_RELATIVTIME.CAN = 2;
+    msgIC_RELATIVTIME= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgIC_RELATIVTIME);
+       }
+    else
+       {
+            output(msgIC_RELATIVTIME);
+       }
+ }
+ on message CAN1.IC_TEMP
+ {
+    msgIC_TEMP.CAN = 2;
+    msgIC_TEMP= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgIC_TEMP);
+       }
+    else
+       {
+            output(msgIC_TEMP);
+       }
+ }
+ on message CAN1.SCM_Raw_Status
+ {
+    msgSCM_Raw_Status.CAN = 2;
+    msgSCM_Raw_Status= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgSCM_Raw_Status);
+       }
+    else
+       {
+            output(msgSCM_Raw_Status);
+       }
+ }
+ on message CAN1.SEAT_POSITION
+ {
+    msgSEAT_POSITION.CAN = 2;
+    msgSEAT_POSITION= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgSEAT_POSITION);
+       }
+    else
+       {
+            if((@Body_Variable::SEAT_POSITION::Var_Seat_track_pos_Dri_Enable==1) && (@Body_Variable::SEAT_POSITION::Var_Seat_track_pos_Dri!=20))
+                msgSEAT_POSITION.Seat_track_pos_Dri = @Body_Variable::SEAT_POSITION::Var_Seat_track_pos_Dri;
+
+            if((@Body_Variable::SEAT_POSITION::Var_Seat_track_posPas_Enable==1) && (@Body_Variable::SEAT_POSITION::Var_Seat_track_posPas!=20))
+                msgSEAT_POSITION.Seat_track_posPas = @Body_Variable::SEAT_POSITION::Var_Seat_track_posPas;
+
+            if((@Body_Variable::SEAT_POSITION::Var_SEAT_POSITION_E2E_Enable==1) && (@Body_Variable::SEAT_POSITION::Var_SEAT_POSITION_E2E == 3))
+                msgSEAT_POSITION.AVL_PSM_SEAT_POSITION = 14;
+            if((@Body_Variable::SEAT_POSITION::Var_SEAT_POSITION_E2E_Enable==1) && (@Body_Variable::SEAT_POSITION::Var_SEAT_POSITION_E2E == 2))
+                {
+                msgSEAT_POSITION.CHKSM_PSM_SEAT_POSITION = 255;
+                output(msgSEAT_POSITION);
+                }
+            else if ((@Body_Variable::SEAT_POSITION::Var_SEAT_POSITION_E2E_Enable==1) && (@Body_Variable::SEAT_POSITION::Var_SEAT_POSITION_E2E == 1))
+                { 
+                }
+            else
+            {
+                msgSEAT_POSITION.CHKSM_PSM_SEAT_POSITION = msg_crc(msgSEAT_POSITION);
+                output(msgSEAT_POSITION);
+            }
+       }
+ }
+ on message CAN1.SEED_CAN_Req6_BCM
+ {
+    msgSEED_CAN_Req6_BCM.CAN = 2;
+    msgSEED_CAN_Req6_BCM= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgSEED_CAN_Req6_BCM);
+       }
+    else
+       {
+            output(msgSEED_CAN_Req6_BCM);
+       }
+ }
+ on message CAN1.TPMS_TirePressure
+ {
+    msgTPMS_TirePressure.CAN = 2;
+    msgTPMS_TirePressure= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgTPMS_TirePressure);
+       }
+    else
+       {
+            output(msgTPMS_TirePressure);
+       }
+ }
+ on message CAN1.TPMS_TirePressure2
+ {
+    msgTPMS_TirePressure2.CAN = 2;
+    msgTPMS_TirePressure2= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgTPMS_TirePressure2);
+       }
+    else
+       {
+            output(msgTPMS_TirePressure2);
+       }
+ }
+ on message CAN1.WLC_Status
+ {
+    msgWLC_Status.CAN = 2;
+    msgWLC_Status= this;
+    if (@System_Var::Start_Button == 0)
+       {
+         output(msgWLC_Status);
+       }
+    else
+       {
+            output(msgWLC_Status);
+       }
+ }

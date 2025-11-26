@@ -1,0 +1,415 @@
+/*@!Encoding:1252*/
+includes
+{
+   #include "crc_calc.cin"
+}
+variables
+{
+    Message ACM_CRASH_INFO msgACM_CRASH_INFO;
+    Message ACM_OCCUPANT_STATUS msgACM_OCCUPANT_STATUS;
+    Message ADAS_AHB_DOW msgADAS_AHB_DOW;
+    Message ADAS_BCM_Status msgADAS_BCM_Status;
+    Message ADAS_BSD msgADAS_BSD;
+    Message ADAS_ELK msgADAS_ELK;
+    Message ADAS_FCW_RCTA msgADAS_FCW_RCTA;
+    Message APM_NM msgAPM_NM;
+    Message BAS_DiagReq msgBAS_DiagReq;
+    Message BCM_DiagReq msgBCM_DiagReq;
+    Message BMS_Sts msgBMS_Sts;
+    Message BMS_VCU_THMReq msgBMS_VCU_THMReq;
+    Message CCU_TEMP_PRESSURE msgCCU_TEMP_PRESSURE;
+    Message CCUF_NM msgCCUF_NM;
+    Message CPD_OUTPUT msgCPD_OUTPUT;
+    Message DIAG_Req_All_CAN msgDIAG_Req_All_CAN;
+    Message DIAG_Req_All_Ecu msgDIAG_Req_All_Ecu;
+    Message Diag_Request_ECU msgDiag_Request_ECU;
+    Message ETG_NM msgETG_NM;
+    Message ETG_STATUS msgETG_STATUS;
+    Message FCAM_AESA_Sts msgFCAM_AESA_Sts;
+    Message FCAM_BCM_Status msgFCAM_BCM_Status;
+    Message Frm_TgtValA msgFrm_TgtValA;
+    Message Frm_TgtValB msgFrm_TgtValB;
+    Message IC_ODO msgIC_ODO;
+    Message IC_SENSOR msgIC_SENSOR;
+    Message IDB_FUNCTION msgIDB_FUNCTION;
+    Message IDB_STATUS msgIDB_STATUS;
+    Message MFS_Control_Button msgMFS_Control_Button;
+    Message MHU_ADAS_req msgMHU_ADAS_req;
+    Message MHU_Auth_Immo msgMHU_Auth_Immo;
+    Message MHU_BCM_DoorsCtrl msgMHU_BCM_DoorsCtrl;
+    Message MHU_BCM_FOTAClampCtrl msgMHU_BCM_FOTAClampCtrl;
+    Message MHU_BCM_HornLightControl msgMHU_BCM_HornLightControl;
+    Message MHU_BCM_RemoteClampCtrl msgMHU_BCM_RemoteClampCtrl;
+    Message MHU_CarMode_Switch msgMHU_CarMode_Switch;
+    Message MHU_ComfortSetting msgMHU_ComfortSetting;
+    Message MHU_DATE_TIME msgMHU_DATE_TIME;
+    Message MHU_DoorSetting msgMHU_DoorSetting;
+    Message MHU_EvSetting msgMHU_EvSetting;
+    Message MHU_FOTA_STATUS msgMHU_FOTA_STATUS;
+    Message MHU_LightSetting msgMHU_LightSetting;
+    Message MHU_MirrorAdjust msgMHU_MirrorAdjust;
+    Message MHU_ServiceMode_Setting msgMHU_ServiceMode_Setting;
+    Message MHU_Vehicle_Info msgMHU_Vehicle_Info;
+    Message SAS_Sensor msgSAS_Sensor;
+    Message SEED_CAN_Req18_MHU msgSEED_CAN_Req18_MHU;
+    Message SEED_CAN_Req25_FCAM msgSEED_CAN_Req25_FCAM;
+    Message SEED_CAN_Req29_PAS msgSEED_CAN_Req29_PAS;
+    Message SEED_CAN_Req7_VCU_PT msgSEED_CAN_Req7_VCU_PT;
+    Message VCU_Auth_Immo msgVCU_Auth_Immo;
+    Message VCU_BMS_Thermal_FB msgVCU_BMS_Thermal_FB;
+    Message VCU_HV_DrvSys_status msgVCU_HV_DrvSys_status;
+    Message VCU_MHU_info msgVCU_MHU_info;
+    Message VCU_PTControl msgVCU_PTControl;
+    Message VCU_Sts3 msgVCU_Sts3;
+    Message XGW_HSMeas msgXGW_HSMeas;
+    Message XGW_NM msgXGW_NM;
+}
+on message CAN2.ACM_CRASH_INFO
+{
+    msgACM_CRASH_INFO.CAN = 1 ;
+    msgACM_CRASH_INFO = this ;
+    output(msgACM_CRASH_INFO);
+}
+on message CAN2.ACM_OCCUPANT_STATUS
+{
+    msgACM_OCCUPANT_STATUS.CAN = 1 ;
+    msgACM_OCCUPANT_STATUS = this ;
+    output(msgACM_OCCUPANT_STATUS);
+}
+on message CAN2.ADAS_AHB_DOW
+{
+    msgADAS_AHB_DOW.CAN = 1 ;
+    msgADAS_AHB_DOW = this ;
+    output(msgADAS_AHB_DOW);
+}
+on message CAN2.ADAS_BCM_Status
+{
+    msgADAS_BCM_Status.CAN = 1 ;
+    msgADAS_BCM_Status = this ;
+    output(msgADAS_BCM_Status);
+}
+on message CAN2.ADAS_BSD
+{
+    msgADAS_BSD.CAN = 1 ;
+    msgADAS_BSD = this ;
+    output(msgADAS_BSD);
+}
+on message CAN2.ADAS_ELK
+{
+    msgADAS_ELK.CAN = 1 ;
+    msgADAS_ELK = this ;
+    output(msgADAS_ELK);
+}
+on message CAN2.ADAS_FCW_RCTA
+{
+    msgADAS_FCW_RCTA.CAN = 1 ;
+    msgADAS_FCW_RCTA = this ;
+    output(msgADAS_FCW_RCTA);
+}
+on message CAN2.APM_NM
+{
+    msgAPM_NM.CAN = 1 ;
+    msgAPM_NM = this ;
+    output(msgAPM_NM);
+}
+on message CAN2.BAS_DiagReq
+{
+    msgBAS_DiagReq.CAN = 1 ;
+    msgBAS_DiagReq = this ;
+    output(msgBAS_DiagReq);
+}
+on message CAN2.BCM_DiagReq
+{
+    msgBCM_DiagReq.CAN = 1 ;
+    msgBCM_DiagReq = this ;
+    output(msgBCM_DiagReq);
+}
+on message CAN2.BMS_Sts
+{
+    msgBMS_Sts.CAN = 1 ;
+    msgBMS_Sts = this ;
+    output(msgBMS_Sts);
+}
+on message CAN2.BMS_VCU_THMReq
+{
+    msgBMS_VCU_THMReq.CAN = 1 ;
+    msgBMS_VCU_THMReq = this ;
+    output(msgBMS_VCU_THMReq);
+}
+on message CAN2.CCU_TEMP_PRESSURE
+{
+    msgCCU_TEMP_PRESSURE.CAN = 1 ;
+    msgCCU_TEMP_PRESSURE = this ;
+    output(msgCCU_TEMP_PRESSURE);
+}
+on message CAN2.CCUF_NM
+{
+    msgCCUF_NM.CAN = 1 ;
+    msgCCUF_NM = this ;
+    output(msgCCUF_NM);
+}
+on message CAN2.CPD_OUTPUT
+{
+    msgCPD_OUTPUT.CAN = 1 ;
+    msgCPD_OUTPUT = this ;
+    output(msgCPD_OUTPUT);
+}
+on message CAN2.DIAG_Req_All_CAN
+{
+    msgDIAG_Req_All_CAN.CAN = 1 ;
+    msgDIAG_Req_All_CAN = this ;
+    output(msgDIAG_Req_All_CAN);
+}
+on message CAN2.DIAG_Req_All_Ecu
+{
+    msgDIAG_Req_All_Ecu.CAN = 1 ;
+    msgDIAG_Req_All_Ecu = this ;
+    output(msgDIAG_Req_All_Ecu);
+}
+on message CAN2.Diag_Request_ECU
+{
+    msgDiag_Request_ECU.CAN = 1 ;
+    msgDiag_Request_ECU = this ;
+    output(msgDiag_Request_ECU);
+}
+on message CAN2.ETG_NM
+{
+    msgETG_NM.CAN = 1 ;
+    msgETG_NM = this ;
+    output(msgETG_NM);
+}
+on message CAN2.ETG_STATUS
+{
+    msgETG_STATUS.CAN = 1 ;
+    msgETG_STATUS = this ;
+    output(msgETG_STATUS);
+}
+on message CAN2.FCAM_AESA_Sts
+{
+    msgFCAM_AESA_Sts.CAN = 1 ;
+    msgFCAM_AESA_Sts = this ;
+    output(msgFCAM_AESA_Sts);
+}
+on message CAN2.FCAM_BCM_Status
+{
+    msgFCAM_BCM_Status.CAN = 1 ;
+    msgFCAM_BCM_Status = this ;
+    output(msgFCAM_BCM_Status);
+}
+on message CAN2.Frm_TgtValA
+{
+    msgFrm_TgtValA.CAN = 1 ;
+    msgFrm_TgtValA = this ;
+    output(msgFrm_TgtValA);
+}
+on message CAN2.Frm_TgtValB
+{
+    msgFrm_TgtValB.CAN = 1 ;
+    msgFrm_TgtValB = this ;
+    output(msgFrm_TgtValB);
+}
+on message CAN2.IC_ODO
+{
+    msgIC_ODO.CAN = 1 ;
+    msgIC_ODO = this ;
+    output(msgIC_ODO);
+}
+on message CAN2.IC_SENSOR
+{
+    msgIC_SENSOR.CAN = 1 ;
+    msgIC_SENSOR = this ;
+    output(msgIC_SENSOR);
+}
+on message CAN2.IDB_FUNCTION
+{
+    msgIDB_FUNCTION.CAN = 1 ;
+    msgIDB_FUNCTION = this ;
+    output(msgIDB_FUNCTION);
+}
+on message CAN2.IDB_STATUS
+{
+    msgIDB_STATUS.CAN = 1 ;
+    msgIDB_STATUS = this ;
+    output(msgIDB_STATUS);
+}
+on message CAN2.MFS_Control_Button
+{
+    msgMFS_Control_Button.CAN = 1 ;
+    msgMFS_Control_Button = this ;
+    output(msgMFS_Control_Button);
+}
+on message CAN2.MHU_ADAS_req
+{
+    msgMHU_ADAS_req.CAN = 1 ;
+    msgMHU_ADAS_req = this ;
+    output(msgMHU_ADAS_req);
+}
+on message CAN2.MHU_Auth_Immo
+{
+    msgMHU_Auth_Immo.CAN = 1 ;
+    msgMHU_Auth_Immo = this ;
+    output(msgMHU_Auth_Immo);
+}
+on message CAN2.MHU_BCM_DoorsCtrl
+{
+    msgMHU_BCM_DoorsCtrl.CAN = 1 ;
+    msgMHU_BCM_DoorsCtrl = this ;
+    output(msgMHU_BCM_DoorsCtrl);
+}
+on message CAN2.MHU_BCM_FOTAClampCtrl
+{
+    msgMHU_BCM_FOTAClampCtrl.CAN = 1 ;
+    msgMHU_BCM_FOTAClampCtrl = this ;
+    output(msgMHU_BCM_FOTAClampCtrl);
+}
+on message CAN2.MHU_BCM_HornLightControl
+{
+    msgMHU_BCM_HornLightControl.CAN = 1 ;
+    msgMHU_BCM_HornLightControl = this ;
+    output(msgMHU_BCM_HornLightControl);
+}
+on message CAN2.MHU_BCM_RemoteClampCtrl
+{
+    msgMHU_BCM_RemoteClampCtrl.CAN = 1 ;
+    msgMHU_BCM_RemoteClampCtrl = this ;
+    output(msgMHU_BCM_RemoteClampCtrl);
+  write("BCM: Forward MHU Clamp Ctrl (ID=0x%X) CAN2 ? CAN1", this.id);
+}
+on message CAN2.MHU_CarMode_Switch
+{
+    msgMHU_CarMode_Switch.CAN = 1 ;
+    msgMHU_CarMode_Switch = this ;
+    output(msgMHU_CarMode_Switch);
+}
+on message CAN2.MHU_ComfortSetting
+{
+    msgMHU_ComfortSetting.CAN = 1 ;
+    msgMHU_ComfortSetting = this ;
+    output(msgMHU_ComfortSetting);
+}
+on message CAN2.MHU_DATE_TIME
+{
+    msgMHU_DATE_TIME.CAN = 1 ;
+    msgMHU_DATE_TIME = this ;
+    output(msgMHU_DATE_TIME);
+}
+on message CAN2.MHU_DoorSetting
+{
+    msgMHU_DoorSetting.CAN = 1 ;
+    msgMHU_DoorSetting = this ;
+    output(msgMHU_DoorSetting);
+}
+on message CAN2.MHU_EvSetting
+{
+    msgMHU_EvSetting.CAN = 1 ;
+    msgMHU_EvSetting = this ;
+    output(msgMHU_EvSetting);
+}
+on message CAN2.MHU_FOTA_STATUS
+{
+    msgMHU_FOTA_STATUS.CAN = 1 ;
+    msgMHU_FOTA_STATUS = this ;
+    output(msgMHU_FOTA_STATUS);
+}
+on message CAN2.MHU_LightSetting
+{
+    msgMHU_LightSetting.CAN = 1 ;
+    msgMHU_LightSetting = this ;
+    output(msgMHU_LightSetting);
+}
+on message CAN2.MHU_MirrorAdjust
+{
+    msgMHU_MirrorAdjust.CAN = 1 ;
+    msgMHU_MirrorAdjust = this ;
+    output(msgMHU_MirrorAdjust);
+}
+on message CAN2.MHU_ServiceMode_Setting
+{
+    msgMHU_ServiceMode_Setting.CAN = 1 ;
+    msgMHU_ServiceMode_Setting = this ;
+    output(msgMHU_ServiceMode_Setting);
+}
+on message CAN2.MHU_Vehicle_Info
+{
+    msgMHU_Vehicle_Info.CAN = 1 ;
+    msgMHU_Vehicle_Info = this ;
+    output(msgMHU_Vehicle_Info);
+}
+on message CAN2.SAS_Sensor
+{
+    msgSAS_Sensor.CAN = 1 ;
+    msgSAS_Sensor = this ;
+    output(msgSAS_Sensor);
+}
+on message CAN2.SEED_CAN_Req18_MHU
+{
+    msgSEED_CAN_Req18_MHU.CAN = 1 ;
+    msgSEED_CAN_Req18_MHU = this ;
+    output(msgSEED_CAN_Req18_MHU);
+}
+on message CAN2.SEED_CAN_Req25_FCAM
+{
+    msgSEED_CAN_Req25_FCAM.CAN = 1 ;
+    msgSEED_CAN_Req25_FCAM = this ;
+    output(msgSEED_CAN_Req25_FCAM);
+}
+on message CAN2.SEED_CAN_Req29_PAS
+{
+    msgSEED_CAN_Req29_PAS.CAN = 1 ;
+    msgSEED_CAN_Req29_PAS = this ;
+    output(msgSEED_CAN_Req29_PAS);
+}
+on message CAN2.SEED_CAN_Req7_VCU_PT
+{
+    msgSEED_CAN_Req7_VCU_PT.CAN = 1 ;
+    msgSEED_CAN_Req7_VCU_PT = this ;
+    output(msgSEED_CAN_Req7_VCU_PT);
+}
+on message CAN2.VCU_Auth_Immo
+{
+    msgVCU_Auth_Immo.CAN = 1 ;
+    msgVCU_Auth_Immo = this ;
+    output(msgVCU_Auth_Immo);
+}
+on message CAN2.VCU_BMS_Thermal_FB
+{
+    msgVCU_BMS_Thermal_FB.CAN = 1 ;
+    msgVCU_BMS_Thermal_FB = this ;
+    output(msgVCU_BMS_Thermal_FB);
+}
+on message CAN2.VCU_HV_DrvSys_status
+{
+    msgVCU_HV_DrvSys_status.CAN = 1 ;
+    msgVCU_HV_DrvSys_status = this ;
+    output(msgVCU_HV_DrvSys_status);
+}
+on message CAN2.VCU_MHU_info
+{
+    msgVCU_MHU_info.CAN = 1 ;
+    msgVCU_MHU_info = this ;
+    output(msgVCU_MHU_info);
+}
+on message CAN2.VCU_PTControl
+{
+    msgVCU_PTControl.CAN = 1 ;
+    msgVCU_PTControl = this ;
+    output(msgVCU_PTControl);
+}
+on message CAN2.VCU_Sts3
+{
+    msgVCU_Sts3.CAN = 1 ;
+    msgVCU_Sts3 = this ;
+    output(msgVCU_Sts3);
+}
+on message CAN2.XGW_HSMeas
+{
+    msgXGW_HSMeas.CAN = 1 ;
+    msgXGW_HSMeas = this ;
+    output(msgXGW_HSMeas);
+}
+on message CAN2.XGW_NM
+{
+    msgXGW_NM.CAN = 1 ;
+    msgXGW_NM = this ;
+    output(msgXGW_NM);
+}
