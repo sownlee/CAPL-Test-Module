@@ -12,7 +12,7 @@ class CANoeReportManager:
     def connect_to_canoe(self):
         """Connect to CANoe application"""
         try:
-            self.can_app = win32com.client.Dispatch("CANoe.Application")
+            self.can_app = win32com.client.GetObject(Class="CANoe.Application")
             print("Successfully connected to CANoe")
             return True
         except Exception as e:
