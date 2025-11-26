@@ -57,7 +57,22 @@ class CANoeAuto:
         except Exception as e:
             print(f"[ERROR] Report configuration failed: {e}")
             return False
-
+    def configure_html_report(self, output_dir, report_name=None):
+        """Configure HTML format test report"""
+        if report_name is None:
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            report_name = f"TestReport_{timestamp}.html"
+            
+        report_path = os.path.join(output_dir, report_name)
+        
+        report_settings = {
+            'format': "HTML",
+            'output_path': report_path,
+            'generate_after_test': True,
+            'verbosity': 2  # Detailed report
+        }
+        
+        return self.setup_test_report(report_settings)
     # 3. Measurement Control - Start
     def start_measurement(self):
         try:
