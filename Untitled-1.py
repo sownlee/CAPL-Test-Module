@@ -23,8 +23,8 @@ class CANoeAuto:
         
         print("Opening CANoe with .cfg file...")
         os.startfile(cfg_path)           # Cách của bạn - SIÊU ỔN ĐỊNH
-        print("Waiting for CANoe to fully start (15s)...")
-        time.sleep(30)                    # CANoe 17/18 cần 12-18s
+        print("Waiting for CANoe to fully start (60s)...")
+        time.sleep(60)                    # CANoe 17/18 cần 12-18s
         
         try:
             self.app = win32com.client.Dispatch("CANoe.Application")
