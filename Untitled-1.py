@@ -254,7 +254,62 @@ class CANoeAuto:
         except Exception as e:
             print(f"[ERROR] Failed to generate statistics report: {e}")
             return False
+    # ===================================================================
+    # 6. CAPL Integration - Python gọi CAPL (MỚI THÊM)
+    # ===================================================================
+    def capl_call_function(self, function_name, *args):
+        """Gọi hàm CAPL từ Python (ví dụ: StartMyTest(), SendFrame(0x123))"""
+        try:
+            capl = self.app.CAPL
+            if not args:
+                capl.Call(function_name)
+            else:
+                capl.Call(function_name, *args)
+            print(f"CAPL function called: {function_name}{args}")
+            return True
+        except Exception as e:
+            print(f"[ERROR] Failed to call CAPL function {function_name}: {e}")
+            return False
 
+    def capl_set_variable(self, variable_path, value):
+        """Set giá trị biến CAPL từ Python (ví dụ: ns::TestMode = 1)"""
+        try:
+            self.app.CAPL.SetVariable(variable_path, value)
+            print(f"CAPL variable set: {variable_path} = {value}")
+            return True
+        except Exception as e:
+            print(f"[ERROR] Failed to set CAPL variable {variable_path}: {e}")
+            return False
+
+    def capl_get_variable(self, variable_path):
+        """Lấy giá trị biến CAPL về Python"""
+        try:
+            value = self.app.CAPL.GetVariable(variable_path)
+            print(f"CAPL variable read: {variable_path} = {value}")
+            return value
+        except Exception as e:
+            print(f"[ERROR] Failed to get CAPL variable {variable_path}: {e}")
+            return None
+
+    def capl_compile_and_load(self, capl_file_path):
+        """Compile và load file .can từ Python"""
+        try:
+            capl = self.app.CAPL
+            capl.CompileAndLoad(capl_file_path)
+            print(f"CAPL script loaded: {capl_file_path}")
+            return True
+        except Exception as e:
+            print(f"[ERROR] Failed to load CAPL script {capl_file_path}: {e}")
+            return False
+
+    def capl_send_message(self, can_id, dlc, data_bytes):
+        """Gửi CAN message từ Python qua CAPL (rất tiện cho restbus)"""
+        try:
+            # Dùng hàm CAPL có sẵn: SendCANMessage(id, dlc, data...)
+            self.capl_call_function("SendCANMessage", can_id, dlc, *data_bytes)
+            return True
+        except:
+            return False
 # ====================== MAIN ======================
 def main():
     canoe = CANoeAuto()
