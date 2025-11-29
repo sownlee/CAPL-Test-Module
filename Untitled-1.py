@@ -316,7 +316,10 @@ def main():
 
     if not canoe.connect_to_canoe():
         return
-
+    # Load CAPL script (nếu cần)
+    capl_path = r"D:\WORK\CAPL-Test-Module\MyCAPL.can"
+    if os.path.exists(capl_path):
+        canoe.capl_compile_and_load(capl_path)
     if not canoe.setup_test_report():  # Đổi tên gọi để đồng bộ
         return
 
