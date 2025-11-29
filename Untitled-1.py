@@ -20,39 +20,61 @@ class CANoeAuto:
     # 1. Connection and Basic Control
     # ===================================================================
     def connect_to_canoe(self):
-        """Connect to CANoe and load configuration (smart mode - reuse if running)"""
-        print("Connecting to CANoe (smart mode)...")
+       # """Connect thông minh - ép CANoe chạy ở Normal mode (có COM)"""
+        print("Connecting to CANoe (force Normal mode)...")
+        
+        # Bước 1: Thử connect với instance đang chạy (nếu có)
+        try:
+            self.app = win32com.client.Dispatch("CANoe.Application")
+            self.configuration = self.app.Configuration
+            print("CONNECTED TO EXISTING CANoe INSTANCE!")
+            print(f"Config: {self.configuration.Name}")
+            return True
+        except:
+            pass  # Không có hoặc đang ở RealBus mode → tiếp tục
+
+        # Bước 2: Nếu không có → mở bằng CANoe executable + tham số /Normal
+        if not os.path.exists(cfg_path):
+            print(f"[ERROR] Config not found: {cfg_path}")
+            return False
+
+        # Tìm đường dẫn CANoe.exe (tự động detect 32/64 bit)
+        import winreg
+        try:
+            key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, r"SOFTWARE\Vector\CANoe\19.0")  # Thay 19.0 nếu bạn dùng 18.0
+            canoe_exe = winreg.QueryValueEx(key, "InstallDir")[0] + r"CANoe.exe"
+            winreg.CloseKey(key)
+        except:
+            try:
+                key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, r"SOFTWARE\WOW6432Node\Vector\CANoe\19.0")
+                canoe_exe = winreg.QueryValueEx(key, "InstallDir")[0] + r"CANoe32.exe"
+                winreg.CloseKey(key)
+            except:
+                print("[ERROR] CANoe installation not found in registry")
+                return False
+
+        # Mở CANoe ở chế độ NORMAL (có COM)
+        import subprocess
+        cmd = [canoe_exe, "/Normal", cfg_path]  # Đây là chìa khóa!
+        print(f"Launching CANoe in Normal mode: {cmd}")
+        subprocess.Popen(cmd)
+
+        # Chờ COM sẵn sàng
         max_wait = 90
         waited = 0
-        opened_cfg = False
-
         while waited < max_wait:
             try:
+                time.sleep(3)
                 self.app = win32com.client.Dispatch("CANoe.Application")
                 self.configuration = self.app.Configuration
-                cfg_name = "Unknown"
-                try:
-                    cfg_name = self.configuration.Name if self.configuration.Name else "No config loaded"
-                except:
-                    pass
-                print("CONNECTED TO CANoe SUCCESSFULLY!")
-                print(f"Current configuration: {cfg_name}")
-                if opened_cfg:
-                    print("   → Configuration loaded successfully")
-                else:
-                    print("   → Reused running instance")
+                print("CONNECTED SUCCESSFULLY!")
+                print(f"Loaded: {self.configuration.Name}")
                 return True
             except:
-                if waited == 0 and os.path.exists(cfg_path):
-                    print("Opening configuration file...")
-                    os.startfile(cfg_path)
-                    opened_cfg = True
-                    print("Waiting for CANoe COM initialization...")
-                time.sleep(3)
                 waited += 3
-                print(f"   Still waiting... ({waited}s/90s)")
+                print(f"   Waiting for COM... ({waited}s)")
 
-        print("[ERROR] CANoe connection failed after 90s")
+        print("[ERROR] Timeout after 90s")
         return False
 
     # ===================================================================
@@ -331,7 +353,7 @@ def main():
         return
     # Gọi hàm CAPL thay vì run sequence (linh hoạt hơn!)
     canoe.capl_call_function("StartMyAutomatedTest")
-    
+
     try:
         if canoe.run_test_sequence(sequence_name, timeout=1800):
             canoe.generate_statistics_report()
