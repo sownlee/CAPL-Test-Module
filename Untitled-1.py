@@ -320,12 +320,18 @@ def main():
     capl_path = r"D:\WORK\CAPL-Test-Module\MyCAPL.can"
     if os.path.exists(capl_path):
         canoe.capl_compile_and_load(capl_path)
+
+    # Set biến CAPL trước khi chạy test
+    canoe.capl_set_variable("ns::TestMode", 2)           # 1=Manual, 2=Auto
+    canoe.capl_set_variable("ns::VehicleSpeed", 100)     # km/h
     if not canoe.setup_test_report():  # Đổi tên gọi để đồng bộ
         return
 
     if not canoe.start_measurement():
         return
-
+    # Gọi hàm CAPL thay vì run sequence (linh hoạt hơn!)
+    canoe.capl_call_function("StartMyAutomatedTest")
+    
     try:
         if canoe.run_test_sequence(sequence_name, timeout=1800):
             canoe.generate_statistics_report()
