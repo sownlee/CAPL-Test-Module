@@ -2,202 +2,341 @@ import win32com.client
 import os
 from datetime import datetime
 import time
-import subprocess
-import winreg
 
 # ========================================
 # CHỈ CẦN SỬA 3 DÒNG NÀY THÔI
 # ========================================
-cfg_path      = r"D:\Config\VF2_LHD.cfg"
-report_dir    = r"D:\WORK\CAPL-Test-Module\Report"
-sequence_name = "MainTestSequence"
+cfg_path      = r"D:\WORK\CAPL-Test-Module\VF2_LHD.cfg"          # File config của bạn
+report_dir    = r"D:\WORK\CAPL-Test-Module\Report"               # Thư mục lưu báo cáo
+sequence_name = "MainTestSequence"                               # Tên sequence cần chạy
 # ========================================
 
 class CANoeAuto:
     def __init__(self):
         self.app = None
-        self.configuration = None
+        self.configuration = None  # Để đồng bộ tên biến với CSDN
 
+    # ===================================================================
+    # 1. Connection and Basic Control
+    # ===================================================================
     def connect_to_canoe(self):
-        print("Connecting to CANoe...")
-
-        # Bước 1: Thử kết nối với CANoe đang chạy (nếu có COM)
-        for _ in range(10):
-            try:
-                self.app = win32com.client.Dispatch("CANoe.Application")
-                self.configuration = self.app.Configuration
-                print("=> CONNECTED TO EXISTING CANoe INSTANCE!")
-                print(f"   Config: {getattr(self.configuration, 'Name', 'Unknown')}")
-                return True
-            except:
-                time.sleep(3)
-
-        print("=> No COM found. Starting CANoe in Normal mode...")
-
-        # Bước 2: Tự động tìm CANoe.exe (hỗ trợ mọi phiên bản)
-        possible_versions = ["19.0", "18.0", "17.0", "2024", "2023", "2022"]
-        canoe_exe = None
-
-        for ver in possible_versions:
-            for root in ["", "WOW6432Node"]:
-                try:
-                    path = f"SOFTWARE\\{root}\\Vector\\CANoe\\{ver}" if root else f"SOFTWARE\\Vector\\CANoe\\{ver}"
-                    key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, path)
-                    install_dir = winreg.QueryValueEx(key, "InstallDir")[0]
-                    exe_name = "CANoe32.exe" if root else "CANoe.exe"
-                    exe_path = os.path.join(install_dir, exe_name)
-                    if os.path.exists(exe_path):
-                        canoe_exe = exe_path
-                        print(f"=> Found CANoe {ver}: {exe_path}")
-                        winreg.CloseKey(key)
-                        break
-                    winreg.CloseKey(key)
-                except:
-                    continue
-            if canoe_exe:
-                break
-
-        if not canoe_exe:
-            print("[ERROR] CANoe installation not found in registry!")
-            return False
-
-        # Bước 3: Mở CANoe ở chế độ NORMAL (có COM)
-        cmd = [canoe_exe, "/Normal", cfg_path]
-        print(f"=> Launching: {' '.join(cmd)}")
-        subprocess.Popen(cmd, shell=True)
-
-        # Bước 4: Chờ COM đăng ký
+        """Connect to CANoe and load configuration (smart mode - reuse if running)"""
+        print("Connecting to CANoe (smart mode)...")
         max_wait = 90
         waited = 0
+        opened_cfg = False
+
         while waited < max_wait:
             try:
-                time.sleep(3)
                 self.app = win32com.client.Dispatch("CANoe.Application")
                 self.configuration = self.app.Configuration
-                print("=> CONNECTED SUCCESSFULLY AFTER LAUNCH!")
-                print(f"   Config loaded: {getattr(self.configuration, 'Name', 'Unknown')}")
+                cfg_name = "Unknown"
+                try:
+                    cfg_name = self.configuration.Name if self.configuration.Name else "No config loaded"
+                except:
+                    pass
+                print("CONNECTED TO CANoe SUCCESSFULLY!")
+                print(f"Current configuration: {cfg_name}")
+                if opened_cfg:
+                    print("   → Configuration loaded successfully")
+                else:
+                    print("   → Reused running instance")
                 return True
             except:
+                if waited == 0 and os.path.exists(cfg_path):
+                    print("Opening configuration file...")
+                    os.startfile(cfg_path)
+                    opened_cfg = True
+                    print("Waiting for CANoe COM initialization...")
+                time.sleep(3)
                 waited += 3
-                print(f"   Waiting for COM registration... ({waited}s/90s)")
+                print(f"   Still waiting... ({waited}s/90s)")
 
-        print("[ERROR] CANoe failed to start or register COM after 90s")
+        print("[ERROR] CANoe connection failed after 90s")
         return False
 
-    def setup_test_report(self):
+    # ===================================================================
+    # 2. Test Report Configuration
+    # ===================================================================
+    def setup_test_report(self, report_settings=None):
+        """
+        Configure test report settings (giống CSDN 100%)
+        Nếu không truyền settings → tự động tạo HTML report với timestamp
+        """
         try:
+            # Tạo thư mục nếu chưa có
             os.makedirs(report_dir, exist_ok=True)
-            report_path = os.path.join(report_dir, f"Report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.html")
+            # Nếu không truyền settings → dùng cách của bạn (tốt hơn CSDN)
+            if report_settings is None:
+                report_path = os.path.join(
+                    report_dir,
+                    f"Report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.html"
+                )
+                report_settings = {
+                    'format': "HTML",
+                    'output_path': report_path,
+                    'generate_after_test': True,
+                    'verbosity': 2
+                }
+            # Áp dụng cấu hình
             tc = self.configuration.TestSetup.TestConfigurations.Item(1)
             rp = tc.ReportConfiguration
-            rp.Format = "HTML"
-            rp.OutputPath = report_path
-            rp.GenerateReportAfterTest = True
-            rp.Verbosity = 2
-            print(f"=> Report will be saved: {report_path}")
+            if 'format' in report_settings:
+                rp.Format = report_settings['format']
+            if 'output_path' in report_settings:
+                rp.OutputPath = report_settings['output_path']
+            if 'generate_after_test' in report_settings:
+                rp.GenerateReportAfterTest = report_settings['generate_after_test']
+            if 'verbosity' in report_settings:
+                rp.Verbosity = report_settings['verbosity']
+            print("Test report configuration completed")
+            print(f"   → {report_settings['output_path']}")
             return True
         except Exception as e:
-            print(f"[ERROR] Report config failed: {e}")
+            print(f"[ERROR] Failed to configure test report: {e}")
             return False
 
+    # ===================================================================
+    # 3. Measurement Control
+    # ===================================================================
     def start_measurement(self):
+        """Start CANoe measurement"""
         try:
-            if not self.app.Measurement.Running:
+            if self.app.Measurement.Running:
+                print("Measurement is already running")
+            else:
                 self.app.Measurement.Start()
-                print("=> Measurement STARTED")
+                print("Measurement STARTED")
             return True
         except Exception as e:
-            print(f"[ERROR] Start failed: {e}")
+            print(f"[ERROR] Failed to start measurement: {e}")
             return False
 
     def stop_measurement(self):
+        """Stop CANoe measurement (giữ nguyên logic của bạn)"""
         try:
-            if self.app.Measurement.Running:
+            if self.app.Measurement.Running:  # Sửa self.can_app → self.app (lỗi typo)
                 self.app.Measurement.Stop()
-                print("=> Measurement STOPPED")
-        except:
-            pass
+                print("Measurement STOPPED")
+        except Exception as e:
+            print(f"[WARN] Measurement already stopped or error: {e}")
 
-    def run_test_sequence(self, seq_name, timeout=1800):
+    # ===================================================================
+    # 4. Test Execution
+    # ===================================================================
+    def run_test_sequence(self, sequence_name, timeout=1800):
+        """Run specified test sequence"""
         try:
             env = self.configuration.TestSetup.TestEnvironments.Item(1)
             seq = None
             for i in range(1, env.TestSequences.Count + 1):
                 s = env.TestSequences.Item(i)
-                if s.Name.strip() == seq_name.strip():
+                if s.Name.strip() == sequence_name.strip():
                     seq = s
                     break
             if not seq:
-                print(f"[ERROR] Sequence not found: {seq_name}")
+                print(f"[ERROR] Test sequence not found: {sequence_name}")
                 return False
 
-            print(f"=> Running sequence: {seq_name}")
+            print(f"Executing test sequence: {sequence_name}")
             seq.Start()
-            start = time.time()
+
+            start_time = time.time()
             while seq.Running:
-                if time.time() - start > timeout:
+                if time.time() - start_time > timeout:
                     seq.Stop()
-                    print("=> TIMEOUT!")
+                    print(f"TIMEOUT after {timeout}s - Sequence stopped!")
                     return False
                 time.sleep(1)
-            print("=> SEQUENCE COMPLETED")
+
+            print(f"SEQUENCE COMPLETED: {sequence_name}")
             return True
+
         except Exception as e:
-            print(f"[ERROR] Run sequence failed: {e}")
+            print(f"[ERROR] Failed to execute test sequence: {e}")
             return False
 
-    def generate_statistics_report(self):
+    # ===================================================================
+    # 5. Test Result Statistics and Analysis (giống CSDN 100%)
+    # ===================================================================
+    def _verdict_to_string(self, verdict):
+        """Convert verdict code to string (helper from CSDN)"""
+        mapping = {0: "None", 1: "PASS", 2: "FAIL", 3: "INCONCLUSIVE"}
+        return mapping.get(verdict, "UNKNOWN")
+
+    def get_test_results_summary(self):
+        """Get test result summary (from CSDN)"""
         try:
             ts = self.app.GetTestService()
             rs = ts.Results
-            total = rs.Count
-            passed = failed = inc = 0
-            total_time = 0.0
-            lines = []
-
-            for i in range(1, total + 1):
+            summary = {
+                'total_tests': rs.Count,
+                'passed': 0, 'failed': 0, 'inconclusive': 0,
+                'total_execution_time': 0.0
+            }
+            for i in range(1, rs.Count + 1):
                 r = rs.Item(i)
                 v = r.Verdict
-                if v == 1: passed += 1
-                elif v == 2: failed += 1
-                else: inc += 1
-                total_time += r.ExecutionTime
-                status = "PASS" if v == 1 else "FAIL" if v == 2 else "INC"
-                lines.append(f"{i:3}. {r.Name} -> {status} ({r.ExecutionTime:.2f}s)")
-
-            file_path = os.path.join(report_dir, f"Summary_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt")
-            with open(file_path, "w", encoding="utf-8") as f:
-                f.write("="*70 + "\n")
-                f.write("CANOE TEST RESULTS SUMMARY\n")
-                f.write("="*70 + "\n\n")
-                f.write("\n".join(lines) + "\n")
-                f.write("\n" + "="*70 + "\n")
-                f.write(f"TOTAL: {total} | PASS: {passed} | FAIL: {failed} | INC: {inc}\n")
-                f.write(f"PASS RATE: {passed/total*100:5.1f}% | TIME: {total_time:.1f}s\n")
-            print(f"=> Summary saved: {file_path}")
+                if v == 1: summary['passed'] += 1
+                elif v == 2: summary['failed'] += 1
+                elif v == 3: summary['inconclusive'] += 1
+                summary['total_execution_time'] += r.ExecutionTime
+            return summary
         except Exception as e:
-            print(f"[ERROR] Generate report failed: {e}")
+            print(f"[ERROR] Failed to get test summary: {e}")
+            return None
 
+    def get_detailed_test_results(self):
+        """Get detailed test results (from CSDN)"""
+        try:
+            ts = self.app.GetTestService()
+            rs = ts.Results
+            details = []
+            for i in range(1, rs.Count + 1):
+                r = rs.Item(i)
+                details.append({
+                    'no': i,
+                    'name': r.Name,
+                    'verdict': self._verdict_to_string(r.Verdict),
+                    'execution_time': r.ExecutionTime,
+                    'error_message': getattr(r, 'ErrorMessage', '') if hasattr(r, 'ErrorMessage') else ''
+                })
+            return details
+        except Exception as e:
+            print(f"[ERROR] Failed to get detailed results: {e}")
+            return None
+
+    def generate_statistics_report(self, output_file=None):
+        """Generate statistics report (updated from your code + CSDN)"""
+        try:
+            summary = self.get_test_results_summary()
+            details = self.get_detailed_test_results()
+            if not summary or not details:
+                print("[ERROR] Cannot generate report - missing data")
+                return False
+
+            if output_file is None:
+                output_file = os.path.join(report_dir, f"Summary_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt")
+
+            lines = []
+            lines.append("=" * 70)
+            lines.append("CANoe TEST RESULTS SUMMARY")
+            lines.append("=" * 70)
+            lines.append("")
+
+            lines.append("TEST SUMMARY:")
+            lines.append(f"  Total tests       : {summary['total_tests']}")
+            lines.append(f"  Passed            : {summary['passed']}")
+            lines.append(f"  Failed            : {summary['failed']}")
+            lines.append(f"  Inconclusive      : {summary['inconclusive']}")
+            lines.append(f"  Total time        : {summary['total_execution_time']:.1f}s")
+            if summary['total_tests'] > 0:
+                rate = summary['passed'] / summary['total_tests'] * 100
+                lines.append(f"  PASS RATE         : {rate:5.1f}%")
+            lines.append("")
+
+            lines.append("=" * 70)
+            lines.append("DETAILED RESULTS:")
+            lines.append("=" * 70)
+            for d in details:
+                lines.append(f"{d['no']:3}. {d['name']}")
+                lines.append(f"     → {d['verdict']} ({d['execution_time']:.2f}s)")
+                if d['error_message']:
+                    lines.append(f"     Error: {d['error_message']}")
+
+            content = "\n".join(lines)
+            with open(output_file, "w", encoding="utf-8") as f:
+                f.write(content)
+
+            print(f"Text summary report saved: {output_file}")
+            return True
+
+        except Exception as e:
+            print(f"[ERROR] Failed to generate statistics report: {e}")
+            return False
+    # ===================================================================
+    # 6. CAPL Integration - Python gọi CAPL (MỚI THÊM)
+    # ===================================================================
+    def capl_call_function(self, function_name, *args):
+        """Gọi hàm CAPL từ Python (ví dụ: StartMyTest(), SendFrame(0x123))"""
+        try:
+            capl = self.app.CAPL
+            if not args:
+                capl.Call(function_name)
+            else:
+                capl.Call(function_name, *args)
+            print(f"CAPL function called: {function_name}{args}")
+            return True
+        except Exception as e:
+            print(f"[ERROR] Failed to call CAPL function {function_name}: {e}")
+            return False
+
+    def capl_set_variable(self, variable_path, value):
+        """Set giá trị biến CAPL từ Python (ví dụ: ns::TestMode = 1)"""
+        try:
+            self.app.CAPL.SetVariable(variable_path, value)
+            print(f"CAPL variable set: {variable_path} = {value}")
+            return True
+        except Exception as e:
+            print(f"[ERROR] Failed to set CAPL variable {variable_path}: {e}")
+            return False
+
+    def capl_get_variable(self, variable_path):
+        """Lấy giá trị biến CAPL về Python"""
+        try:
+            value = self.app.CAPL.GetVariable(variable_path)
+            print(f"CAPL variable read: {variable_path} = {value}")
+            return value
+        except Exception as e:
+            print(f"[ERROR] Failed to get CAPL variable {variable_path}: {e}")
+            return None
+
+    def capl_compile_and_load(self, capl_file_path):
+        """Compile và load file .can từ Python"""
+        try:
+            capl = self.app.CAPL
+            capl.CompileAndLoad(capl_file_path)
+            print(f"CAPL script loaded: {capl_file_path}")
+            return True
+        except Exception as e:
+            print(f"[ERROR] Failed to load CAPL script {capl_file_path}: {e}")
+            return False
+
+    def capl_send_message(self, can_id, dlc, data_bytes):
+        """Gửi CAN message từ Python qua CAPL (rất tiện cho restbus)"""
+        try:
+            # Dùng hàm CAPL có sẵn: SendCANMessage(id, dlc, data...)
+            self.capl_call_function("SendCANMessage", can_id, dlc, *data_bytes)
+            return True
+        except:
+            return False
 # ====================== MAIN ======================
 def main():
     canoe = CANoeAuto()
 
     if not canoe.connect_to_canoe():
-        print("CANNOT CONNECT TO CANOE -> STOP")
         return
+    # Load CAPL script (nếu cần)
+    capl_path = r"D:\WORK\CAPL-Test-Module\MyCAPL.can"
+    if os.path.exists(capl_path):
+        canoe.capl_compile_and_load(capl_path)
 
-    if not canoe.setup_test_report():
+    # Set biến CAPL trước khi chạy test
+    canoe.capl_set_variable("ns::TestMode", 2)           # 1=Manual, 2=Auto
+    canoe.capl_set_variable("ns::VehicleSpeed", 100)     # km/h
+    if not canoe.setup_test_report():  # Đổi tên gọi để đồng bộ
         return
 
     if not canoe.start_measurement():
         return
-
+    # Gọi hàm CAPL thay vì run sequence (linh hoạt hơn!)
+    canoe.capl_call_function("StartMyAutomatedTest")
     try:
         if canoe.run_test_sequence(sequence_name, timeout=1800):
             canoe.generate_statistics_report()
     finally:
         canoe.stop_measurement()
-        print("ALL DONE! CANoe can stay open.")
+        print("ALL DONE! You can now close CANoe or leave it open.")
 
 if __name__ == "__main__":
     main()

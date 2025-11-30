@@ -1,272 +1,42 @@
-import win32com.client
-import os
-from datetime import datetime
-import time
+// SignalWatcher.can - Giám sát timeout signal
+variables
+{
+  msTimer tVehicleSpeed;     // Timer cho signal VehicleSpeed
+  int gSpeedLastValue = -1;
+  int gSpeedTimeout = 0;     // 0 = OK, 1 = Timeout
+}
 
-# ========================================
-# CHỈ CẦN SỬA 3 DÒNG NÀY THÔI
-# ========================================
-cfg_path      = r"D:\WORK\CAPL-Test-Module\VF2_LHD.cfg"          # File config của bạn
-report_dir    = r"D:\WORK\CAPL-Test-Module\Report"                  # Thư mục lưu báo cáo
-sequence_name = "MainTestSequence"                # Tên sequence cần chạy
-# ========================================
+on start
+{
+  write("SignalWatcher CAPL started - Monitoring VehicleSpeed timeout");
+  tVehicleSpeed.setTimer(600);  // 600ms > 500ms → đủ để phát hiện timeout
+  gSpeedTimeout = 0;
+}
 
-class CANoeAuto:
-    def __init__(self):
-        self.app = None
-        self.configuration = None  # Để đồng bộ tên biến với CSDN
+on signal VehicleSpeed
+{
+  gSpeedLastValue = this.value;
+  tVehicleSpeed.setTimer(600);   // Reset timer mỗi khi nhận signal
+  if (gSpeedTimeout == 1)
+  {
+    write("VehicleSpeed signal RECOVERED at %.2f km/h", this.value);
+    gSpeedTimeout = 0;
+  }
+}
 
-    # ===================================================================
-    # 1. Connection and Basic Control
-    # ===================================================================
-    def connect_to_canoe(self):
-        """Connect to CANoe and load configuration"""
-        if not os.path.exists(cfg_path):
-            print("[ERROR] Configuration file not found!")
-            return False
+on timer tVehicleSpeed
+{
+  if (gSpeedTimeout == 0)
+  {
+    write("ERROR: VehicleSpeed TIMEOUT! Last value: %d", gSpeedLastValue);
+    gSpeedTimeout = 1;
+  }
+  // Timer tự động restart để tiếp tục giám sát
+  this.setTimer(600);
+}
 
-        print("Opening CANoe configuration...")
-        os.startfile(cfg_path)                    # Cách của bạn - SIÊU ỔN ĐỊNH
-        print("Waiting for CANoe to start (15 seconds)...")
-        time.sleep(15)
-
-        try:
-            self.app = win32com.client.Dispatch("CANoe.Application")
-            self.configuration = self.app.Configuration
-            print("CONNECTED TO CANoe SUCCESSFULLY!")
-            print(f"Loaded configuration: {self.configuration.Name}")
-            return True
-        except Exception as e:
-            print(f"[ERROR] Failed to connect to CANoe: {e}")
-            print("Tip: Increase sleep time if CANoe is slow to load")
-            return False
-
-    # ===================================================================
-    # 2. Test Report Configuration
-    # ===================================================================
-    def setup_test_report(self, report_settings=None):
-        """
-        Configure test report settings (giống CSDN 100%)
-        Nếu không truyền settings → tự động tạo HTML report với timestamp
-        """
-        try:
-            # Tạo thư mục nếu chưa có
-            os.makedirs(report_dir, exist_ok=True)
-
-            # Nếu không truyền settings → dùng cách của bạn (tốt hơn CSDN)
-            if report_settings is None:
-                report_path = os.path.join(
-                    report_dir,
-                    f"Report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.html"
-                )
-                report_settings = {
-                    'format': "HTML",
-                    'output_path': report_path,
-                    'generate_after_test': True,
-                    'verbosity': 2
-                }
-
-            # Áp dụng cấu hình
-            tc = self.configuration.TestSetup.TestConfigurations.Item(1)
-            rp = tc.ReportConfiguration
-
-            if 'format' in report_settings:
-                rp.Format = report_settings['format']
-            if 'output_path' in report_settings:
-                rp.OutputPath = report_settings['output_path']
-            if 'generate_after_test' in report_settings:
-                rp.GenerateReportAfterTest = report_settings['generate_after_test']
-            if 'verbosity' in report_settings:
-                rp.Verbosity = report_settings['verbosity']
-
-            print("Test report configuration completed")
-            print(f"   → {report_settings['output_path']}")
-            return True
-
-        except Exception as e:
-            print(f"[ERROR] Failed to configure test report: {e}")
-            return False
-
-    # ===================================================================
-    # 3. Measurement Control
-    # ===================================================================
-    def start_measurement(self):
-        """Start CANoe measurement"""
-        try:
-            if self.app.Measurement.Running:
-                print("Measurement is already running")
-            else:
-                self.app.Measurement.Start()
-                print("Measurement STARTED")
-            return True
-        except Exception as e:
-            print(f"[ERROR] Failed to start measurement: {e}")
-            return False
-
-    def stop_measurement(self):
-        """Stop CANoe measurement"""
-        try:
-            if self.app.Measurement.Running:
-                self.app.Measurement.Stop()
-                print("Measurement STOPPED")
-        except Exception as e:
-            print(f"[WARN] Measurement already stopped or error: {e}")
-
-    # ===================================================================
-    # 4. Test Execution
-    # ===================================================================
-    def run_test_sequence(self, sequence_name, timeout=1800):
-        """Run specified test sequence"""
-        try:
-            env = self.configuration.TestSetup.TestEnvironments.Item(1)
-            seq = None
-            for i in range(1, env.TestSequences.Count + 1):
-                s = env.TestSequences.Item(i)
-                if s.Name.strip() == sequence_name.strip():
-                    seq = s
-                    break
-
-            if not seq:
-                print(f"[ERROR] Test sequence not found: {sequence_name}")
-                return False
-
-            print(f"Executing test sequence: {sequence_name}")
-            seq.Start()
-
-            start_time = time.time()
-            while seq.Running:
-                if time.time() - start_time > timeout:
-                    seq.Stop()
-                    print(f"TIMEOUT after {timeout}s - Sequence stopped!")
-                    return False
-                time.sleep(1)
-
-            print(f"SEQUENCE COMPLETED: {sequence_name}")
-            return True
-
-        except Exception as e:
-            print(f"[ERROR] Failed to execute test sequence: {e}")
-            return False
-
-    # ===================================================================
-    # 5. Test Result Statistics and Analysis (giống CSDN 100%)
-    # ===================================================================
-    def _verdict_to_string(self, verdict):
-        mapping = {0: "None", 1: "PASS", 2: "FAIL", 3: "INCONCLUSIVE"}
-        return mapping.get(verdict, "UNKNOWN")
-
-    def get_test_results_summary(self):
-        try:
-            ts = self.app.GetTestService()
-            rs = ts.Results
-            summary = {
-                'total_tests': rs.Count,
-                'passed': 0, 'failed': 0, 'inconclusive': 0,
-                'total_execution_time': 0.0
-            }
-            for i in range(1, rs.Count + 1):
-                r = rs.Item(i)
-                v = r.Verdict
-                if v == 1: summary['passed'] += 1
-                elif v == 2: summary['failed'] += 1
-                elif v == 3: summary['inconclusive'] += 1
-                summary['total_execution_time'] += r.ExecutionTime
-            return summary
-        except Exception as e:
-            print(f"[ERROR] Failed to get test summary: {e}")
-            return None
-
-    def get_detailed_test_results(self):
-        try:
-            ts = self.app.GetTestService()
-            rs = ts.Results
-            details = []
-            for i in range(1, rs.Count + 1):
-                r = rs.Item(i)
-                details.append({
-                    'no': i,
-                    'name': r.Name,
-                    'verdict': self._verdict_to_string(r.Verdict),
-                    'execution_time': r.ExecutionTime,
-                    'error_message': getattr(r, 'ErrorMessage', '') if hasattr(r, 'ErrorMessage') else ''
-                })
-            return details
-        except Exception as e:
-            print(f"[ERROR] Failed to get detailed results: {e}")
-            return None
-
-    def generate_statistics_report(self, output_file=None):
-        """Generate beautiful text summary report"""
-        try:
-            summary = self.get_test_results_summary()
-            details = self.get_detailed_test_results()
-            if not summary or not details:
-                print("[ERROR] Cannot generate report - missing data")
-                return False
-
-            if output_file is None:
-                output_file = os.path.join(
-                    report_dir,
-                    f"Summary_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
-                )
-
-            lines = []
-            lines.append("=" * 70)
-            lines.append("CANoe TEST RESULTS SUMMARY")
-            lines.append("=" * 70)
-            lines.append("")
-
-            lines.append("TEST SUMMARY:")
-            lines.append(f"  Total tests       : {summary['total_tests']}")
-            lines.append(f"  Passed            : {summary['passed']}")
-            lines.append(f"  Failed            : {summary['failed']}")
-            lines.append(f"  Inconclusive      : {summary['inconclusive']}")
-            lines.append(f"  Total time        : {summary['total_execution_time']:.1f}s")
-            if summary['total_tests'] > 0:
-                rate = summary['passed'] / summary['total_tests'] * 100
-                lines.append(f"  PASS RATE         : {rate:5.1f}%")
-            lines.append("")
-
-            lines.append("=" * 70)
-            lines.append("DETAILED RESULTS:")
-            lines.append("=" * 70)
-            for d in details:
-                lines.append(f"{d['no']:3}. {d['name']}")
-                lines.append(f"     → {d['verdict']} ({d['execution_time']:.2f}s)")
-                if d['error_message']:
-                    lines.append(f"     Error: {d['error_message']}")
-
-            content = "\n".join(lines)
-
-            with open(output_file, "w", encoding="utf-8") as f:
-                f.write(content)
-
-            print(f"Text summary report saved: {output_file}")
-            return True
-
-        except Exception as e:
-            print(f"[ERROR] Failed to generate statistics report: {e}")
-            return False
-
-# ====================== MAIN ======================
-def main():
-    canoe = CANoeAuto()
-
-    if not canoe.connect_to_canoe():
-        return
-
-    if not canoe.setup_test_report():  # Tên chuẩn CSDN
-        return
-
-    if not canoe.start_measurement():
-        return
-
-    try:
-        if canoe.run_test_sequence(sequence_name, timeout=1800):
-            canoe.generate_statistics_report()
-    finally:
-        canoe.stop_measurement()
-        print("ALL DONE! You can now close CANoe or leave it open.")
-
-if __name__ == "__main__":
-    main()
+// Hàm để Python đọc kết quả
+int GetSpeedTimeoutStatus()
+{
+  return gSpeedTimeout;
+}
