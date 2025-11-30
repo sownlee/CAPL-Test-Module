@@ -20,10 +20,9 @@ class CANoeAuto:
     # 1. Connection and Basic Control
     # ===================================================================
     def connect_to_canoe(self):
-       # """Connect thông minh - ép CANoe chạy ở Normal mode (có COM)"""
-        print("Connecting to CANoe (force Normal mode)...")
-        
-        # Bước 1: Thử connect với instance đang chạy (nếu có)
+      print("Connecting to CANoe (auto-detect version + force Normal mode)...")
+
+        # Bước 1: Thử connect với CANoe đang chạy (nếu có)
         try:
             self.app = win32com.client.Dispatch("CANoe.Application")
             self.configuration = self.app.Configuration
@@ -31,35 +30,42 @@ class CANoeAuto:
             print(f"Config: {self.configuration.Name}")
             return True
         except:
-            pass  # Không có hoặc đang ở RealBus mode → tiếp tục
+            print("No running instance found → Starting new one...")
 
-        # Bước 2: Nếu không có → mở bằng CANoe executable + tham số /Normal
-        if not os.path.exists(cfg_path):
-            print(f"[ERROR] Config not found: {cfg_path}")
+        # Bước 2: Tự động tìm CANoe.exe trong tất cả phiên bản
+        import winreg
+        import subprocess
+
+        possible_versions = ["19.0", "18.0", "17.0", "16.0", "2024", "2023", "2022"]
+        canoe_exe = None
+
+        for ver in possible_versions:
+            for bit in ["", r"\WOW6432Node"]:
+                try:
+                    key_path = fr"SOFTWARE{'' if not bit else '\\' + bit}\Vector\CANoe\{ver}"
+                    key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, key_path)
+                    install_dir = winreg.QueryValueEx(key, "InstallDir")[0]
+                    exe_path = os.path.join(install_dir, "CANoe.exe" if not bit else "CANoe32.exe")
+                    if os.path.exists(exe_path):
+                        canoe_exe = exe_path
+                        print(f"Found CANoe {ver} at: {exe_path}")
+                        break
+                    winreg.CloseKey(key)
+                except:
+                    continue
+            if canoe_exe:
+                break
+
+        if not canoe_exe:
+            print("[ERROR] CANoe not found! Please install or check version.")
             return False
 
-        # Tìm đường dẫn CANoe.exe (tự động detect 32/64 bit)
-        import winreg
-        try:
-            key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, r"SOFTWARE\Vector\CANoe\19.0")  # Thay 19.0 nếu bạn dùng 18.0
-            canoe_exe = winreg.QueryValueEx(key, "InstallDir")[0] + r"CANoe.exe"
-            winreg.CloseKey(key)
-        except:
-            try:
-                key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, r"SOFTWARE\WOW6432Node\Vector\CANoe\19.0")
-                canoe_exe = winreg.QueryValueEx(key, "InstallDir")[0] + r"CANoe32.exe"
-                winreg.CloseKey(key)
-            except:
-                print("[ERROR] CANoe installation not found in registry")
-                return False
-
-        # Mở CANoe ở chế độ NORMAL (có COM)
-        import subprocess
-        cmd = [canoe_exe, "/Normal", cfg_path]  # Đây là chìa khóa!
-        print(f"Launching CANoe in Normal mode: {cmd}")
+        # Bước 3: Mở CANoe ở chế độ NORMAL (có COM)
+        cmd = [canoe_exe, "/Normal", cfg_path]
+        print(f"Launching: {' '.join(cmd)}")
         subprocess.Popen(cmd)
 
-        # Chờ COM sẵn sàng
+        # Bước 4: Chờ COM sẵn sàng
         max_wait = 90
         waited = 0
         while waited < max_wait:
@@ -72,9 +78,9 @@ class CANoeAuto:
                 return True
             except:
                 waited += 3
-                print(f"   Waiting for COM... ({waited}s)")
+                print(f"   Waiting for COM registration... ({waited}s/90s)")
 
-        print("[ERROR] Timeout after 90s")
+        print("[ERROR] Timeout - CANoe failed to start")
         return False
 
     # ===================================================================
