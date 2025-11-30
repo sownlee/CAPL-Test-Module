@@ -20,7 +20,8 @@ class CANoeAuto:
     # 1. Connection and Basic Control
     # ===================================================================
     def connect_to_canoe(self):
-      print("Connecting to CANoe (auto-detect version + force Normal mode)...")
+        #"""Connect CANoe - TỰ ĐỘNG detect phiên bản + ép Normal mode (chạy ngon 100%)"""
+        print("Connecting to CANoe (auto-detect version + force Normal mode)...")
 
         # Bước 1: Thử connect với CANoe đang chạy (nếu có)
         try:
@@ -82,7 +83,6 @@ class CANoeAuto:
 
         print("[ERROR] Timeout - CANoe failed to start")
         return False
-
     # ===================================================================
     # 2. Test Report Configuration
     # ===================================================================
@@ -359,7 +359,7 @@ def main():
         return
     # Gọi hàm CAPL thay vì run sequence (linh hoạt hơn!)
     canoe.capl_call_function("StartMyAutomatedTest")
-
+    
     try:
         if canoe.run_test_sequence(sequence_name, timeout=1800):
             canoe.generate_statistics_report()
