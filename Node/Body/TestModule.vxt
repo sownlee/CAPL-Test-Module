@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TestConfiguration xmlns="http://www.vector.com/CANoe/TestConfiguration">
+  <TestModules>
+    
+    <!-- Đây là một Group (thư mục) -->
+    <TestGroup Name="01_Safety_Features">
+      <TestModule Type="CAPL" Path="Test Files\BCM_CentralLocking.can" />
+      <TestModule Type="CAPL" Path="Test Files\BCM_WindowAntiPinch.can" />
+    </TestGroup>
+    
+    <!-- Đây là một Group khác -->
+    <TestGroup Name="02_Comfort_Features">
+      <TestModule Type="CAPL" Path="Test Files\BCM_AutoLighting.can" />
+      <TestModule Type="CAPL" Path="Test Files\BCM_MirrorFold.can" />
+    </TestGroup>
+    
+    <!-- Nếu bạn thêm XML test hoặc .NET test thì sẽ có Type="XML" hoặc Type="DotNET" -->
+    
+  </TestModules>
+  
+  <!-- Các thiết lập báo cáo, filter, timeout chung -->
+  <ReportSettings OutputPath="Test Reports\" Format="HTML" />
+  
+</TestConfiguration>
