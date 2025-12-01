@@ -1,44 +1,143 @@
 /*@!Encoding:1252*/
-// BCM_CentralLocking.can - Test Case with Documentation per 2.2.5
+// BCM_TestModule.can - Test Module for Body Control Module
+// Based on sownlee/CAPL-Test-Module patterns
+
 variables {
-    msTimer lockTimer;
+    msTimer bcmTestTimer;  // Timer for test waits
+    int testCounter = 0;   // Counter for pass/fail stats
 }
 
-// Test Case: Central Locking (Lock/Unlock)
-testcase CentralLockingTest() {
-    // 1. INITIALIZATION: Setup environment
-    testStepBegin("01", "Initialize BCM for Central Locking Test");
-    @sysvar::BCM::IgnitionState = ON;  // Simulate ignition
+// Initialization
+on start {
+    InitializeBCMEnvironment();
+    
+    // Safety Features Group
+    setTestGroup("BCM_Safety_Features");
+    CentralLockingTest();
+    WindowAntiPinchTest();
+    
+    // Comfort Features Group
+    setTestGroup("BCM_Comfort_Features");
+    AutoLightingTest();
+    MirrorFoldTest();
+    
+    CleanupBCMEnvironment();
+    write("BCM Test Module Completed. Total Tests: %d", testCounter);
+}
+
+// Helper Functions
+void InitializeBCMEnvironment() {
+    testStep("Initializing BCM Test Environment");
+    @sysvar::BCM::IgnitionState = ON;  // Simulate ignition ON
+    @sysvar::BCM::BatteryVoltage = 14.0;  // Nominal voltage
+    testWaitForTimeout(200);  // Allow init
+    testStep("BCM Initialized Successfully");
+}
+
+void CleanupBCMEnvironment() {
+    testStep("Cleaning up BCM Environment");
+    @sysvar::BCM::IgnitionState = OFF;
     @sysvar::BCM::DoorLockReq = UNLOCK;  // Reset to safe state
-    setTimer(lockTimer, 200);  // Short delay for init
-    testStepPass("01", "BCM initialized - Ignition ON, Doors unlocked");
+    testWaitForTimeout(500);
+    testStep("Cleanup Complete");
+}
+
+// Test Case 1: Central Locking (Extended from DoorLockTest in repo)
+testcase CentralLockingTest() {
+    testCounter++;
+    testStep("BCM Central Locking - Basic Lock/Unlock");
     
-    // 2. STIMULUS: Apply Lock Request
-    testStepBegin("02", "Send Lock Command to BCM");
-    @sysvar::BCM::DoorLockReq = LOCK;  // Trigger lock via CAN signal
-    testStepPass("02", "Lock request sent successfully");
-    
-    // 3. VERIFICATION: Check Lock Response
-    testStepBegin("03", "Verify Lock State after 500ms");
-    if (!testWaitForTimeout(500)) {  // Wait for ECU response
-        testStepFail("03", "Timeout - No response from BCM");
-        return;  // Fail early
-    }
+    // Lock Request
+    @sysvar::BCM::DoorLockReq = LOCK;
+    testWaitForTimeout(500);
     if (@sysvar::BCM::LockState != LOCKED) {
-        testStepFail("03", "Lock failed - Expected LOCKED, got %d", @sysvar::BCM::LockState);
+        testStepFail("Lock failed - Expected LOCKED, got %d", @sysvar::BCM::LockState);
         return;
     }
-    testStepPass("03", "Lock verified - Doors locked correctly");
     
-    // 4. CLEANUP: Unlock and Reset
-    testStepBegin("04", "Unlock Doors and Cleanup");
+    // Unlock Request
     @sysvar::BCM::DoorLockReq = UNLOCK;
     testWaitForTimeout(500);
     if (@sysvar::BCM::LockState != UNLOCKED) {
-        testStepFail("04", "Cleanup failed - Doors not unlocked");
-    } else {
-        testStepPass("04", "Cleanup complete - System reset to unlocked state");
+        testStepFail("Unlock failed - Expected UNLOCKED, got %d", @sysvar::BCM::LockState);
+        return;
     }
     
-    write("Central Locking Test Passed - Report generated with steps 01-04");
+    testStepPass("Central Locking Passed");
+}
+
+// Test Case 2: Window Anti-Pinch Safety (New for BCM Safety)
+testcase WindowAntiPinchTest() {
+    testCounter++;
+    testStep("BCM Window Anti-Pinch - Obstruction Detection");
+    
+    // Simulate window close with obstruction
+    @sysvar::BCM::WindowCmd = CLOSE;
+    @sysvar::BCM::ObstructionDetected = TRUE;  // Simulate sensor input
+    testWaitForTimeout(1000);
+    
+    if (@sysvar::BCM::WindowState != STOPPED) {
+        testStepFail("Anti-pinch failed - Window did not stop on obstruction");
+        return;
+    }
+    
+    // Reset and verify resume
+    @sysvar::BCM::WindowCmd = RESUME;
+    testWaitForTimeout(500);
+    if (@sysvar::BCM::WindowState != OPENING) {  // Assume partial open after stop
+        testStepFail("Resume after anti-pinch failed");
+        return;
+    }
+    
+    testStepPass("Window Anti-Pinch Passed");
+}
+
+// Test Case 3: Auto Lighting (Extended from AutoLightTest in repo)
+testcase AutoLightingTest() {
+    testCounter++;
+    testStep("BCM Auto Lighting - Twilight Detection");
+    
+    // Simulate low light (twilight)
+    @sysvar::BCM::AmbientLight = LOW;  // < 100 lux
+    @sysvar::BCM::IgnitionState = ON;
+    testWaitForTimeout(2000);  // Allow sensor simulation
+    
+    if (@sysvar::BCM::HeadlightState != ON) {
+        testStepFail("Auto headlights did not activate in low light");
+        return;
+    }
+    
+    // Simulate high light
+    @sysvar::BCM::AmbientLight = HIGH;  // > 1000 lux
+    testWaitForTimeout(1000);
+    if (@sysvar::BCM::HeadlightState != OFF) {
+        testStepFail("Auto headlights did not deactivate in high light");
+        return;
+    }
+    
+    testStepPass("Auto Lighting Passed");
+}
+
+// Test Case 4: Mirror Fold (New for BCM Comfort)
+testcase MirrorFoldTest() {
+    testCounter++;
+    testStep("BCM Mirror Fold - Remote Fold/Unfold");
+    
+    // Fold mirrors (e.g., for parking)
+    @sysvar::BCM::MirrorCmd = FOLD;
+    testWaitForTimeout(1500);
+    if (@sysvar::BCM::MirrorState != FOLDED) {
+        testStepFail("Mirror fold failed");
+        return;
+    }
+    
+    // Unfold
+    @sysvar::BCM::MirrorCmd = UNFOLD;
+    testWaitForTimeout(1000);
+    if (@sysvar::BCM::MirrorState != UNFOLDED) {
+        testStepFail("Mirror unfold failed");
+        return;
+    }
+    
+    testStepPass("Mirror Fold/Unfold Passed");
 }
