@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <parseerrors xmlns="http://www.vector-informatik.de/TestAutomationEditor/XMLTestModuleErrors/1.0">
   <error>
-    <message>XML parser error: invalid document structure</message>
-    <location line="1"></location>
+    <message>XML parser error: Unknown element in context of document root: TestConfiguration</message>
+    <location line="2">/tae:TestConfiguration</location>
   </error>
 </parseerrors>

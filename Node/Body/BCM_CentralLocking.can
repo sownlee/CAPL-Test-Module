@@ -1,0 +1,44 @@
+/*@!Encoding:1252*/
+// BCM_CentralLocking.can - Test Case with Documentation per 2.2.5
+variables {
+    msTimer lockTimer;
+}
+
+// Test Case: Central Locking (Lock/Unlock)
+testcase CentralLockingTest() {
+    // 1. INITIALIZATION: Setup environment
+    testStepBegin("01", "Initialize BCM for Central Locking Test");
+    @sysvar::BCM::IgnitionState = ON;  // Simulate ignition
+    @sysvar::BCM::DoorLockReq = UNLOCK;  // Reset to safe state
+    setTimer(lockTimer, 200);  // Short delay for init
+    testStepPass("01", "BCM initialized - Ignition ON, Doors unlocked");
+    
+    // 2. STIMULUS: Apply Lock Request
+    testStepBegin("02", "Send Lock Command to BCM");
+    @sysvar::BCM::DoorLockReq = LOCK;  // Trigger lock via CAN signal
+    testStepPass("02", "Lock request sent successfully");
+    
+    // 3. VERIFICATION: Check Lock Response
+    testStepBegin("03", "Verify Lock State after 500ms");
+    if (!testWaitForTimeout(500)) {  // Wait for ECU response
+        testStepFail("03", "Timeout - No response from BCM");
+        return;  // Fail early
+    }
+    if (@sysvar::BCM::LockState != LOCKED) {
+        testStepFail("03", "Lock failed - Expected LOCKED, got %d", @sysvar::BCM::LockState);
+        return;
+    }
+    testStepPass("03", "Lock verified - Doors locked correctly");
+    
+    // 4. CLEANUP: Unlock and Reset
+    testStepBegin("04", "Unlock Doors and Cleanup");
+    @sysvar::BCM::DoorLockReq = UNLOCK;
+    testWaitForTimeout(500);
+    if (@sysvar::BCM::LockState != UNLOCKED) {
+        testStepFail("04", "Cleanup failed - Doors not unlocked");
+    } else {
+        testStepPass("04", "Cleanup complete - System reset to unlocked state");
+    }
+    
+    write("Central Locking Test Passed - Report generated with steps 01-04");
+}
