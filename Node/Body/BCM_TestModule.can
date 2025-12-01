@@ -1,198 +1,45 @@
 /*@!Encoding:1252*/
-// BCM_LockUnlock_TestModule.can
-// Test Module for BCM Door Lock/Unlock Functionality
-// Using real CAN signals from VF5 Body CAN Matrix V9.1.0
-// Focus: Central Locking, Remote Lock/Unlock, Auto Unlock, Door Speed Lock
-// Assumptions: Loaded DBC with messages like BCM_STAT_CENTRAL_LOCK_0x107, GW_MHU_BCM_DoorsCtrl_0x10D, BCM_Comfort_Confirm_sts_0x41d, GW_MHU_DoorSetting_0x401
-// Test cases check commands from MHU/Remote and verify BCM statuses/feedback
-
-variables {
-    msTimer lockTestTimer;  // Timer for waits
-    int testCounter = 0;    // Counter for pass/fail stats
-}
+// File: TC01_BCM_Basic_Lock_Unlock.can
+// Test Case 01: BCM Central Locking - Basic Lock & Unlock
+// Dùng dúng signal th?t trong VF5 Body CAN Matrix V9.1.0
 
 on start {
-    InitializeBCMEnvironment();
-    
-    // Group: Basic Lock/Unlock Tests
-    setTestGroup("BCM_Lock_Unlock_Basic");
-    CentralLockCommandTest();
-    RemoteUnlockTest();
-    
-    // Group: Advanced Features
-    setTestGroup("BCM_Lock_Unlock_Advanced");
-    AutoDoorUnlockTest();
-    DoorSpeedLockTest();
-    
-    CleanupBCMEnvironment();
-    write("BCM Lock/Unlock Test Module Completed. Total Tests: %d", testCounter);
+    setTestGroup("TC01 - BCM Basic Lock/Unlock");
+    TC01_BasicLockUnlock();
+    write("=== TC01 Completed ===");
 }
 
-// Helper Functions
-void InitializeBCMEnvironment() {
-    testStep("Initializing BCM Lock/Unlock Environment");
-    // Simulate ignition ON and doors closed (using real signals if available)
-    BCM_CLAMP_STAT_0x112.STAT_CL15 = 1;  // IGN ON
-    BCM_STAT_DOOR_FLAP_0x105.BCM_STAT_DoorAjarDriver = 0;  // Closed
-    BCM_STAT_DOOR_FLAP_0x105.BCM_STAT_DoorAjarPassenger = 0;
-    BCM_STAT_DOOR_FLAP_0x105.BCM_STAT_DoorAjarRL = 0;
-    BCM_STAT_DOOR_FLAP_0x105.BCM_STAT_DoorAjarRR = 0;
-    output(create(0x112));  // Send clamp status
-    output(create(0x105));  // Send door statuses
-    testWaitForTimeout(500);  // Allow BCM init
-    testStep("BCM Initialized Successfully");
-}
+testcase TC01_BasicLockUnlock() {
+    testStep("TC01 - BCM Basic Lock/Unlock Test");
 
-void CleanupBCMEnvironment() {
-    testStep("Cleaning up BCM Environment");
-    // Reset to unlocked and IGN OFF
-    GW_MHU_BCM_DoorsCtrl_0x10D.MHU_BCM_RemoteDoorCtrl = 2;  // Unlock
+    // Bu?c 1: G?i l?nh khóa c?a (Remote Lock)
+    GW_MHU_BCM_DoorsCtrl_0x10D.MHU_BCM_RemoteDoorCtrl = 1;   // 1 = Lock
     output(create(0x10D));
-    BCM_CLAMP_STAT_0x112.STAT_CL15 = 0;  // IGN OFF
-    output(create(0x112));
+    testWaitForTimeout(1000);   // Ð?i BCM x? lý
+
+    // Ki?m tra tr?ng thái khóa c?a (4 c?a d?u ph?i = 1: Locked)
+    if (BCM_STAT_CENTRAL_LOCK_0x107.STAT_DoorLockDriver      != 1 ||
+        BCM_STAT_CENTRAL_LOCK_0x107.STAT_DoorLockPassenger  != 1 ||
+        BCM_STAT_CENTRAL_LOCK_0x107.STAT_DoorLockRL         != 1 ||
+        BCM_STAT_CENTRAL_LOCK_0x107.STAT_DoorLockRR         != 1) {
+        testStepFail("LOCK FAILED - Not all doors are locked!");
+        return;
+    }
+    testStep("All doors LOCKED successfully");
+
+    // Bu?c 2: G?i l?nh m? khóa (Remote Unlock)
+    GW_MHU_BCM_DoorsCtrl_0x10D.MHU_BCM_RemoteDoorCtrl = 2;   // 2 = Unlock
+    output(create(0x10D));
     testWaitForTimeout(1000);
-    testStep("Cleanup Complete");
-}
 
-// Test Case 1: Central Lock Command (Lock/Unlock via MHU Command)
-testcase CentralLockCommandTest() {
-    testCounter++;
-    testStep("BCM Central Lock - Command Lock/Unlock");
-    
-    // Send Lock command
-    GW_MHU_BCM_DoorsCtrl_0x10D.MHU_BCM_RemoteDoorCtrl = 1;  // 1 = Lock
-    output(create(0x10D));
-    testWaitForTimeout(800);
-    
-    // Check statuses in BCM_STAT_CENTRAL_LOCK_0x107
-    if (BCM_STAT_CENTRAL_LOCK_0x107.STAT_DoorLockDriver != 1 ||  // 1 = Locked (assuming value desc: 1 "Locked", 0 "Unlocked")
-        BCM_STAT_CENTRAL_LOCK_0x107.STAT_DoorLockPassenger != 1 ||
-        BCM_STAT_CENTRAL_LOCK_0x107.STAT_DoorLockRL != 1 ||
-        BCM_STAT_CENTRAL_LOCK_0x107.STAT_DoorLockRR != 1) {
-        testStepFail("Lock failed - Not all doors locked");
+    // Ki?m tra tr?ng thái m? khóa (4 c?a d?u ph?i = 0: Unlocked)
+    if (BCM_STAT_CENTRAL_LOCK_0x107.STAT_DoorLockDriver      != 0 ||
+        BCM_STAT_CENTRAL_LOCK_0x107.STAT_DoorLockPassenger  != 0 ||
+        BCM_STAT_CENTRAL_LOCK_0x107.STAT_DoorLockRL         != 0 ||
+        BCM_STAT_CENTRAL_LOCK_0x107.STAT_DoorLockRR         != 0) {
+        testStepFail("UNLOCK FAILED - Not all doors are unlocked!");
         return;
     }
-    
-    // Send Unlock command
-    GW_MHU_BCM_DoorsCtrl_0x10D.MHU_BCM_RemoteDoorCtrl = 2;  // 2 = Unlock
-    output(create(0x10D));
-    testWaitForTimeout(800);
-    
-    if (BCM_STAT_CENTRAL_LOCK_0x107.STAT_DoorLockDriver != 0 ||
-        BCM_STAT_CENTRAL_LOCK_0x107.STAT_DoorLockPassenger != 0 ||
-        BCM_STAT_CENTRAL_LOCK_0x107.STAT_DoorLockRL != 0 ||
-        BCM_STAT_CENTRAL_LOCK_0x107.STAT_DoorLockRR != 0) {
-        testStepFail("Unlock failed - Not all doors unlocked");
-        return;
-    }
-    
-    testStepPass("Central Lock Command Passed");
-}
 
-// Test Case 2: Remote Unlock (Selective Unlock - Driver Door Only if Configured)
-testcase RemoteUnlockTest() {
-    testCounter++;
-    testStep("BCM Remote Unlock - Selective Driver Door");
-    
-    // Set configuration for selective unlock (if reserved, assume all doors for simplicity)
-    GW_MHU_DoorSetting_0x401.MHU_SET_RemoteDoorUnlock_reserved = 1;  // 1 = Driver door (if applicable)
-    output(create(0x401));
-    testWaitForTimeout(500);
-    
-    // Simulate remote unlock request
-    GW_MHU_BCM_DoorsCtrl_0x10D.MHU_BCM_RemoteDoorCtrl = 2;  // Unlock
-    output(create(0x10D));
-    testWaitForTimeout(800);
-    
-    // Check feedback and statuses
-    if (BCM_Comfort_Confirm_sts_0x41d.BCM_STAT_RemoteDoorUnlock_reserved != 1 ||  // Feedback: 1 = Driver door
-        BCM_STAT_CENTRAL_LOCK_0x107.STAT_DoorLockDriver != 0 ||  // Unlocked
-        BCM_STAT_CENTRAL_LOCK_0x107.STAT_DoorLockPassenger == 0) {  // Others still locked
-        testStepFail("Remote selective unlock failed");
-        return;
-    }
-    
-    // Verify feedback (e.g., lights/horn)
-    if (BCM_Comfort_Confirm_sts_0x41d.BCM_STAT_RemoteLockFeedback != 2) {  // 2 = Lights Only (example)
-        testStepFail("Remote feedback mismatch");
-        return;
-    }
-    
-    testStepPass("Remote Unlock Passed");
-}
-
-// Test Case 3: Auto Door Unlock (When IGN OFF or Gear P/N)
-testcase AutoDoorUnlockTest() {
-    testCounter++;
-    testStep("BCM Auto Door Unlock - IGN OFF Trigger");
-    
-    // Enable auto unlock setting
-    GW_MHU_DoorSetting_0x401.MHU_SET_AutoUnlockDoor = 1;  // 1 = ON
-    output(create(0x401));
-    testWaitForTimeout(500);
-    
-    // Simulate doors locked first
-    GW_MHU_BCM_DoorsCtrl_0x10D.MHU_BCM_RemoteDoorCtrl = 1;  // Lock
-    output(create(0x10D));
-    testWaitForTimeout(800);
-    
-    // Trigger auto unlock: IGN OFF (or simulate gear P/N via VCU signals if needed)
-    BCM_CLAMP_STAT_0x112.STAT_CL15 = 0;  // IGN OFF
-    output(create(0x112));
-    testWaitForTimeout(1000);  // Allow BCM to process
-    
-    // Check all doors unlocked
-    if (BCM_STAT_CENTRAL_LOCK_0x107.STAT_DoorLockDriver != 0 ||
-        BCM_STAT_CENTRAL_LOCK_0x107.STAT_DoorLockPassenger != 0 ||
-        BCM_STAT_CENTRAL_LOCK_0x107.STAT_DoorLockRL != 0 ||
-        BCM_STAT_CENTRAL_LOCK_0x107.STAT_DoorLockRR != 0) {
-        testStepFail("Auto unlock failed on IGN OFF");
-        return;
-    }
-    
-    // Check feedback in BCM_Comfort_Confirm_sts_0x41d
-    if (BCM_Comfort_Confirm_sts_0x41d.BCM_STAT_AutoDoorUnlock != 1) {  // 1 = ON (confirmed)
-        testStepFail("Auto unlock feedback mismatch");
-        return;
-    }
-    
-    testStepPass("Auto Door Unlock Passed");
-}
-
-// Test Case 4: Door Speed Lock (Auto Lock at Speed Threshold)
-testcase DoorSpeedLockTest() {
-    testCounter++;
-    testStep("BCM Door Speed Lock - Speed Threshold Trigger");
-    
-    // Set speed lock to 10KMH
-    GW_MHU_DoorSetting_0x401.MHU_SET_DoorSpeedLock = 2;  // 2 = 10KMH
-    output(create(0x401));
-    testWaitForTimeout(500);
-    
-    // Simulate vehicle speed below threshold (unlock doors first if needed)
-    GW_ABS_WheelSpdR_0x342.ABS_VehSpd = 5.0;  // Below 10KMH
-    output(create(0x342));
-    testWaitForTimeout(800);
-    
-    // Increase speed above threshold
-    GW_ABS_WheelSpdR_0x342.ABS_VehSpd = 15.0;  // Above 10KMH
-    output(create(0x342));
-    testWaitForTimeout(1000);  // Allow BCM to auto-lock
-    
-    // Check doors locked
-    if (BCM_STAT_CENTRAL_LOCK_0x107.STAT_DoorLockDriver != 1 ||
-        BCM_STAT_CENTRAL_LOCK_0x107.STAT_DoorLockPassenger != 1 ||
-        BCM_STAT_CENTRAL_LOCK_0x107.STAT_DoorLockRL != 1 ||
-        BCM_STAT_CENTRAL_LOCK_0x107.STAT_DoorLockRR != 1) {
-        testStepFail("Speed lock failed at threshold");
-        return;
-    }
-    
-    // Check feedback
-    if (BCM_Comfort_Confirm_sts_0x41d.BCM_STAT_DoorSpeedLock != 2) {  // 2 = 10KMH (confirmed)
-        testStepFail("Speed lock feedback mismatch");
-        return;
-    }
-    
-    testStepPass("Door Speed Lock Passed");
+    testStepPass("TC01 - Basic Lock & Unlock PASSED perfectly!");
 }
