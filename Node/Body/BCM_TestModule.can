@@ -1,45 +1,56 @@
 /*@!Encoding:1252*/
-// File: TC01_BCM_Basic_Lock_Unlock.can
-// Test Case 01: BCM Central Locking - Basic Lock & Unlock
-// Dùng dúng signal th?t trong VF5 Body CAN Matrix V9.1.0
+// TC01_BCM_Basic_LockUnlock.can
+// Test Module CAPL - Ch?y du?c ngay trong Test Environment
+// Dùng dúng signal th?t c?a VF5 Body CAN Matrix V9.1.0
 
-on start {
-    setTestGroup("TC01 - BCM Basic Lock/Unlock");
-    TC01_BasicLockUnlock();
-    write("=== TC01 Completed ===");
+variables
+{
+    message 0x10D msg10D;      // GW_MHU_BCM_DoorsCtrl_0x10D
+    message 0x107 msg107;      // BCM_STAT_CENTRAL_LOCK_0x107
 }
 
-testcase TC01_BasicLockUnlock() {
-    testStep("TC01 - BCM Basic Lock/Unlock Test");
+// Ðây là entry point dúng c?a Test Module (không dùng on start)
+on startMeasurement
+{
+    setTestCaseTitle("TC01 - BCM Basic Lock & Unlock");
+    TC01_BasicLockUnlock();
+}
 
-    // Bu?c 1: G?i l?nh khóa c?a (Remote Lock)
-    GW_MHU_BCM_DoorsCtrl_0x10D.MHU_BCM_RemoteDoorCtrl = 1;   // 1 = Lock
-    output(create(0x10D));
-    testWaitForTimeout(1000);   // Ð?i BCM x? lý
+// Test case chính
+testcase TC01_BasicLockUnlock()
+{
+    testStep("B?t d?u ki?m tra Lock ? Unlock co b?n");
 
-    // Ki?m tra tr?ng thái khóa c?a (4 c?a d?u ph?i = 1: Locked)
-    if (BCM_STAT_CENTRAL_LOCK_0x107.STAT_DoorLockDriver      != 1 ||
-        BCM_STAT_CENTRAL_LOCK_0x107.STAT_DoorLockPassenger  != 1 ||
-        BCM_STAT_CENTRAL_LOCK_0x107.STAT_DoorLockRL         != 1 ||
-        BCM_STAT_CENTRAL_LOCK_0x107.STAT_DoorLockRR         != 1) {
-        testStepFail("LOCK FAILED - Not all doors are locked!");
-        return;
-    }
-    testStep("All doors LOCKED successfully");
-
-    // Bu?c 2: G?i l?nh m? khóa (Remote Unlock)
-    GW_MHU_BCM_DoorsCtrl_0x10D.MHU_BCM_RemoteDoorCtrl = 2;   // 2 = Unlock
-    output(create(0x10D));
+    // === B1: G?i l?nh KHÓA C?A ===
+    msg10D.byte(0) = 1;                         // MHU_BCM_RemoteDoorCtrl = 1 (Lock)
+    output(msg10D);
     testWaitForTimeout(1000);
 
-    // Ki?m tra tr?ng thái m? khóa (4 c?a d?u ph?i = 0: Unlocked)
-    if (BCM_STAT_CENTRAL_LOCK_0x107.STAT_DoorLockDriver      != 0 ||
-        BCM_STAT_CENTRAL_LOCK_0x107.STAT_DoorLockPassenger  != 0 ||
-        BCM_STAT_CENTRAL_LOCK_0x107.STAT_DoorLockRL         != 0 ||
-        BCM_STAT_CENTRAL_LOCK_0x107.STAT_DoorLockRR         != 0) {
-        testStepFail("UNLOCK FAILED - Not all doors are unlocked!");
+    // Ki?m tra BCM ph?n h?i t?t c? c?a d?u khóa
+    if (msg107.byte(0) != 1 ||   // STAT_DoorLockDriver
+        msg107.byte(1) != 1 ||   // STAT_DoorLockPassenger
+        msg107.byte(2) != 1 ||   // STAT_DoorLockRL
+        msg107.byte(3) != 1)     // STAT_DoorLockRR
+    {
+        testStepFail("LOCK FAILED - M?t ho?c nhi?u c?a chua khóa!");
+        return;
+    }
+    testStep("T?t c? c?a dã KHÓA thành công");
+
+    // === B2: G?i l?nh M? KHÓA ===
+    msg10D.byte(0) = 2;                         // MHU_BCM_RemoteDoorCtrl = 2 (Unlock)
+    output(msg10D);
+    testWaitForTimeout(1000);
+
+    // Ki?m tra t?t c? c?a m? khóa
+    if (msg107.byte(0) != 0 ||
+        msg107.byte(1) != 0 ||
+        msg107.byte(2) != 0 ||
+        msg107.byte(3) != 0)
+    {
+        testStepFail("UNLOCK FAILED - M?t ho?c nhi?u c?a chua m? khóa!");
         return;
     }
 
-    testStepPass("TC01 - Basic Lock & Unlock PASSED perfectly!");
+    testStepPass("TC01 PASSED - Lock & Unlock ho?t d?ng hoàn h?o!");
 }
