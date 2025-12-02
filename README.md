@@ -74,6 +74,7 @@ when each test case should be executed. The test cases are defined in the “Tes
 • Output of a message to the ECU under test (Stimulus). 
 • Waiting for the ECU’s response. 
 • Evaluation of the response if necessary.
+
 Excerpt from a test case as example of a protocol test implementation in CAPL: 
 message SeatSensorLeftRequest  msgLeftRequest; 
 message SeatSensorRightRequest msgRightRequest; 
