@@ -1,7 +1,6 @@
 I. Initial Setup
 1.1 Test Units and Test Modules 
-There are two types of Test Setups in CANoe. The Test Units Test Setup is used for executing the test cases created using vTESTstudio and the Test Modules Test Setup is used for executing the test cases 
-created in CANoe environment. 
+CANoe starts writing the test report to the hard drive in XML format during test execution.
 <img width="406" height="286" alt="image" src="https://github.com/user-attachments/assets/ba5ecd3b-0a36-4927-901d-c98c9bdab419" />
 
 1.2 Testing in CANoe 
