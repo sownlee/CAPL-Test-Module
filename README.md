@@ -4,11 +4,6 @@ There are two types of Test Setups in CANoe. The Test Units Test Setup is used f
 created in CANoe environment. 
 <img width="406" height="286" alt="image" src="https://github.com/user-attachments/assets/ba5ecd3b-0a36-4927-901d-c98c9bdab419" />
 
-![image](https://github.com/user-attachments/assets/08c5f50c-2aca-4c55-bf8d-5d1fd3087749)
-![image](https://github.com/user-attachments/assets/f2ef09ba-5032-4685-aeff-b3b22af00208)
-![image](https://github.com/user-attachments/assets/cb72f8b6-689a-429e-9c7a-526b0d20d0ae)
-![image](https://github.com/user-attachments/assets/cb88cb12-58c1-46bc-8721-9fba19728c90)
-
 1.2 Testing in CANoe 
 1.2.1 Test Architecture in CANoe
 ![image](https://github.com/user-attachments/assets/c5b15267-8514-4d65-91e1-60686a989ed3)
