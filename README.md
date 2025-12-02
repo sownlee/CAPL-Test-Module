@@ -70,3 +70,7 @@ Files” and click [Save].
 1.2.2 Creating the Test Module 
 The CAPL view for a test module is different than the CAPL view for a network node. There are three new event types, “Test Functions”, “Test Cases” and “Test Control”. The “Test Control” event drives which and 
 when each test case should be executed. The test cases are defined in the “Test Cases” event type. We will need to create one function for setting the details of the test module, 2 testfunctions for Pre and Post conditions and 3 test cases as per the test design mentioned in the Appendix. 
+2.1 Implementation in CANoe
+• Output of a message to the ECU under test (Stimulus). 
+• Waiting for the ECU’s response. 
+• Evaluation of the response if necessary.
