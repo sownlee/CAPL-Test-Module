@@ -14,7 +14,7 @@ CANoe Testing Feature Suite is a set of tools built into CANoe that helps you:
 - **Manage test cases** by group and module
 - **Integrate with Test Management Systems**
 
-###1.2 Test System Architecture
+### 1.2 Test System Architecture
 ```
 ┌─────────────────────────────────────────┐
 │         CANoe Test Module               │
@@ -42,53 +42,29 @@ Each test step and test case can have the following results:
 - **NONE** - No result yet
 ![image](https://github.com/user-attachments/assets/c5b15267-8514-4d65-91e1-60686a989ed3)
 
-variables {
-    msTimer testTimer;
-}
+### Step 4: Write Test Case
 
-// Test Module
-on start {
-    // init test environment
-    InitializeTestEnvironment();
-    
-    // Test Group: Safety Features
-    setTestGroup("Safety_Features");
-    
-    // Test Cases
-    DoorLockTest();
-    WindowSafetyTest();
-    AirbagTest();
-    
-    // Test Group: Comfort Features
-    setTestGroup("Comfort_Features");
-    
-    // Test Cases
-    ClimateControlTest();
-    AutoLightTest();
-    
-    // Cleanup
-    CleanupTestEnvironment();
-}
+**Purpose:** Test a specific function of the ECU
 
-testcase DoorLockTest() {
-    testStep("Check basic lock function");
-    @sysvar::LockRequest = LOCK;
-    testWaitForTimeout(500);
-    
-    if (@sysvar::LockState != LOCKED) {
-        testStepFail("Door lock failed");
-        return;
-    }
-    
-    testStep("Check speed-dependent auto lock");
-    @sysvar::VehicleSpeed = 20;
-    testWaitForTimeout(1000);
-    
-    if (@sysvar::LockState != LOCKED) {
-        testStepFail("Auto lock at speed failed");
-    }
+**Basic structure:**
+
+```capl
+testcase NameTestCase()
+{
+// 1. Name the test case
+TestCaseTitle("Group", "Test name");
+
+// 2. Prepare the environment
+PreConditions();
+
+// 3. Test steps
+testStep("", "Step description");
+// ... execute the test ...
+
+// 4. Clean up
+PostConditions();
 }
-*/                            
+```                           
 CANoe has a built-in testing feature where test cases may be implemented in CAPL language. With CAPL, test cases will be executed in the order in which they are written in the “MainTest()” test control. Also, it is important to note that the functionality of a test module CAPL program is not quite the same as that of a regular CAPL program written to simulate a network node. 
 
 1.1.1 Configuration 
