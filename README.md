@@ -1,6 +1,20 @@
-I. Initial Setup
-1.1 Test Units and Test Modules 
-CANoe starts writing the test report to the hard drive in XML format during test execution.
+# Testing Tutorial with CANoe - CAPL Test Module
+
+## Table of Contents
+1. [Overview of CANoe Testing]
+2. [Test Module Structure]
+3. [Step-by-Step Guide]
+4. [Real-Life Examples from Project]
+5. [Best Practices]
+### 1.1 What is CANoe Testing Feature Suite?
+
+CANoe Testing Feature Suite is a set of tools built into CANoe that helps you:
+- **Create and execute test cases** in a structured way
+- **Automatically generate test reports** (test result reports)
+- **Manage test cases** by group and module
+- **Integrate with Test Management Systems**
+
+###1.2 Test System Architecture
 <img width="406" height="286" alt="image" src="https://github.com/user-attachments/assets/ba5ecd3b-0a36-4927-901d-c98c9bdab419" />
 
 1.2 Testing in CANoe 
