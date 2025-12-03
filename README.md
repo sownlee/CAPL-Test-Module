@@ -15,6 +15,22 @@ CANoe Testing Feature Suite is a set of tools built into CANoe that helps you:
 - **Integrate with Test Management Systems**
 
 ###1.2 Test System Architecture
+```
+┌─────────────────────────────────────────┐
+│         CANoe Test Module               │
+│  (CAPL/.NET/XML file)                   │
+├─────────────────────────────────────────┤
+│  • Test Module                          │
+│    └── Test Groups                      │
+│        └── Test Cases                   │
+│            └── Test Steps               │
+└─────────────────────────────────────────┘
+           │
+           ├──→ Bus Simulation
+           ├──→ System Variables (I/O)
+           ├──→ ECU Under Test (SUT)
+           └──→ Test Report (XML/HTML)
+```
 <img width="406" height="286" alt="image" src="https://github.com/user-attachments/assets/ba5ecd3b-0a36-4927-901d-c98c9bdab419" />
 
 1.2 Testing in CANoe 
