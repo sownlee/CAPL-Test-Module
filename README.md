@@ -142,3 +142,63 @@ TestWaitForSysVarValue(@sysvar::Main::Velocity, 16, 200);
 ```
 - **Use when:** Wait for a system variable to reach a specific value
 - **Example:** Wait for the vehicle speed to reach 16 km/h
+
+**Giải thích về Wait Multiple Messages:**
+
+```capl
+ind1 = testJoinMessageEvent(EngineStatus); 
+ind2 = testJoinMessageEvent(LockingState); 
+testWaitForAllJoinedEvents(200); 
+testGetWaitEventMsgData(ind1, EngState); 
+testGetWaitEventMsgData(ind2, LockSysState);
+```
+
+1. **`testJoinMessageEvent()`**: Đăng ký chờ một message
+   - Trả về một identifier (ind1, ind2)
+
+2. **`testWaitForAllJoinedEvents(200)`**: Chờ TẤT CẢ các message đã đăng ký
+   - Timeout: 200ms
+   - **Tác dụng:** Đợi cả 2 message cùng lúc thay vì chờ từng cái một
+
+3. **`testGetWaitEventMsgData(ind, msg)`**: Lấy dữ liệu từ message đã chờ
+   - Dùng identifier để biết lấy message nào
+
+**Lý do dùng:** Khi cần kiểm tra 2 message cùng lúc để đảm bảo logic đúng
+
+---
+
+### Bước 6: MainTest() - Entry Point
+
+**Mục đích:** Điểm bắt đầu khi test module được chạy
+
+**Ví dụ từ project:**
+
+```capl
+void MainTest() 
+{ 
+  cf_testPreparation();  // Thiết lập test module
+  ctc_RequestLock();     // Chạy test case
+}
+```
+
+**Giải thích:**
+
+1. **`MainTest()`**: Hàm tự động được gọi khi test module start
+   - **Tác dụng:** Điểm khởi đầu của mọi thứ
+   - **Lý do:** CANoe sẽ tự gọi hàm này
+
+2. **Thứ tự thực thi:**
+   - Bước 1: `cf_testPreparation()` - Thiết lập thông tin test module
+   - Bước 2: `ctc_RequestLock()` - Chạy test case
+
+**Lưu ý:** 
+- Nếu muốn chạy nhiều test cases, có thể gọi nhiều lần:
+```capl
+void MainTest() 
+{ 
+  cf_testPreparation();
+  ctc_RequestLock();
+  ctc_AutoLock();
+  // ... các test case khác
+}
+```
