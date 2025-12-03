@@ -33,8 +33,13 @@ CANoe Testing Feature Suite is a set of tools built into CANoe that helps you:
 ```
 <img width="406" height="286" alt="image" src="https://github.com/user-attachments/assets/ba5ecd3b-0a36-4927-901d-c98c9bdab419" />
 
-1.2 Testing in CANoe 
-1.2.1 Test Architecture in CANoe
+### 2.2 Verdicts (Test Results)
+
+Each test step and test case can have the following results:
+- **PASS** ✅ - Test successful
+- **FAIL** ❌ - Test failed
+- **INCONCLUSIVE** ⚠️ - Result not determined
+- **NONE** - No result yet
 ![image](https://github.com/user-attachments/assets/c5b15267-8514-4d65-91e1-60686a989ed3)
 
 variables {
