@@ -16,7 +16,7 @@ cf_testPreparation();
 //ctc_RequestLock();
 ctc_TimeoutSignal();
 } 
-void cf_testPreparation() 
+/*void cf_testPreparation() 
 { 
 /* Add Description of Test Module */ 
 TestModuleDescription("Sample test cases written in CAPL."); 
@@ -26,7 +26,7 @@ TestReportAddEngineerInfo("Tester name", "Le Dinh Giang Son");
 TestReportAddSetupInfo("CANoe", "Version 15.0"); 
 TestReportAddSetupInfo("vTestStudio", "Version 5.0"); 
 TestReportAddSUTInfo ("SUT", "Doors ECU"); 
-} 
+} */
 testfunction PreConditions() 
 { 
     testStep("Pre-cond","Start"); 
