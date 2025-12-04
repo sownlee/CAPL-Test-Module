@@ -27,7 +27,7 @@ TestReportAddSetupInfo("CANoe", "Version 15.0");
 TestReportAddSetupInfo("vTestStudio", "Version 5.0"); 
 TestReportAddSUTInfo ("SUT", "Doors ECU"); 
 } */
-testfunction PreConditions() 
+/*testfunction PreConditions() 
 { 
     testStep("Pre-cond","Start"); 
     testStep("","Set Ignition to ON"); 
@@ -35,9 +35,9 @@ testfunction PreConditions()
     @sysvar::testNS::IgnitionStart = @sysvar::testNS::IgnitionStart::Ign_ON; 
     testWaitForTimeout(500); 
     testStep("Pre-cond","End"); 
-} 
+} */
 
-testfunction PostConditions() 
+/*testfunction PostConditions() 
 { 
     testStep("Post-cond","Start"); 
     testStep("","Set Ignition to OFF"); 
@@ -45,7 +45,7 @@ testfunction PostConditions()
     @sysvar::testNS::IgnitionStart = @sysvar::testNS::IgnitionStart::Ign_OFF; 
     testWaitForTimeout(500); 
     testStep("Post-cond","End"); 
-}
+}*/
 testcase ctc_TimeoutSignal()
 {
   int waitRes;
