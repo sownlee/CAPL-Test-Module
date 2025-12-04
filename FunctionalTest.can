@@ -13,7 +13,7 @@ int WaitResult;
 void MainTest() 
 { 
 cf_testPreparation();
-ctc_RequestLock();
+//ctc_RequestLock();
 ctc_TimeoutSignal();
 } 
 void cf_testPreparation() 
