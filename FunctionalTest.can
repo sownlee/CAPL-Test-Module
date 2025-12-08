@@ -8,7 +8,6 @@ variables
 {
 const dword kWAIT_TIMEOUT = 500; // 500msecs 
 int WaitResult;
-message GW_BCM_DoorSts_0x3D0 msg;
 }
 
 void MainTest() 
