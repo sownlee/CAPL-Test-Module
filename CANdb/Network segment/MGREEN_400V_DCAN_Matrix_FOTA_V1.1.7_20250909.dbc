@@ -1,0 +1,1511 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: VCU EVCC OBD
+
+
+BO_ 1708 VCU_DiagReq: 8 OBD
+ SG_ VCU_DiagReqData0 : 7|8@0+ (1,0) [0|255] ""  VCU
+ SG_ VCU_DiagReqData1 : 15|8@0+ (1,0) [0|255] ""  VCU
+ SG_ VCU_DiagReqData2 : 23|8@0+ (1,0) [0|255] ""  VCU
+ SG_ VCU_DiagReqData3 : 31|8@0+ (1,0) [0|255] ""  VCU
+ SG_ VCU_DiagReqData4 : 39|8@0+ (1,0) [0|255] ""  VCU
+ SG_ VCU_DiagReqData5 : 47|8@0+ (1,0) [0|255] ""  VCU
+ SG_ VCU_DiagReqData6 : 55|8@0+ (1,0) [0|255] ""  VCU
+ SG_ VCU_DiagReqData7 : 63|8@0+ (1,0) [0|255] ""  VCU
+
+BO_ 1580 VCU_DiagResp: 8 VCU
+ SG_ VCU_DiagRespData0 : 7|8@0+ (1,0) [0|255] ""  OBD
+ SG_ VCU_DiagRespData1 : 15|8@0+ (1,0) [0|255] ""  OBD
+ SG_ VCU_DiagRespData2 : 23|8@0+ (1,0) [0|255] ""  OBD
+ SG_ VCU_DiagRespData3 : 31|8@0+ (1,0) [0|255] ""  OBD
+ SG_ VCU_DiagRespData4 : 39|8@0+ (1,0) [0|255] ""  OBD
+ SG_ VCU_DiagRespData5 : 47|8@0+ (1,0) [0|255] ""  OBD
+ SG_ VCU_DiagRespData6 : 55|8@0+ (1,0) [0|255] ""  OBD
+ SG_ VCU_DiagRespData7 : 63|8@0+ (1,0) [0|255] ""  OBD
+
+BO_ 1683 BMS_DiagReq: 8 OBD
+ SG_ BMS_DiagReqData0 : 7|8@0+ (1,0) [0|255] ""  VCU
+ SG_ BMS_DiagReqData1 : 15|8@0+ (1,0) [0|255] ""  VCU
+ SG_ BMS_DiagReqData2 : 23|8@0+ (1,0) [0|255] ""  VCU
+ SG_ BMS_DiagReqData3 : 31|8@0+ (1,0) [0|255] ""  VCU
+ SG_ BMS_DiagReqData4 : 39|8@0+ (1,0) [0|255] ""  VCU
+ SG_ BMS_DiagReqData5 : 47|8@0+ (1,0) [0|255] ""  VCU
+ SG_ BMS_DiagReqData6 : 55|8@0+ (1,0) [0|255] ""  VCU
+ SG_ BMS_DiagReqData7 : 63|8@0+ (1,0) [0|255] ""  VCU
+
+BO_ 1555 BMS_DiagResp: 8 VCU
+ SG_ BMS_DiagRespData0 : 7|8@0+ (1,0) [0|255] ""  OBD
+ SG_ BMS_DiagRespData1 : 15|8@0+ (1,0) [0|255] ""  OBD
+ SG_ BMS_DiagRespData2 : 23|8@0+ (1,0) [0|255] ""  OBD
+ SG_ BMS_DiagRespData3 : 31|8@0+ (1,0) [0|255] ""  OBD
+ SG_ BMS_DiagRespData4 : 39|8@0+ (1,0) [0|255] ""  OBD
+ SG_ BMS_DiagRespData5 : 47|8@0+ (1,0) [0|255] ""  OBD
+ SG_ BMS_DiagRespData6 : 55|8@0+ (1,0) [0|255] ""  OBD
+ SG_ BMS_DiagRespData7 : 63|8@0+ (1,0) [0|255] ""  OBD
+
+BO_ 1704 EPS_DiagReq: 8 OBD
+ SG_ EPS_DiagReqData0 : 7|8@0+ (1,0) [0|255] ""  VCU
+ SG_ EPS_DiagReqData1 : 15|8@0+ (1,0) [0|255] ""  VCU
+ SG_ EPS_DiagReqData2 : 23|8@0+ (1,0) [0|255] ""  VCU
+ SG_ EPS_DiagReqData3 : 31|8@0+ (1,0) [0|255] ""  VCU
+ SG_ EPS_DiagReqData4 : 39|8@0+ (1,0) [0|255] ""  VCU
+ SG_ EPS_DiagReqData5 : 47|8@0+ (1,0) [0|255] ""  VCU
+ SG_ EPS_DiagReqData6 : 55|8@0+ (1,0) [0|255] ""  VCU
+ SG_ EPS_DiagReqData7 : 63|8@0+ (1,0) [0|255] ""  VCU
+
+BO_ 1576 EPS_DiagResp: 8 VCU
+ SG_ EPS_DiagRespData0 : 7|8@0+ (1,0) [0|255] ""  OBD
+ SG_ EPS_DiagRespData1 : 15|8@0+ (1,0) [0|255] ""  OBD
+ SG_ EPS_DiagRespData2 : 23|8@0+ (1,0) [0|255] ""  OBD
+ SG_ EPS_DiagRespData3 : 31|8@0+ (1,0) [0|255] ""  OBD
+ SG_ EPS_DiagRespData4 : 39|8@0+ (1,0) [0|255] ""  OBD
+ SG_ EPS_DiagRespData5 : 47|8@0+ (1,0) [0|255] ""  OBD
+ SG_ EPS_DiagRespData6 : 55|8@0+ (1,0) [0|255] ""  OBD
+ SG_ EPS_DiagRespData7 : 63|8@0+ (1,0) [0|255] ""  OBD
+
+BO_ 1691 EDS_DiagReq: 8 OBD
+ SG_ EDS_DiagReqData0 : 7|8@0+ (1,0) [0|255] ""  VCU
+ SG_ EDS_DiagReqData1 : 15|8@0+ (1,0) [0|255] ""  VCU
+ SG_ EDS_DiagReqData2 : 23|8@0+ (1,0) [0|255] ""  VCU
+ SG_ EDS_DiagReqData3 : 31|8@0+ (1,0) [0|255] ""  VCU
+ SG_ EDS_DiagReqData4 : 39|8@0+ (1,0) [0|255] ""  VCU
+ SG_ EDS_DiagReqData5 : 47|8@0+ (1,0) [0|255] ""  VCU
+ SG_ EDS_DiagReqData6 : 55|8@0+ (1,0) [0|255] ""  VCU
+ SG_ EDS_DiagReqData7 : 63|8@0+ (1,0) [0|255] ""  VCU
+
+BO_ 1563 EDS_DiagResp: 8 VCU
+ SG_ EDS_DiagRespData0 : 7|8@0+ (1,0) [0|255] ""  OBD
+ SG_ EDS_DiagRespData1 : 15|8@0+ (1,0) [0|255] ""  OBD
+ SG_ EDS_DiagRespData2 : 23|8@0+ (1,0) [0|255] ""  OBD
+ SG_ EDS_DiagRespData3 : 31|8@0+ (1,0) [0|255] ""  OBD
+ SG_ EDS_DiagRespData4 : 39|8@0+ (1,0) [0|255] ""  OBD
+ SG_ EDS_DiagRespData5 : 47|8@0+ (1,0) [0|255] ""  OBD
+ SG_ EDS_DiagRespData6 : 55|8@0+ (1,0) [0|255] ""  OBD
+ SG_ EDS_DiagRespData7 : 63|8@0+ (1,0) [0|255] ""  OBD
+
+BO_ 1597 DCDC_DiagResp: 8 VCU
+ SG_ DCDC_DiagRespData0 : 7|8@0+ (1,0) [0|255] ""  OBD
+ SG_ DCDC_DiagRespData1 : 15|8@0+ (1,0) [0|255] ""  OBD
+ SG_ DCDC_DiagRespData2 : 23|8@0+ (1,0) [0|255] ""  OBD
+ SG_ DCDC_DiagRespData3 : 31|8@0+ (1,0) [0|255] ""  OBD
+ SG_ DCDC_DiagRespData4 : 39|8@0+ (1,0) [0|255] ""  OBD
+ SG_ DCDC_DiagRespData5 : 47|8@0+ (1,0) [0|255] ""  OBD
+ SG_ DCDC_DiagRespData6 : 55|8@0+ (1,0) [0|255] ""  OBD
+ SG_ DCDC_DiagRespData7 : 63|8@0+ (1,0) [0|255] ""  OBD
+
+BO_ 1725 DCDC_DiagReq: 8 OBD
+ SG_ DCDC_DiagReqData0 : 7|8@0+ (1,0) [0|255] ""  VCU
+ SG_ DCDC_DiagReqData1 : 15|8@0+ (1,0) [0|255] ""  VCU
+ SG_ DCDC_DiagReqData2 : 23|8@0+ (1,0) [0|255] ""  VCU
+ SG_ DCDC_DiagReqData3 : 31|8@0+ (1,0) [0|255] ""  VCU
+ SG_ DCDC_DiagReqData4 : 39|8@0+ (1,0) [0|255] ""  VCU
+ SG_ DCDC_DiagReqData5 : 47|8@0+ (1,0) [0|255] ""  VCU
+ SG_ DCDC_DiagReqData6 : 55|8@0+ (1,0) [0|255] ""  VCU
+ SG_ DCDC_DiagReqData7 : 63|8@0+ (1,0) [0|255] ""  VCU
+
+BO_ 1695 EVCC_DiagReq: 8 OBD
+ SG_ EVCC_DiagReqData0 : 7|8@0+ (1,0) [0|255] ""  VCU,EVCC
+ SG_ EVCC_DiagReqData1 : 15|8@0+ (1,0) [0|255] ""  VCU,EVCC
+ SG_ EVCC_DiagReqData2 : 23|8@0+ (1,0) [0|255] ""  VCU,EVCC
+ SG_ EVCC_DiagReqData3 : 31|8@0+ (1,0) [0|255] ""  VCU,EVCC
+ SG_ EVCC_DiagReqData4 : 39|8@0+ (1,0) [0|255] ""  VCU,EVCC
+ SG_ EVCC_DiagReqData5 : 47|8@0+ (1,0) [0|255] ""  VCU,EVCC
+ SG_ EVCC_DiagReqData6 : 55|8@0+ (1,0) [0|255] ""  VCU,EVCC
+ SG_ EVCC_DiagReqData7 : 63|8@0+ (1,0) [0|255] ""  VCU,EVCC
+
+BO_ 1567 EVCC_DiagResp: 8 VCU
+ SG_ EVCC_DiagRespData0 : 7|8@0+ (1,0) [0|255] ""  OBD
+ SG_ EVCC_DiagRespData1 : 15|8@0+ (1,0) [0|255] ""  OBD
+ SG_ EVCC_DiagRespData2 : 23|8@0+ (1,0) [0|255] ""  OBD
+ SG_ EVCC_DiagRespData3 : 31|8@0+ (1,0) [0|255] ""  OBD
+ SG_ EVCC_DiagRespData4 : 39|8@0+ (1,0) [0|255] ""  OBD
+ SG_ EVCC_DiagRespData5 : 47|8@0+ (1,0) [0|255] ""  OBD
+ SG_ EVCC_DiagRespData6 : 55|8@0+ (1,0) [0|255] ""  OBD
+ SG_ EVCC_DiagRespData7 : 63|8@0+ (1,0) [0|255] ""  OBD
+
+BO_ 1791 DiagFunctionalAddressing: 8 OBD
+ SG_ DiagFunctionalAddressingData0 : 7|8@0+ (1,0) [0|255] ""  VCU
+ SG_ DiagFunctionalAddressingData1 : 15|8@0+ (1,0) [0|255] ""  VCU
+ SG_ DiagFunctionalAddressingData2 : 23|8@0+ (1,0) [0|255] ""  VCU
+ SG_ DiagFunctionalAddressingData3 : 31|8@0+ (1,0) [0|255] ""  VCU
+ SG_ DiagFunctionalAddressingData4 : 39|8@0+ (1,0) [0|255] ""  VCU
+ SG_ DiagFunctionalAddressingData5 : 47|8@0+ (1,0) [0|255] ""  VCU
+ SG_ DiagFunctionalAddressingData6 : 55|8@0+ (1,0) [0|255] ""  VCU
+ SG_ DiagFunctionalAddressingData7 : 63|8@0+ (1,0) [0|255] ""  VCU
+
+BO_ 1680 SS_DiagReq: 8 OBD
+ SG_ SS_DiagReqData7 : 63|8@0+ (1,0) [0|255] ""  VCU
+ SG_ SS_DiagReqData6 : 55|8@0+ (1,0) [0|255] ""  VCU
+ SG_ SS_DiagReqData5 : 47|8@0+ (1,0) [0|255] ""  VCU
+ SG_ SS_DiagReqData4 : 39|8@0+ (1,0) [0|255] ""  VCU
+ SG_ SS_DiagReqData3 : 31|8@0+ (1,0) [0|255] ""  VCU
+ SG_ SS_DiagReqData2 : 23|8@0+ (1,0) [0|255] ""  VCU
+ SG_ SS_DiagReqData1 : 15|8@0+ (1,0) [0|255] ""  VCU
+ SG_ SS_DiagReqData0 : 7|8@0+ (1,0) [0|255] ""  VCU
+
+BO_ 1552 SS_DiagResp: 8 VCU
+ SG_ SS_DiagRespData7 : 63|8@0+ (1,0) [0|255] ""  OBD
+ SG_ SS_DiagRespData6 : 55|8@0+ (1,0) [0|255] ""  OBD
+ SG_ SS_DiagRespData5 : 47|8@0+ (1,0) [0|255] ""  OBD
+ SG_ SS_DiagRespData4 : 39|8@0+ (1,0) [0|255] ""  OBD
+ SG_ SS_DiagRespData3 : 31|8@0+ (1,0) [0|255] ""  OBD
+ SG_ SS_DiagRespData2 : 23|8@0+ (1,0) [0|255] ""  OBD
+ SG_ SS_DiagRespData1 : 15|8@0+ (1,0) [0|255] ""  OBD
+ SG_ SS_DiagRespData0 : 7|8@0+ (1,0) [0|255] ""  OBD
+
+BO_ 1705 ABS_DiagReq: 8 OBD
+ SG_ ABS_DiagReqData7 : 63|8@0+ (1,0) [0|255] ""  VCU
+ SG_ ABS_DiagReqData6 : 55|8@0+ (1,0) [0|255] ""  VCU
+ SG_ ABS_DiagReqData5 : 47|8@0+ (1,0) [0|255] ""  VCU
+ SG_ ABS_DiagReqData4 : 39|8@0+ (1,0) [0|255] ""  VCU
+ SG_ ABS_DiagReqData3 : 31|8@0+ (1,0) [0|255] ""  VCU
+ SG_ ABS_DiagReqData2 : 23|8@0+ (1,0) [0|255] ""  VCU
+ SG_ ABS_DiagReqData1 : 15|8@0+ (1,0) [0|255] ""  VCU
+ SG_ ABS_DiagReqData0 : 7|8@0+ (1,0) [0|255] ""  VCU
+
+BO_ 1577 ABS_DiagResp: 8 VCU
+ SG_ ABS_DiagRespData7 : 63|8@0+ (1,0) [0|255] ""  OBD
+ SG_ ABS_DiagRespData6 : 55|8@0+ (1,0) [0|255] ""  OBD
+ SG_ ABS_DiagRespData5 : 47|8@0+ (1,0) [0|255] ""  OBD
+ SG_ ABS_DiagRespData4 : 39|8@0+ (1,0) [0|255] ""  OBD
+ SG_ ABS_DiagRespData3 : 31|8@0+ (1,0) [0|255] ""  OBD
+ SG_ ABS_DiagRespData2 : 23|8@0+ (1,0) [0|255] ""  OBD
+ SG_ ABS_DiagRespData1 : 15|8@0+ (1,0) [0|255] ""  OBD
+ SG_ ABS_DiagRespData0 : 7|8@0+ (1,0) [0|255] ""  OBD
+
+BO_ 1672 ACU_DiagReq: 8 OBD
+ SG_ ACU_DiagReqData7 : 63|8@0+ (1,0) [0|255] ""  VCU
+ SG_ ACU_DiagReqData6 : 55|8@0+ (1,0) [0|255] ""  VCU
+ SG_ ACU_DiagReqData5 : 47|8@0+ (1,0) [0|255] ""  VCU
+ SG_ ACU_DiagReqData4 : 39|8@0+ (1,0) [0|255] ""  VCU
+ SG_ ACU_DiagReqData3 : 31|8@0+ (1,0) [0|255] ""  VCU
+ SG_ ACU_DiagReqData2 : 23|8@0+ (1,0) [0|255] ""  VCU
+ SG_ ACU_DiagReqData1 : 15|8@0+ (1,0) [0|255] ""  VCU
+ SG_ ACU_DiagReqData0 : 7|8@0+ (1,0) [0|255] ""  VCU
+
+BO_ 1544 ACU_DiagResp: 8 VCU
+ SG_ ACU_DiagRespData7 : 63|8@0+ (1,0) [0|255] ""  OBD
+ SG_ ACU_DiagRespData6 : 55|8@0+ (1,0) [0|255] ""  OBD
+ SG_ ACU_DiagRespData5 : 47|8@0+ (1,0) [0|255] ""  OBD
+ SG_ ACU_DiagRespData4 : 39|8@0+ (1,0) [0|255] ""  OBD
+ SG_ ACU_DiagRespData3 : 31|8@0+ (1,0) [0|255] ""  OBD
+ SG_ ACU_DiagRespData2 : 23|8@0+ (1,0) [0|255] ""  OBD
+ SG_ ACU_DiagRespData1 : 15|8@0+ (1,0) [0|255] ""  OBD
+ SG_ ACU_DiagRespData0 : 7|8@0+ (1,0) [0|255] ""  OBD
+
+BO_ 1675 IPC_DiagReq: 8 OBD
+ SG_ IPC_DiagReqData7 : 63|8@0+ (1,0) [0|255] ""  VCU
+ SG_ IPC_DiagReqData6 : 55|8@0+ (1,0) [0|255] ""  VCU
+ SG_ IPC_DiagReqData5 : 47|8@0+ (1,0) [0|255] ""  VCU
+ SG_ IPC_DiagReqData4 : 39|8@0+ (1,0) [0|255] ""  VCU
+ SG_ IPC_DiagReqData3 : 31|8@0+ (1,0) [0|255] ""  VCU
+ SG_ IPC_DiagReqData2 : 23|8@0+ (1,0) [0|255] ""  VCU
+ SG_ IPC_DiagReqData1 : 15|8@0+ (1,0) [0|255] ""  VCU
+ SG_ IPC_DiagReqData0 : 7|8@0+ (1,0) [0|255] ""  VCU
+
+BO_ 1547 IPC_DiagResp: 8 VCU
+ SG_ IPC_DiagRespData7 : 63|8@0+ (1,0) [0|255] ""  OBD
+ SG_ IPC_DiagRespData6 : 55|8@0+ (1,0) [0|255] ""  OBD
+ SG_ IPC_DiagRespData5 : 47|8@0+ (1,0) [0|255] ""  OBD
+ SG_ IPC_DiagRespData4 : 39|8@0+ (1,0) [0|255] ""  OBD
+ SG_ IPC_DiagRespData3 : 31|8@0+ (1,0) [0|255] ""  OBD
+ SG_ IPC_DiagRespData2 : 23|8@0+ (1,0) [0|255] ""  OBD
+ SG_ IPC_DiagRespData1 : 15|8@0+ (1,0) [0|255] ""  OBD
+ SG_ IPC_DiagRespData0 : 7|8@0+ (1,0) [0|255] ""  OBD
+
+BO_ 1665 BCM_DiagReq: 8 OBD
+ SG_ BCM_DiagReqData7 : 63|8@0+ (1,0) [0|255] ""  VCU
+ SG_ BCM_DiagReqData6 : 55|8@0+ (1,0) [0|255] ""  VCU
+ SG_ BCM_DiagReqData5 : 47|8@0+ (1,0) [0|255] ""  VCU
+ SG_ BCM_DiagReqData4 : 39|8@0+ (1,0) [0|255] ""  VCU
+ SG_ BCM_DiagReqData3 : 31|8@0+ (1,0) [0|255] ""  VCU
+ SG_ BCM_DiagReqData2 : 23|8@0+ (1,0) [0|255] ""  VCU
+ SG_ BCM_DiagReqData1 : 15|8@0+ (1,0) [0|255] ""  VCU
+ SG_ BCM_DiagReqData0 : 7|8@0+ (1,0) [0|255] ""  VCU
+
+BO_ 1537 BCM_DiagResp: 8 VCU
+ SG_ BCM_DiagRespData7 : 63|8@0+ (1,0) [0|255] ""  OBD
+ SG_ BCM_DiagRespData6 : 55|8@0+ (1,0) [0|255] ""  OBD
+ SG_ BCM_DiagRespData5 : 47|8@0+ (1,0) [0|255] ""  OBD
+ SG_ BCM_DiagRespData4 : 39|8@0+ (1,0) [0|255] ""  OBD
+ SG_ BCM_DiagRespData3 : 31|8@0+ (1,0) [0|255] ""  OBD
+ SG_ BCM_DiagRespData2 : 23|8@0+ (1,0) [0|255] ""  OBD
+ SG_ BCM_DiagRespData1 : 15|8@0+ (1,0) [0|255] ""  OBD
+ SG_ BCM_DiagRespData0 : 7|8@0+ (1,0) [0|255] ""  OBD
+
+BO_ 1598 OBC_DiagResp: 8 VCU
+ SG_ OBC_DiagRespData0 : 7|8@0+ (1,0) [0|255] ""  OBD
+ SG_ OBC_DiagRespData1 : 15|8@0+ (1,0) [0|255] ""  OBD
+ SG_ OBC_DiagRespData2 : 23|8@0+ (1,0) [0|255] ""  OBD
+ SG_ OBC_DiagRespData3 : 31|8@0+ (1,0) [0|255] ""  OBD
+ SG_ OBC_DiagRespData4 : 39|8@0+ (1,0) [0|255] ""  OBD
+ SG_ OBC_DiagRespData5 : 47|8@0+ (1,0) [0|255] ""  OBD
+ SG_ OBC_DiagRespData6 : 55|8@0+ (1,0) [0|255] ""  OBD
+ SG_ OBC_DiagRespData7 : 63|8@0+ (1,0) [0|255] ""  OBD
+
+BO_ 1726 OBC_DiagReq: 8 OBD
+ SG_ OBC_DiagReqData0 : 7|8@0+ (1,0) [0|255] ""  VCU
+ SG_ OBC_DiagReqData1 : 15|8@0+ (1,0) [0|255] ""  VCU
+ SG_ OBC_DiagReqData2 : 23|8@0+ (1,0) [0|255] ""  VCU
+ SG_ OBC_DiagReqData3 : 31|8@0+ (1,0) [0|255] ""  VCU
+ SG_ OBC_DiagReqData4 : 39|8@0+ (1,0) [0|255] ""  VCU
+ SG_ OBC_DiagReqData5 : 47|8@0+ (1,0) [0|255] ""  VCU
+ SG_ OBC_DiagReqData6 : 55|8@0+ (1,0) [0|255] ""  VCU
+ SG_ OBC_DiagReqData7 : 63|8@0+ (1,0) [0|255] ""  VCU
+
+
+
+CM_ SG_ 1708 VCU_DiagReqData0 "Data0";
+CM_ SG_ 1708 VCU_DiagReqData1 "Data1";
+CM_ SG_ 1708 VCU_DiagReqData2 "Data2";
+CM_ SG_ 1708 VCU_DiagReqData3 "Data3";
+CM_ SG_ 1708 VCU_DiagReqData4 "Data4";
+CM_ SG_ 1708 VCU_DiagReqData5 "Data5";
+CM_ SG_ 1708 VCU_DiagReqData6 "Data6";
+CM_ SG_ 1708 VCU_DiagReqData7 "Data7";
+CM_ SG_ 1580 VCU_DiagRespData0 "Data0";
+CM_ SG_ 1580 VCU_DiagRespData1 "Data1";
+CM_ SG_ 1580 VCU_DiagRespData2 "Data2";
+CM_ SG_ 1580 VCU_DiagRespData3 "Data3";
+CM_ SG_ 1580 VCU_DiagRespData4 "Data4";
+CM_ SG_ 1580 VCU_DiagRespData5 "Data5";
+CM_ SG_ 1580 VCU_DiagRespData6 "Data6";
+CM_ SG_ 1580 VCU_DiagRespData7 "Data7";
+CM_ SG_ 1683 BMS_DiagReqData0 "Data0";
+CM_ SG_ 1683 BMS_DiagReqData1 "Data1";
+CM_ SG_ 1683 BMS_DiagReqData2 "Data2";
+CM_ SG_ 1683 BMS_DiagReqData3 "Data3";
+CM_ SG_ 1683 BMS_DiagReqData4 "Data4";
+CM_ SG_ 1683 BMS_DiagReqData5 "Data5";
+CM_ SG_ 1683 BMS_DiagReqData6 "Data6";
+CM_ SG_ 1683 BMS_DiagReqData7 "Data7";
+CM_ SG_ 1555 BMS_DiagRespData0 "Data0";
+CM_ SG_ 1555 BMS_DiagRespData1 "Data1";
+CM_ SG_ 1555 BMS_DiagRespData2 "Data2";
+CM_ SG_ 1555 BMS_DiagRespData3 "Data3";
+CM_ SG_ 1555 BMS_DiagRespData4 "Data4";
+CM_ SG_ 1555 BMS_DiagRespData5 "Data5";
+CM_ SG_ 1555 BMS_DiagRespData6 "Data6";
+CM_ SG_ 1555 BMS_DiagRespData7 "Data7";
+CM_ SG_ 1704 EPS_DiagReqData0 "Data0";
+CM_ SG_ 1704 EPS_DiagReqData1 "Data1";
+CM_ SG_ 1704 EPS_DiagReqData2 "Data2";
+CM_ SG_ 1704 EPS_DiagReqData3 "Data3";
+CM_ SG_ 1704 EPS_DiagReqData4 "Data4";
+CM_ SG_ 1704 EPS_DiagReqData5 "Data5";
+CM_ SG_ 1704 EPS_DiagReqData6 "Data6";
+CM_ SG_ 1704 EPS_DiagReqData7 "Data7";
+CM_ SG_ 1576 EPS_DiagRespData0 "Data0";
+CM_ SG_ 1576 EPS_DiagRespData1 "Data1";
+CM_ SG_ 1576 EPS_DiagRespData2 "Data2";
+CM_ SG_ 1576 EPS_DiagRespData3 "Data3";
+CM_ SG_ 1576 EPS_DiagRespData4 "Data4";
+CM_ SG_ 1576 EPS_DiagRespData5 "Data5";
+CM_ SG_ 1576 EPS_DiagRespData6 "Data6";
+CM_ SG_ 1576 EPS_DiagRespData7 "Data7";
+CM_ SG_ 1691 EDS_DiagReqData0 "Data0";
+CM_ SG_ 1691 EDS_DiagReqData1 "Data1";
+CM_ SG_ 1691 EDS_DiagReqData2 "Data2";
+CM_ SG_ 1691 EDS_DiagReqData3 "Data3";
+CM_ SG_ 1691 EDS_DiagReqData4 "Data4";
+CM_ SG_ 1691 EDS_DiagReqData5 "Data5";
+CM_ SG_ 1691 EDS_DiagReqData6 "Data6";
+CM_ SG_ 1691 EDS_DiagReqData7 "Data7";
+CM_ SG_ 1563 EDS_DiagRespData0 "Data0";
+CM_ SG_ 1563 EDS_DiagRespData1 "Data1";
+CM_ SG_ 1563 EDS_DiagRespData2 "Data2";
+CM_ SG_ 1563 EDS_DiagRespData3 "Data3";
+CM_ SG_ 1563 EDS_DiagRespData4 "Data4";
+CM_ SG_ 1563 EDS_DiagRespData5 "Data5";
+CM_ SG_ 1563 EDS_DiagRespData6 "Data6";
+CM_ SG_ 1563 EDS_DiagRespData7 "Data7";
+CM_ SG_ 1597 DCDC_DiagRespData0 "Data0";
+CM_ SG_ 1597 DCDC_DiagRespData1 "Data1";
+CM_ SG_ 1597 DCDC_DiagRespData2 "Data2";
+CM_ SG_ 1597 DCDC_DiagRespData3 "Data3";
+CM_ SG_ 1597 DCDC_DiagRespData4 "Data4";
+CM_ SG_ 1597 DCDC_DiagRespData5 "Data5";
+CM_ SG_ 1597 DCDC_DiagRespData6 "Data6";
+CM_ SG_ 1597 DCDC_DiagRespData7 "Data7";
+CM_ SG_ 1725 DCDC_DiagReqData0 "Data0";
+CM_ SG_ 1725 DCDC_DiagReqData1 "Data1";
+CM_ SG_ 1725 DCDC_DiagReqData2 "Data2";
+CM_ SG_ 1725 DCDC_DiagReqData3 "Data3";
+CM_ SG_ 1725 DCDC_DiagReqData4 "Data4";
+CM_ SG_ 1725 DCDC_DiagReqData5 "Data5";
+CM_ SG_ 1725 DCDC_DiagReqData6 "Data6";
+CM_ SG_ 1725 DCDC_DiagReqData7 "Data7";
+CM_ SG_ 1695 EVCC_DiagReqData0 "Data0";
+CM_ SG_ 1695 EVCC_DiagReqData1 "Data1";
+CM_ SG_ 1695 EVCC_DiagReqData2 "Data2";
+CM_ SG_ 1695 EVCC_DiagReqData3 "Data3";
+CM_ SG_ 1695 EVCC_DiagReqData4 "Data4";
+CM_ SG_ 1695 EVCC_DiagReqData5 "Data5";
+CM_ SG_ 1695 EVCC_DiagReqData6 "Data6";
+CM_ SG_ 1695 EVCC_DiagReqData7 "Data7";
+CM_ SG_ 1567 EVCC_DiagRespData0 "Data0";
+CM_ SG_ 1567 EVCC_DiagRespData1 "Data1";
+CM_ SG_ 1567 EVCC_DiagRespData2 "Data2";
+CM_ SG_ 1567 EVCC_DiagRespData3 "Data3";
+CM_ SG_ 1567 EVCC_DiagRespData4 "Data4";
+CM_ SG_ 1567 EVCC_DiagRespData5 "Data5";
+CM_ SG_ 1567 EVCC_DiagRespData6 "Data6";
+CM_ SG_ 1567 EVCC_DiagRespData7 "Data7";
+CM_ SG_ 1791 DiagFunctionalAddressingData0 "Data0";
+CM_ SG_ 1791 DiagFunctionalAddressingData1 "Data1";
+CM_ SG_ 1791 DiagFunctionalAddressingData2 "Data2";
+CM_ SG_ 1791 DiagFunctionalAddressingData3 "Data3";
+CM_ SG_ 1791 DiagFunctionalAddressingData4 "Data4";
+CM_ SG_ 1791 DiagFunctionalAddressingData5 "Data5";
+CM_ SG_ 1791 DiagFunctionalAddressingData6 "Data6";
+CM_ SG_ 1791 DiagFunctionalAddressingData7 "Data7";
+CM_ SG_ 1680 SS_DiagReqData7 "Data7";
+CM_ SG_ 1680 SS_DiagReqData6 "Data6";
+CM_ SG_ 1680 SS_DiagReqData5 "Data5";
+CM_ SG_ 1680 SS_DiagReqData4 "Data4";
+CM_ SG_ 1680 SS_DiagReqData3 "Data3";
+CM_ SG_ 1680 SS_DiagReqData2 "Data2";
+CM_ SG_ 1680 SS_DiagReqData1 "Data1";
+CM_ SG_ 1680 SS_DiagReqData0 "Data0";
+CM_ SG_ 1552 SS_DiagRespData7 "Data7";
+CM_ SG_ 1552 SS_DiagRespData6 "Data6";
+CM_ SG_ 1552 SS_DiagRespData5 "Data5";
+CM_ SG_ 1552 SS_DiagRespData4 "Data4";
+CM_ SG_ 1552 SS_DiagRespData3 "Data3";
+CM_ SG_ 1552 SS_DiagRespData2 "Data2";
+CM_ SG_ 1552 SS_DiagRespData1 "Data1";
+CM_ SG_ 1552 SS_DiagRespData0 "Data0";
+CM_ SG_ 1705 ABS_DiagReqData7 "Data7";
+CM_ SG_ 1705 ABS_DiagReqData6 "Data6";
+CM_ SG_ 1705 ABS_DiagReqData5 "Data5";
+CM_ SG_ 1705 ABS_DiagReqData4 "Data4";
+CM_ SG_ 1705 ABS_DiagReqData3 "Data3";
+CM_ SG_ 1705 ABS_DiagReqData2 "Data2";
+CM_ SG_ 1705 ABS_DiagReqData1 "Data1";
+CM_ SG_ 1705 ABS_DiagReqData0 "Data0";
+CM_ SG_ 1577 ABS_DiagRespData7 "Data7";
+CM_ SG_ 1577 ABS_DiagRespData6 "Data6";
+CM_ SG_ 1577 ABS_DiagRespData5 "Data5";
+CM_ SG_ 1577 ABS_DiagRespData4 "Data4";
+CM_ SG_ 1577 ABS_DiagRespData3 "Data3";
+CM_ SG_ 1577 ABS_DiagRespData2 "Data2";
+CM_ SG_ 1577 ABS_DiagRespData1 "Data1";
+CM_ SG_ 1577 ABS_DiagRespData0 "Data0";
+CM_ SG_ 1672 ACU_DiagReqData7 "Data7";
+CM_ SG_ 1672 ACU_DiagReqData6 "Data6";
+CM_ SG_ 1672 ACU_DiagReqData5 "Data5";
+CM_ SG_ 1672 ACU_DiagReqData4 "Data4";
+CM_ SG_ 1672 ACU_DiagReqData3 "Data3";
+CM_ SG_ 1672 ACU_DiagReqData2 "Data2";
+CM_ SG_ 1672 ACU_DiagReqData1 "Data1";
+CM_ SG_ 1672 ACU_DiagReqData0 "Data0";
+CM_ SG_ 1544 ACU_DiagRespData7 "Data7";
+CM_ SG_ 1544 ACU_DiagRespData6 "Data6";
+CM_ SG_ 1544 ACU_DiagRespData5 "Data5";
+CM_ SG_ 1544 ACU_DiagRespData4 "Data4";
+CM_ SG_ 1544 ACU_DiagRespData3 "Data3";
+CM_ SG_ 1544 ACU_DiagRespData2 "Data2";
+CM_ SG_ 1544 ACU_DiagRespData1 "Data1";
+CM_ SG_ 1544 ACU_DiagRespData0 "Data0";
+CM_ SG_ 1675 IPC_DiagReqData7 "Data7";
+CM_ SG_ 1675 IPC_DiagReqData6 "Data6";
+CM_ SG_ 1675 IPC_DiagReqData5 "Data5";
+CM_ SG_ 1675 IPC_DiagReqData4 "Data4";
+CM_ SG_ 1675 IPC_DiagReqData3 "Data3";
+CM_ SG_ 1675 IPC_DiagReqData2 "Data2";
+CM_ SG_ 1675 IPC_DiagReqData1 "Data1";
+CM_ SG_ 1675 IPC_DiagReqData0 "Data0";
+CM_ SG_ 1547 IPC_DiagRespData7 "Data7";
+CM_ SG_ 1547 IPC_DiagRespData6 "Data6";
+CM_ SG_ 1547 IPC_DiagRespData5 "Data5";
+CM_ SG_ 1547 IPC_DiagRespData4 "Data4";
+CM_ SG_ 1547 IPC_DiagRespData3 "Data3";
+CM_ SG_ 1547 IPC_DiagRespData2 "Data2";
+CM_ SG_ 1547 IPC_DiagRespData1 "Data1";
+CM_ SG_ 1547 IPC_DiagRespData0 "Data0";
+CM_ SG_ 1665 BCM_DiagReqData7 "Data7";
+CM_ SG_ 1665 BCM_DiagReqData6 "Data6";
+CM_ SG_ 1665 BCM_DiagReqData5 "Data5";
+CM_ SG_ 1665 BCM_DiagReqData4 "Data4";
+CM_ SG_ 1665 BCM_DiagReqData3 "Data3";
+CM_ SG_ 1665 BCM_DiagReqData2 "Data2";
+CM_ SG_ 1665 BCM_DiagReqData1 "Data1";
+CM_ SG_ 1665 BCM_DiagReqData0 "Data0";
+CM_ SG_ 1537 BCM_DiagRespData7 "Data7";
+CM_ SG_ 1537 BCM_DiagRespData6 "Data6";
+CM_ SG_ 1537 BCM_DiagRespData5 "Data5";
+CM_ SG_ 1537 BCM_DiagRespData4 "Data4";
+CM_ SG_ 1537 BCM_DiagRespData3 "Data3";
+CM_ SG_ 1537 BCM_DiagRespData2 "Data2";
+CM_ SG_ 1537 BCM_DiagRespData1 "Data1";
+CM_ SG_ 1537 BCM_DiagRespData0 "Data0";
+CM_ SG_ 1598 OBC_DiagRespData0 "Data0";
+CM_ SG_ 1598 OBC_DiagRespData1 "Data1";
+CM_ SG_ 1598 OBC_DiagRespData2 "Data2";
+CM_ SG_ 1598 OBC_DiagRespData3 "Data3";
+CM_ SG_ 1598 OBC_DiagRespData4 "Data4";
+CM_ SG_ 1598 OBC_DiagRespData5 "Data5";
+CM_ SG_ 1598 OBC_DiagRespData6 "Data6";
+CM_ SG_ 1598 OBC_DiagRespData7 "Data7";
+CM_ SG_ 1726 OBC_DiagReqData0 "Data0";
+CM_ SG_ 1726 OBC_DiagReqData1 "Data1";
+CM_ SG_ 1726 OBC_DiagReqData2 "Data2";
+CM_ SG_ 1726 OBC_DiagReqData3 "Data3";
+CM_ SG_ 1726 OBC_DiagReqData4 "Data4";
+CM_ SG_ 1726 OBC_DiagReqData5 "Data5";
+CM_ SG_ 1726 OBC_DiagReqData6 "Data6";
+CM_ SG_ 1726 OBC_DiagReqData7 "Data7";
+BA_DEF_ BO_  "DiagRequest" ENUM  "No","Yes";
+BA_DEF_ BO_  "DiagResponse" ENUM  "No","Yes";
+BA_DEF_ BO_  "DiagState" ENUM  "No","Yes";
+BA_DEF_ BO_  "GenMsgCycleTime" INT 0 65535;
+BA_DEF_ BO_  "GenMsgCycleTimeActive" INT 0 65535;
+BA_DEF_ BO_  "GenMsgCycleTimeFast" INT 0 65535;
+BA_DEF_ BO_  "GenMsgDelayTime" INT 0 65535;
+BA_DEF_ BO_  "GenMsgILSupport" ENUM  "No","Yes";
+BA_DEF_ BO_  "GenMsgNrOfRepetition" INT 0 65535;
+BA_DEF_ BO_  "GenMsgSendType" ENUM  "Cycle","Event","IfActive","CE","CA";
+BA_DEF_ BO_  "GenMsgStartDelayTime" INT 0 65535;
+BA_DEF_ BO_  "NmAsrMessage" ENUM  "No","Yes";
+BA_DEF_ BO_  "NmMessage" ENUM  "No","Yes";
+BA_DEF_ SG_  "GenSigSendType" ENUM  "Cycle","OnWrite","OnWriteWithRepetition","OnChange","OnChangeWithRepetition","IfActive","IfActiveWithRepetition";
+BA_DEF_ SG_  "GenSigStartValue" INT 0 2147483647;
+BA_DEF_ SG_  "GenSigTimeoutTime_ALL" INT 0 65535;
+BA_DEF_ SG_  "GenSigInvalidValue" INT 0 2147483647;
+BA_DEF_ SG_  "GenSigInactiveValue" INT 0 2147483647;
+BA_DEF_ BU_  "ILUsed" ENUM  "No","Yes";
+BA_DEF_ BU_  "NmAsrCanMsgCycleOffset" INT 0 65535;
+BA_DEF_ BU_  "NmAsrCanMsgReducedTime" INT 320 640;
+BA_DEF_ BU_  "NmAsrNode" ENUM  "No","Yes";
+BA_DEF_ BU_  "NmAsrNodeIdentifier" HEX 0 255;
+BA_DEF_ BU_  "TpSTMin" INT 0 255;
+BA_DEF_ BU_  "Version" STRING ;
+BA_DEF_  "Baudrate" INT 0 1000000;
+BA_DEF_  "BusType" STRING ;
+BA_DEF_  "Manufacturer" STRING ;
+BA_DEF_  "NmAsrBaseAddress" HEX 0 2047;
+BA_DEF_  "NmAsrCanMsgCycleTime" INT 0 65535;
+BA_DEF_  "NmAsrMessageCount" INT 1 256;
+BA_DEF_  "NmAsrRepeatMessageTime" INT 0 65535;
+BA_DEF_  "NmAsrTimeoutTime" INT 0 65535;
+BA_DEF_  "NmAsrWaitBusSleepTime" INT 0 65535;
+BA_DEF_  "NmType" STRING ;
+BA_DEF_DEF_  "DiagRequest" "No";
+BA_DEF_DEF_  "DiagResponse" "No";
+BA_DEF_DEF_  "DiagState" "No";
+BA_DEF_DEF_  "GenMsgCycleTime" 0;
+BA_DEF_DEF_  "GenMsgCycleTimeActive" 0;
+BA_DEF_DEF_  "GenMsgCycleTimeFast" 0;
+BA_DEF_DEF_  "GenMsgDelayTime" 0;
+BA_DEF_DEF_  "GenMsgILSupport" "Yes";
+BA_DEF_DEF_  "GenMsgNrOfRepetition" 0;
+BA_DEF_DEF_  "GenMsgSendType" "";
+BA_DEF_DEF_  "GenMsgStartDelayTime" 0;
+BA_DEF_DEF_  "NmAsrMessage" "No";
+BA_DEF_DEF_  "NmMessage" "No";
+BA_DEF_DEF_  "GenSigSendType" "";
+BA_DEF_DEF_  "GenSigStartValue" 0;
+BA_DEF_DEF_  "GenSigTimeoutTime_ALL" 0;
+BA_DEF_DEF_  "GenSigInvalidValue" 0;
+BA_DEF_DEF_  "GenSigInactiveValue" 0;
+BA_DEF_DEF_  "ILUsed" "Yes";
+BA_DEF_DEF_  "NmAsrCanMsgCycleOffset" 0;
+BA_DEF_DEF_  "NmAsrCanMsgReducedTime" 320;
+BA_DEF_DEF_  "NmAsrNode" "No";
+BA_DEF_DEF_  "NmAsrNodeIdentifier" 0;
+BA_DEF_DEF_  "TpSTMin" 0;
+BA_DEF_DEF_  "Version" "";
+BA_DEF_DEF_  "Baudrate" 500000;
+BA_DEF_DEF_  "BusType" "CAN";
+BA_DEF_DEF_  "Manufacturer" "Launch";
+BA_DEF_DEF_  "NmAsrBaseAddress" 1280;
+BA_DEF_DEF_  "NmAsrCanMsgCycleTime" 640;
+BA_DEF_DEF_  "NmAsrMessageCount" 128;
+BA_DEF_DEF_  "NmAsrRepeatMessageTime" 3200;
+BA_DEF_DEF_  "NmAsrTimeoutTime" 2000;
+BA_DEF_DEF_  "NmAsrWaitBusSleepTime" 1500;
+BA_DEF_DEF_  "NmType" "NmAsr";
+BA_ "DiagRequest" BO_ 1708 1;
+BA_ "GenMsgCycleTime" BO_ 1708 0;
+BA_ "GenMsgCycleTimeFast" BO_ 1708 0;
+BA_ "GenMsgDelayTime" BO_ 1708 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1708 0;
+BA_ "GenMsgSendType" BO_ 1708 1;
+BA_ "DiagResponse" BO_ 1580 1;
+BA_ "GenMsgCycleTime" BO_ 1580 0;
+BA_ "GenMsgCycleTimeFast" BO_ 1580 0;
+BA_ "GenMsgDelayTime" BO_ 1580 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1580 0;
+BA_ "GenMsgSendType" BO_ 1580 1;
+BA_ "DiagRequest" BO_ 1683 1;
+BA_ "GenMsgCycleTime" BO_ 1683 0;
+BA_ "GenMsgCycleTimeFast" BO_ 1683 0;
+BA_ "GenMsgDelayTime" BO_ 1683 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1683 0;
+BA_ "GenMsgSendType" BO_ 1683 1;
+BA_ "DiagResponse" BO_ 1555 1;
+BA_ "GenMsgCycleTime" BO_ 1555 0;
+BA_ "GenMsgCycleTimeFast" BO_ 1555 0;
+BA_ "GenMsgDelayTime" BO_ 1555 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1555 0;
+BA_ "GenMsgSendType" BO_ 1555 1;
+BA_ "DiagRequest" BO_ 1704 1;
+BA_ "GenMsgCycleTime" BO_ 1704 0;
+BA_ "GenMsgCycleTimeFast" BO_ 1704 0;
+BA_ "GenMsgDelayTime" BO_ 1704 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1704 0;
+BA_ "GenMsgSendType" BO_ 1704 1;
+BA_ "DiagResponse" BO_ 1576 1;
+BA_ "GenMsgCycleTime" BO_ 1576 0;
+BA_ "GenMsgCycleTimeFast" BO_ 1576 0;
+BA_ "GenMsgDelayTime" BO_ 1576 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1576 0;
+BA_ "GenMsgSendType" BO_ 1576 1;
+BA_ "DiagRequest" BO_ 1691 1;
+BA_ "GenMsgCycleTime" BO_ 1691 0;
+BA_ "GenMsgCycleTimeFast" BO_ 1691 0;
+BA_ "GenMsgDelayTime" BO_ 1691 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1691 0;
+BA_ "GenMsgSendType" BO_ 1691 1;
+BA_ "DiagResponse" BO_ 1563 1;
+BA_ "GenMsgCycleTime" BO_ 1563 0;
+BA_ "GenMsgCycleTimeFast" BO_ 1563 0;
+BA_ "GenMsgDelayTime" BO_ 1563 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1563 0;
+BA_ "GenMsgSendType" BO_ 1563 1;
+BA_ "DiagResponse" BO_ 1597 1;
+BA_ "GenMsgCycleTime" BO_ 1597 0;
+BA_ "GenMsgCycleTimeFast" BO_ 1597 0;
+BA_ "GenMsgDelayTime" BO_ 1597 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1597 0;
+BA_ "GenMsgSendType" BO_ 1597 1;
+BA_ "DiagRequest" BO_ 1725 1;
+BA_ "GenMsgCycleTime" BO_ 1725 0;
+BA_ "GenMsgCycleTimeFast" BO_ 1725 0;
+BA_ "GenMsgDelayTime" BO_ 1725 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1725 0;
+BA_ "GenMsgSendType" BO_ 1725 1;
+BA_ "DiagRequest" BO_ 1695 1;
+BA_ "GenMsgCycleTime" BO_ 1695 0;
+BA_ "GenMsgCycleTimeFast" BO_ 1695 0;
+BA_ "GenMsgDelayTime" BO_ 1695 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1695 0;
+BA_ "GenMsgSendType" BO_ 1695 1;
+BA_ "DiagResponse" BO_ 1567 1;
+BA_ "GenMsgCycleTime" BO_ 1567 0;
+BA_ "GenMsgCycleTimeFast" BO_ 1567 0;
+BA_ "GenMsgDelayTime" BO_ 1567 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1567 0;
+BA_ "GenMsgSendType" BO_ 1567 1;
+BA_ "DiagRequest" BO_ 1791 1;
+BA_ "GenMsgCycleTime" BO_ 1791 0;
+BA_ "GenMsgCycleTimeFast" BO_ 1791 0;
+BA_ "GenMsgDelayTime" BO_ 1791 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1791 0;
+BA_ "GenMsgSendType" BO_ 1791 1;
+BA_ "DiagRequest" BO_ 1680 1;
+BA_ "GenMsgCycleTime" BO_ 1680 0;
+BA_ "GenMsgCycleTimeFast" BO_ 1680 0;
+BA_ "GenMsgDelayTime" BO_ 1680 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1680 0;
+BA_ "GenMsgSendType" BO_ 1680 1;
+BA_ "DiagResponse" BO_ 1552 1;
+BA_ "GenMsgCycleTime" BO_ 1552 0;
+BA_ "GenMsgCycleTimeFast" BO_ 1552 0;
+BA_ "GenMsgDelayTime" BO_ 1552 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1552 0;
+BA_ "GenMsgSendType" BO_ 1552 1;
+BA_ "DiagRequest" BO_ 1705 1;
+BA_ "GenMsgCycleTime" BO_ 1705 0;
+BA_ "GenMsgCycleTimeFast" BO_ 1705 0;
+BA_ "GenMsgDelayTime" BO_ 1705 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1705 0;
+BA_ "GenMsgSendType" BO_ 1705 1;
+BA_ "DiagResponse" BO_ 1577 1;
+BA_ "GenMsgCycleTime" BO_ 1577 0;
+BA_ "GenMsgCycleTimeFast" BO_ 1577 0;
+BA_ "GenMsgDelayTime" BO_ 1577 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1577 0;
+BA_ "GenMsgSendType" BO_ 1577 1;
+BA_ "DiagRequest" BO_ 1672 1;
+BA_ "GenMsgCycleTime" BO_ 1672 0;
+BA_ "GenMsgCycleTimeFast" BO_ 1672 0;
+BA_ "GenMsgDelayTime" BO_ 1672 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1672 0;
+BA_ "GenMsgSendType" BO_ 1672 1;
+BA_ "DiagResponse" BO_ 1544 1;
+BA_ "GenMsgCycleTime" BO_ 1544 0;
+BA_ "GenMsgCycleTimeFast" BO_ 1544 0;
+BA_ "GenMsgDelayTime" BO_ 1544 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1544 0;
+BA_ "GenMsgSendType" BO_ 1544 1;
+BA_ "DiagRequest" BO_ 1675 1;
+BA_ "GenMsgCycleTime" BO_ 1675 0;
+BA_ "GenMsgCycleTimeFast" BO_ 1675 0;
+BA_ "GenMsgDelayTime" BO_ 1675 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1675 0;
+BA_ "GenMsgSendType" BO_ 1675 1;
+BA_ "DiagResponse" BO_ 1547 1;
+BA_ "GenMsgCycleTime" BO_ 1547 0;
+BA_ "GenMsgCycleTimeFast" BO_ 1547 0;
+BA_ "GenMsgDelayTime" BO_ 1547 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1547 0;
+BA_ "GenMsgSendType" BO_ 1547 1;
+BA_ "DiagRequest" BO_ 1665 1;
+BA_ "GenMsgCycleTime" BO_ 1665 0;
+BA_ "GenMsgCycleTimeFast" BO_ 1665 0;
+BA_ "GenMsgDelayTime" BO_ 1665 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1665 0;
+BA_ "GenMsgSendType" BO_ 1665 1;
+BA_ "DiagResponse" BO_ 1537 1;
+BA_ "GenMsgCycleTime" BO_ 1537 0;
+BA_ "GenMsgCycleTimeFast" BO_ 1537 0;
+BA_ "GenMsgDelayTime" BO_ 1537 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1537 0;
+BA_ "GenMsgSendType" BO_ 1537 1;
+BA_ "DiagResponse" BO_ 1598 1;
+BA_ "GenMsgCycleTime" BO_ 1598 0;
+BA_ "GenMsgCycleTimeFast" BO_ 1598 0;
+BA_ "GenMsgDelayTime" BO_ 1598 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1598 0;
+BA_ "GenMsgSendType" BO_ 1598 1;
+BA_ "DiagRequest" BO_ 1726 1;
+BA_ "GenMsgCycleTime" BO_ 1726 0;
+BA_ "GenMsgCycleTimeFast" BO_ 1726 0;
+BA_ "GenMsgDelayTime" BO_ 1726 0;
+BA_ "GenMsgNrOfRepetition" BO_ 1726 0;
+BA_ "GenMsgSendType" BO_ 1726 1;
+BA_ "GenSigInactiveValue" SG_ 1708 VCU_DiagReqData0 0;
+BA_ "GenSigStartValue" SG_ 1708 VCU_DiagReqData0 0;
+BA_ "GenSigInvalidValue" SG_ 1708 VCU_DiagReqData0 0;
+BA_ "GenSigSendType" SG_ 1708 VCU_DiagReqData0 0;
+BA_ "GenSigInactiveValue" SG_ 1708 VCU_DiagReqData1 0;
+BA_ "GenSigStartValue" SG_ 1708 VCU_DiagReqData1 0;
+BA_ "GenSigInvalidValue" SG_ 1708 VCU_DiagReqData1 0;
+BA_ "GenSigSendType" SG_ 1708 VCU_DiagReqData1 0;
+BA_ "GenSigInactiveValue" SG_ 1708 VCU_DiagReqData2 0;
+BA_ "GenSigStartValue" SG_ 1708 VCU_DiagReqData2 0;
+BA_ "GenSigInvalidValue" SG_ 1708 VCU_DiagReqData2 0;
+BA_ "GenSigSendType" SG_ 1708 VCU_DiagReqData2 0;
+BA_ "GenSigInactiveValue" SG_ 1708 VCU_DiagReqData3 0;
+BA_ "GenSigStartValue" SG_ 1708 VCU_DiagReqData3 0;
+BA_ "GenSigInvalidValue" SG_ 1708 VCU_DiagReqData3 0;
+BA_ "GenSigSendType" SG_ 1708 VCU_DiagReqData3 0;
+BA_ "GenSigInactiveValue" SG_ 1708 VCU_DiagReqData4 0;
+BA_ "GenSigStartValue" SG_ 1708 VCU_DiagReqData4 0;
+BA_ "GenSigInvalidValue" SG_ 1708 VCU_DiagReqData4 0;
+BA_ "GenSigSendType" SG_ 1708 VCU_DiagReqData4 0;
+BA_ "GenSigInactiveValue" SG_ 1708 VCU_DiagReqData5 0;
+BA_ "GenSigStartValue" SG_ 1708 VCU_DiagReqData5 0;
+BA_ "GenSigInvalidValue" SG_ 1708 VCU_DiagReqData5 0;
+BA_ "GenSigSendType" SG_ 1708 VCU_DiagReqData5 0;
+BA_ "GenSigInactiveValue" SG_ 1708 VCU_DiagReqData6 0;
+BA_ "GenSigStartValue" SG_ 1708 VCU_DiagReqData6 0;
+BA_ "GenSigInvalidValue" SG_ 1708 VCU_DiagReqData6 0;
+BA_ "GenSigSendType" SG_ 1708 VCU_DiagReqData6 0;
+BA_ "GenSigInactiveValue" SG_ 1708 VCU_DiagReqData7 0;
+BA_ "GenSigStartValue" SG_ 1708 VCU_DiagReqData7 0;
+BA_ "GenSigInvalidValue" SG_ 1708 VCU_DiagReqData7 0;
+BA_ "GenSigSendType" SG_ 1708 VCU_DiagReqData7 0;
+BA_ "GenSigInactiveValue" SG_ 1580 VCU_DiagRespData0 0;
+BA_ "GenSigStartValue" SG_ 1580 VCU_DiagRespData0 0;
+BA_ "GenSigInvalidValue" SG_ 1580 VCU_DiagRespData0 0;
+BA_ "GenSigSendType" SG_ 1580 VCU_DiagRespData0 0;
+BA_ "GenSigInactiveValue" SG_ 1580 VCU_DiagRespData1 0;
+BA_ "GenSigStartValue" SG_ 1580 VCU_DiagRespData1 0;
+BA_ "GenSigInvalidValue" SG_ 1580 VCU_DiagRespData1 0;
+BA_ "GenSigSendType" SG_ 1580 VCU_DiagRespData1 0;
+BA_ "GenSigInactiveValue" SG_ 1580 VCU_DiagRespData2 0;
+BA_ "GenSigStartValue" SG_ 1580 VCU_DiagRespData2 0;
+BA_ "GenSigInvalidValue" SG_ 1580 VCU_DiagRespData2 0;
+BA_ "GenSigSendType" SG_ 1580 VCU_DiagRespData2 0;
+BA_ "GenSigInactiveValue" SG_ 1580 VCU_DiagRespData3 0;
+BA_ "GenSigStartValue" SG_ 1580 VCU_DiagRespData3 0;
+BA_ "GenSigInvalidValue" SG_ 1580 VCU_DiagRespData3 0;
+BA_ "GenSigSendType" SG_ 1580 VCU_DiagRespData3 0;
+BA_ "GenSigInactiveValue" SG_ 1580 VCU_DiagRespData4 0;
+BA_ "GenSigStartValue" SG_ 1580 VCU_DiagRespData4 0;
+BA_ "GenSigInvalidValue" SG_ 1580 VCU_DiagRespData4 0;
+BA_ "GenSigSendType" SG_ 1580 VCU_DiagRespData4 0;
+BA_ "GenSigInactiveValue" SG_ 1580 VCU_DiagRespData5 0;
+BA_ "GenSigStartValue" SG_ 1580 VCU_DiagRespData5 0;
+BA_ "GenSigInvalidValue" SG_ 1580 VCU_DiagRespData5 0;
+BA_ "GenSigSendType" SG_ 1580 VCU_DiagRespData5 0;
+BA_ "GenSigInactiveValue" SG_ 1580 VCU_DiagRespData6 0;
+BA_ "GenSigStartValue" SG_ 1580 VCU_DiagRespData6 0;
+BA_ "GenSigInvalidValue" SG_ 1580 VCU_DiagRespData6 0;
+BA_ "GenSigSendType" SG_ 1580 VCU_DiagRespData6 0;
+BA_ "GenSigInactiveValue" SG_ 1580 VCU_DiagRespData7 0;
+BA_ "GenSigStartValue" SG_ 1580 VCU_DiagRespData7 0;
+BA_ "GenSigInvalidValue" SG_ 1580 VCU_DiagRespData7 0;
+BA_ "GenSigSendType" SG_ 1580 VCU_DiagRespData7 0;
+BA_ "GenSigInactiveValue" SG_ 1683 BMS_DiagReqData0 0;
+BA_ "GenSigStartValue" SG_ 1683 BMS_DiagReqData0 0;
+BA_ "GenSigInvalidValue" SG_ 1683 BMS_DiagReqData0 0;
+BA_ "GenSigSendType" SG_ 1683 BMS_DiagReqData0 0;
+BA_ "GenSigInactiveValue" SG_ 1683 BMS_DiagReqData1 0;
+BA_ "GenSigStartValue" SG_ 1683 BMS_DiagReqData1 0;
+BA_ "GenSigInvalidValue" SG_ 1683 BMS_DiagReqData1 0;
+BA_ "GenSigSendType" SG_ 1683 BMS_DiagReqData1 0;
+BA_ "GenSigInactiveValue" SG_ 1683 BMS_DiagReqData2 0;
+BA_ "GenSigStartValue" SG_ 1683 BMS_DiagReqData2 0;
+BA_ "GenSigInvalidValue" SG_ 1683 BMS_DiagReqData2 0;
+BA_ "GenSigSendType" SG_ 1683 BMS_DiagReqData2 0;
+BA_ "GenSigInactiveValue" SG_ 1683 BMS_DiagReqData3 0;
+BA_ "GenSigStartValue" SG_ 1683 BMS_DiagReqData3 0;
+BA_ "GenSigInvalidValue" SG_ 1683 BMS_DiagReqData3 0;
+BA_ "GenSigSendType" SG_ 1683 BMS_DiagReqData3 0;
+BA_ "GenSigInactiveValue" SG_ 1683 BMS_DiagReqData4 0;
+BA_ "GenSigStartValue" SG_ 1683 BMS_DiagReqData4 0;
+BA_ "GenSigInvalidValue" SG_ 1683 BMS_DiagReqData4 0;
+BA_ "GenSigSendType" SG_ 1683 BMS_DiagReqData4 0;
+BA_ "GenSigInactiveValue" SG_ 1683 BMS_DiagReqData5 0;
+BA_ "GenSigStartValue" SG_ 1683 BMS_DiagReqData5 0;
+BA_ "GenSigInvalidValue" SG_ 1683 BMS_DiagReqData5 0;
+BA_ "GenSigSendType" SG_ 1683 BMS_DiagReqData5 0;
+BA_ "GenSigInactiveValue" SG_ 1683 BMS_DiagReqData6 0;
+BA_ "GenSigStartValue" SG_ 1683 BMS_DiagReqData6 0;
+BA_ "GenSigInvalidValue" SG_ 1683 BMS_DiagReqData6 0;
+BA_ "GenSigSendType" SG_ 1683 BMS_DiagReqData6 0;
+BA_ "GenSigInactiveValue" SG_ 1683 BMS_DiagReqData7 0;
+BA_ "GenSigStartValue" SG_ 1683 BMS_DiagReqData7 0;
+BA_ "GenSigInvalidValue" SG_ 1683 BMS_DiagReqData7 0;
+BA_ "GenSigSendType" SG_ 1683 BMS_DiagReqData7 0;
+BA_ "GenSigInactiveValue" SG_ 1555 BMS_DiagRespData0 0;
+BA_ "GenSigStartValue" SG_ 1555 BMS_DiagRespData0 0;
+BA_ "GenSigInvalidValue" SG_ 1555 BMS_DiagRespData0 0;
+BA_ "GenSigSendType" SG_ 1555 BMS_DiagRespData0 0;
+BA_ "GenSigInactiveValue" SG_ 1555 BMS_DiagRespData1 0;
+BA_ "GenSigStartValue" SG_ 1555 BMS_DiagRespData1 0;
+BA_ "GenSigInvalidValue" SG_ 1555 BMS_DiagRespData1 0;
+BA_ "GenSigSendType" SG_ 1555 BMS_DiagRespData1 0;
+BA_ "GenSigInactiveValue" SG_ 1555 BMS_DiagRespData2 0;
+BA_ "GenSigStartValue" SG_ 1555 BMS_DiagRespData2 0;
+BA_ "GenSigInvalidValue" SG_ 1555 BMS_DiagRespData2 0;
+BA_ "GenSigSendType" SG_ 1555 BMS_DiagRespData2 0;
+BA_ "GenSigInactiveValue" SG_ 1555 BMS_DiagRespData3 0;
+BA_ "GenSigStartValue" SG_ 1555 BMS_DiagRespData3 0;
+BA_ "GenSigInvalidValue" SG_ 1555 BMS_DiagRespData3 0;
+BA_ "GenSigSendType" SG_ 1555 BMS_DiagRespData3 0;
+BA_ "GenSigInactiveValue" SG_ 1555 BMS_DiagRespData4 0;
+BA_ "GenSigStartValue" SG_ 1555 BMS_DiagRespData4 0;
+BA_ "GenSigInvalidValue" SG_ 1555 BMS_DiagRespData4 0;
+BA_ "GenSigSendType" SG_ 1555 BMS_DiagRespData4 0;
+BA_ "GenSigInactiveValue" SG_ 1555 BMS_DiagRespData5 0;
+BA_ "GenSigStartValue" SG_ 1555 BMS_DiagRespData5 0;
+BA_ "GenSigInvalidValue" SG_ 1555 BMS_DiagRespData5 0;
+BA_ "GenSigSendType" SG_ 1555 BMS_DiagRespData5 0;
+BA_ "GenSigInactiveValue" SG_ 1555 BMS_DiagRespData6 0;
+BA_ "GenSigStartValue" SG_ 1555 BMS_DiagRespData6 0;
+BA_ "GenSigInvalidValue" SG_ 1555 BMS_DiagRespData6 0;
+BA_ "GenSigSendType" SG_ 1555 BMS_DiagRespData6 0;
+BA_ "GenSigInactiveValue" SG_ 1555 BMS_DiagRespData7 0;
+BA_ "GenSigStartValue" SG_ 1555 BMS_DiagRespData7 0;
+BA_ "GenSigInvalidValue" SG_ 1555 BMS_DiagRespData7 0;
+BA_ "GenSigSendType" SG_ 1555 BMS_DiagRespData7 0;
+BA_ "GenSigInactiveValue" SG_ 1704 EPS_DiagReqData0 0;
+BA_ "GenSigStartValue" SG_ 1704 EPS_DiagReqData0 0;
+BA_ "GenSigInvalidValue" SG_ 1704 EPS_DiagReqData0 0;
+BA_ "GenSigSendType" SG_ 1704 EPS_DiagReqData0 0;
+BA_ "GenSigInactiveValue" SG_ 1704 EPS_DiagReqData1 0;
+BA_ "GenSigStartValue" SG_ 1704 EPS_DiagReqData1 0;
+BA_ "GenSigInvalidValue" SG_ 1704 EPS_DiagReqData1 0;
+BA_ "GenSigSendType" SG_ 1704 EPS_DiagReqData1 0;
+BA_ "GenSigInactiveValue" SG_ 1704 EPS_DiagReqData2 0;
+BA_ "GenSigStartValue" SG_ 1704 EPS_DiagReqData2 0;
+BA_ "GenSigInvalidValue" SG_ 1704 EPS_DiagReqData2 0;
+BA_ "GenSigSendType" SG_ 1704 EPS_DiagReqData2 0;
+BA_ "GenSigInactiveValue" SG_ 1704 EPS_DiagReqData3 0;
+BA_ "GenSigStartValue" SG_ 1704 EPS_DiagReqData3 0;
+BA_ "GenSigInvalidValue" SG_ 1704 EPS_DiagReqData3 0;
+BA_ "GenSigSendType" SG_ 1704 EPS_DiagReqData3 0;
+BA_ "GenSigInactiveValue" SG_ 1704 EPS_DiagReqData4 0;
+BA_ "GenSigStartValue" SG_ 1704 EPS_DiagReqData4 0;
+BA_ "GenSigInvalidValue" SG_ 1704 EPS_DiagReqData4 0;
+BA_ "GenSigSendType" SG_ 1704 EPS_DiagReqData4 0;
+BA_ "GenSigInactiveValue" SG_ 1704 EPS_DiagReqData5 0;
+BA_ "GenSigStartValue" SG_ 1704 EPS_DiagReqData5 0;
+BA_ "GenSigInvalidValue" SG_ 1704 EPS_DiagReqData5 0;
+BA_ "GenSigSendType" SG_ 1704 EPS_DiagReqData5 0;
+BA_ "GenSigInactiveValue" SG_ 1704 EPS_DiagReqData6 0;
+BA_ "GenSigStartValue" SG_ 1704 EPS_DiagReqData6 0;
+BA_ "GenSigInvalidValue" SG_ 1704 EPS_DiagReqData6 0;
+BA_ "GenSigSendType" SG_ 1704 EPS_DiagReqData6 0;
+BA_ "GenSigInactiveValue" SG_ 1704 EPS_DiagReqData7 0;
+BA_ "GenSigStartValue" SG_ 1704 EPS_DiagReqData7 0;
+BA_ "GenSigInvalidValue" SG_ 1704 EPS_DiagReqData7 0;
+BA_ "GenSigSendType" SG_ 1704 EPS_DiagReqData7 0;
+BA_ "GenSigInactiveValue" SG_ 1576 EPS_DiagRespData0 0;
+BA_ "GenSigStartValue" SG_ 1576 EPS_DiagRespData0 0;
+BA_ "GenSigInvalidValue" SG_ 1576 EPS_DiagRespData0 0;
+BA_ "GenSigSendType" SG_ 1576 EPS_DiagRespData0 0;
+BA_ "GenSigInactiveValue" SG_ 1576 EPS_DiagRespData1 0;
+BA_ "GenSigStartValue" SG_ 1576 EPS_DiagRespData1 0;
+BA_ "GenSigInvalidValue" SG_ 1576 EPS_DiagRespData1 0;
+BA_ "GenSigSendType" SG_ 1576 EPS_DiagRespData1 0;
+BA_ "GenSigInactiveValue" SG_ 1576 EPS_DiagRespData2 0;
+BA_ "GenSigStartValue" SG_ 1576 EPS_DiagRespData2 0;
+BA_ "GenSigInvalidValue" SG_ 1576 EPS_DiagRespData2 0;
+BA_ "GenSigSendType" SG_ 1576 EPS_DiagRespData2 0;
+BA_ "GenSigInactiveValue" SG_ 1576 EPS_DiagRespData3 0;
+BA_ "GenSigStartValue" SG_ 1576 EPS_DiagRespData3 0;
+BA_ "GenSigInvalidValue" SG_ 1576 EPS_DiagRespData3 0;
+BA_ "GenSigSendType" SG_ 1576 EPS_DiagRespData3 0;
+BA_ "GenSigInactiveValue" SG_ 1576 EPS_DiagRespData4 0;
+BA_ "GenSigStartValue" SG_ 1576 EPS_DiagRespData4 0;
+BA_ "GenSigInvalidValue" SG_ 1576 EPS_DiagRespData4 0;
+BA_ "GenSigSendType" SG_ 1576 EPS_DiagRespData4 0;
+BA_ "GenSigInactiveValue" SG_ 1576 EPS_DiagRespData5 0;
+BA_ "GenSigStartValue" SG_ 1576 EPS_DiagRespData5 0;
+BA_ "GenSigInvalidValue" SG_ 1576 EPS_DiagRespData5 0;
+BA_ "GenSigSendType" SG_ 1576 EPS_DiagRespData5 0;
+BA_ "GenSigInactiveValue" SG_ 1576 EPS_DiagRespData6 0;
+BA_ "GenSigStartValue" SG_ 1576 EPS_DiagRespData6 0;
+BA_ "GenSigInvalidValue" SG_ 1576 EPS_DiagRespData6 0;
+BA_ "GenSigSendType" SG_ 1576 EPS_DiagRespData6 0;
+BA_ "GenSigInactiveValue" SG_ 1576 EPS_DiagRespData7 0;
+BA_ "GenSigStartValue" SG_ 1576 EPS_DiagRespData7 0;
+BA_ "GenSigInvalidValue" SG_ 1576 EPS_DiagRespData7 0;
+BA_ "GenSigSendType" SG_ 1576 EPS_DiagRespData7 0;
+BA_ "GenSigInactiveValue" SG_ 1691 EDS_DiagReqData0 0;
+BA_ "GenSigStartValue" SG_ 1691 EDS_DiagReqData0 0;
+BA_ "GenSigInvalidValue" SG_ 1691 EDS_DiagReqData0 0;
+BA_ "GenSigSendType" SG_ 1691 EDS_DiagReqData0 0;
+BA_ "GenSigInactiveValue" SG_ 1691 EDS_DiagReqData1 0;
+BA_ "GenSigStartValue" SG_ 1691 EDS_DiagReqData1 0;
+BA_ "GenSigInvalidValue" SG_ 1691 EDS_DiagReqData1 0;
+BA_ "GenSigSendType" SG_ 1691 EDS_DiagReqData1 0;
+BA_ "GenSigInactiveValue" SG_ 1691 EDS_DiagReqData2 0;
+BA_ "GenSigStartValue" SG_ 1691 EDS_DiagReqData2 0;
+BA_ "GenSigInvalidValue" SG_ 1691 EDS_DiagReqData2 0;
+BA_ "GenSigSendType" SG_ 1691 EDS_DiagReqData2 0;
+BA_ "GenSigInactiveValue" SG_ 1691 EDS_DiagReqData3 0;
+BA_ "GenSigStartValue" SG_ 1691 EDS_DiagReqData3 0;
+BA_ "GenSigInvalidValue" SG_ 1691 EDS_DiagReqData3 0;
+BA_ "GenSigSendType" SG_ 1691 EDS_DiagReqData3 0;
+BA_ "GenSigInactiveValue" SG_ 1691 EDS_DiagReqData4 0;
+BA_ "GenSigStartValue" SG_ 1691 EDS_DiagReqData4 0;
+BA_ "GenSigInvalidValue" SG_ 1691 EDS_DiagReqData4 0;
+BA_ "GenSigSendType" SG_ 1691 EDS_DiagReqData4 0;
+BA_ "GenSigInactiveValue" SG_ 1691 EDS_DiagReqData5 0;
+BA_ "GenSigStartValue" SG_ 1691 EDS_DiagReqData5 0;
+BA_ "GenSigInvalidValue" SG_ 1691 EDS_DiagReqData5 0;
+BA_ "GenSigSendType" SG_ 1691 EDS_DiagReqData5 0;
+BA_ "GenSigInactiveValue" SG_ 1691 EDS_DiagReqData6 0;
+BA_ "GenSigStartValue" SG_ 1691 EDS_DiagReqData6 0;
+BA_ "GenSigInvalidValue" SG_ 1691 EDS_DiagReqData6 0;
+BA_ "GenSigSendType" SG_ 1691 EDS_DiagReqData6 0;
+BA_ "GenSigInactiveValue" SG_ 1691 EDS_DiagReqData7 0;
+BA_ "GenSigStartValue" SG_ 1691 EDS_DiagReqData7 0;
+BA_ "GenSigInvalidValue" SG_ 1691 EDS_DiagReqData7 0;
+BA_ "GenSigSendType" SG_ 1691 EDS_DiagReqData7 0;
+BA_ "GenSigInactiveValue" SG_ 1563 EDS_DiagRespData0 0;
+BA_ "GenSigStartValue" SG_ 1563 EDS_DiagRespData0 0;
+BA_ "GenSigInvalidValue" SG_ 1563 EDS_DiagRespData0 0;
+BA_ "GenSigSendType" SG_ 1563 EDS_DiagRespData0 0;
+BA_ "GenSigInactiveValue" SG_ 1563 EDS_DiagRespData1 0;
+BA_ "GenSigStartValue" SG_ 1563 EDS_DiagRespData1 0;
+BA_ "GenSigInvalidValue" SG_ 1563 EDS_DiagRespData1 0;
+BA_ "GenSigSendType" SG_ 1563 EDS_DiagRespData1 0;
+BA_ "GenSigInactiveValue" SG_ 1563 EDS_DiagRespData2 0;
+BA_ "GenSigStartValue" SG_ 1563 EDS_DiagRespData2 0;
+BA_ "GenSigInvalidValue" SG_ 1563 EDS_DiagRespData2 0;
+BA_ "GenSigSendType" SG_ 1563 EDS_DiagRespData2 0;
+BA_ "GenSigInactiveValue" SG_ 1563 EDS_DiagRespData3 0;
+BA_ "GenSigStartValue" SG_ 1563 EDS_DiagRespData3 0;
+BA_ "GenSigInvalidValue" SG_ 1563 EDS_DiagRespData3 0;
+BA_ "GenSigSendType" SG_ 1563 EDS_DiagRespData3 0;
+BA_ "GenSigInactiveValue" SG_ 1563 EDS_DiagRespData4 0;
+BA_ "GenSigStartValue" SG_ 1563 EDS_DiagRespData4 0;
+BA_ "GenSigInvalidValue" SG_ 1563 EDS_DiagRespData4 0;
+BA_ "GenSigSendType" SG_ 1563 EDS_DiagRespData4 0;
+BA_ "GenSigInactiveValue" SG_ 1563 EDS_DiagRespData5 0;
+BA_ "GenSigStartValue" SG_ 1563 EDS_DiagRespData5 0;
+BA_ "GenSigInvalidValue" SG_ 1563 EDS_DiagRespData5 0;
+BA_ "GenSigSendType" SG_ 1563 EDS_DiagRespData5 0;
+BA_ "GenSigInactiveValue" SG_ 1563 EDS_DiagRespData6 0;
+BA_ "GenSigStartValue" SG_ 1563 EDS_DiagRespData6 0;
+BA_ "GenSigInvalidValue" SG_ 1563 EDS_DiagRespData6 0;
+BA_ "GenSigSendType" SG_ 1563 EDS_DiagRespData6 0;
+BA_ "GenSigInactiveValue" SG_ 1563 EDS_DiagRespData7 0;
+BA_ "GenSigStartValue" SG_ 1563 EDS_DiagRespData7 0;
+BA_ "GenSigInvalidValue" SG_ 1563 EDS_DiagRespData7 0;
+BA_ "GenSigSendType" SG_ 1563 EDS_DiagRespData7 0;
+BA_ "GenSigInactiveValue" SG_ 1597 DCDC_DiagRespData0 0;
+BA_ "GenSigStartValue" SG_ 1597 DCDC_DiagRespData0 0;
+BA_ "GenSigInvalidValue" SG_ 1597 DCDC_DiagRespData0 0;
+BA_ "GenSigSendType" SG_ 1597 DCDC_DiagRespData0 0;
+BA_ "GenSigInactiveValue" SG_ 1597 DCDC_DiagRespData1 0;
+BA_ "GenSigStartValue" SG_ 1597 DCDC_DiagRespData1 0;
+BA_ "GenSigInvalidValue" SG_ 1597 DCDC_DiagRespData1 0;
+BA_ "GenSigSendType" SG_ 1597 DCDC_DiagRespData1 0;
+BA_ "GenSigInactiveValue" SG_ 1597 DCDC_DiagRespData2 0;
+BA_ "GenSigStartValue" SG_ 1597 DCDC_DiagRespData2 0;
+BA_ "GenSigInvalidValue" SG_ 1597 DCDC_DiagRespData2 0;
+BA_ "GenSigSendType" SG_ 1597 DCDC_DiagRespData2 0;
+BA_ "GenSigInactiveValue" SG_ 1597 DCDC_DiagRespData3 0;
+BA_ "GenSigStartValue" SG_ 1597 DCDC_DiagRespData3 0;
+BA_ "GenSigInvalidValue" SG_ 1597 DCDC_DiagRespData3 0;
+BA_ "GenSigSendType" SG_ 1597 DCDC_DiagRespData3 0;
+BA_ "GenSigInactiveValue" SG_ 1597 DCDC_DiagRespData4 0;
+BA_ "GenSigStartValue" SG_ 1597 DCDC_DiagRespData4 0;
+BA_ "GenSigInvalidValue" SG_ 1597 DCDC_DiagRespData4 0;
+BA_ "GenSigSendType" SG_ 1597 DCDC_DiagRespData4 0;
+BA_ "GenSigInactiveValue" SG_ 1597 DCDC_DiagRespData5 0;
+BA_ "GenSigStartValue" SG_ 1597 DCDC_DiagRespData5 0;
+BA_ "GenSigInvalidValue" SG_ 1597 DCDC_DiagRespData5 0;
+BA_ "GenSigSendType" SG_ 1597 DCDC_DiagRespData5 0;
+BA_ "GenSigInactiveValue" SG_ 1597 DCDC_DiagRespData6 0;
+BA_ "GenSigStartValue" SG_ 1597 DCDC_DiagRespData6 0;
+BA_ "GenSigInvalidValue" SG_ 1597 DCDC_DiagRespData6 0;
+BA_ "GenSigSendType" SG_ 1597 DCDC_DiagRespData6 0;
+BA_ "GenSigInactiveValue" SG_ 1597 DCDC_DiagRespData7 0;
+BA_ "GenSigStartValue" SG_ 1597 DCDC_DiagRespData7 0;
+BA_ "GenSigInvalidValue" SG_ 1597 DCDC_DiagRespData7 0;
+BA_ "GenSigSendType" SG_ 1597 DCDC_DiagRespData7 0;
+BA_ "GenSigInactiveValue" SG_ 1725 DCDC_DiagReqData0 0;
+BA_ "GenSigStartValue" SG_ 1725 DCDC_DiagReqData0 0;
+BA_ "GenSigInvalidValue" SG_ 1725 DCDC_DiagReqData0 0;
+BA_ "GenSigSendType" SG_ 1725 DCDC_DiagReqData0 0;
+BA_ "GenSigInactiveValue" SG_ 1725 DCDC_DiagReqData1 0;
+BA_ "GenSigStartValue" SG_ 1725 DCDC_DiagReqData1 0;
+BA_ "GenSigInvalidValue" SG_ 1725 DCDC_DiagReqData1 0;
+BA_ "GenSigSendType" SG_ 1725 DCDC_DiagReqData1 0;
+BA_ "GenSigInactiveValue" SG_ 1725 DCDC_DiagReqData2 0;
+BA_ "GenSigStartValue" SG_ 1725 DCDC_DiagReqData2 0;
+BA_ "GenSigInvalidValue" SG_ 1725 DCDC_DiagReqData2 0;
+BA_ "GenSigSendType" SG_ 1725 DCDC_DiagReqData2 0;
+BA_ "GenSigInactiveValue" SG_ 1725 DCDC_DiagReqData3 0;
+BA_ "GenSigStartValue" SG_ 1725 DCDC_DiagReqData3 0;
+BA_ "GenSigInvalidValue" SG_ 1725 DCDC_DiagReqData3 0;
+BA_ "GenSigSendType" SG_ 1725 DCDC_DiagReqData3 0;
+BA_ "GenSigInactiveValue" SG_ 1725 DCDC_DiagReqData4 0;
+BA_ "GenSigStartValue" SG_ 1725 DCDC_DiagReqData4 0;
+BA_ "GenSigInvalidValue" SG_ 1725 DCDC_DiagReqData4 0;
+BA_ "GenSigSendType" SG_ 1725 DCDC_DiagReqData4 0;
+BA_ "GenSigInactiveValue" SG_ 1725 DCDC_DiagReqData5 0;
+BA_ "GenSigStartValue" SG_ 1725 DCDC_DiagReqData5 0;
+BA_ "GenSigInvalidValue" SG_ 1725 DCDC_DiagReqData5 0;
+BA_ "GenSigSendType" SG_ 1725 DCDC_DiagReqData5 0;
+BA_ "GenSigInactiveValue" SG_ 1725 DCDC_DiagReqData6 0;
+BA_ "GenSigStartValue" SG_ 1725 DCDC_DiagReqData6 0;
+BA_ "GenSigInvalidValue" SG_ 1725 DCDC_DiagReqData6 0;
+BA_ "GenSigSendType" SG_ 1725 DCDC_DiagReqData6 0;
+BA_ "GenSigInactiveValue" SG_ 1725 DCDC_DiagReqData7 0;
+BA_ "GenSigStartValue" SG_ 1725 DCDC_DiagReqData7 0;
+BA_ "GenSigInvalidValue" SG_ 1725 DCDC_DiagReqData7 0;
+BA_ "GenSigSendType" SG_ 1725 DCDC_DiagReqData7 0;
+BA_ "GenSigInactiveValue" SG_ 1695 EVCC_DiagReqData0 0;
+BA_ "GenSigStartValue" SG_ 1695 EVCC_DiagReqData0 0;
+BA_ "GenSigInvalidValue" SG_ 1695 EVCC_DiagReqData0 0;
+BA_ "GenSigSendType" SG_ 1695 EVCC_DiagReqData0 0;
+BA_ "GenSigInactiveValue" SG_ 1695 EVCC_DiagReqData1 0;
+BA_ "GenSigStartValue" SG_ 1695 EVCC_DiagReqData1 0;
+BA_ "GenSigInvalidValue" SG_ 1695 EVCC_DiagReqData1 0;
+BA_ "GenSigSendType" SG_ 1695 EVCC_DiagReqData1 0;
+BA_ "GenSigInactiveValue" SG_ 1695 EVCC_DiagReqData2 0;
+BA_ "GenSigStartValue" SG_ 1695 EVCC_DiagReqData2 0;
+BA_ "GenSigInvalidValue" SG_ 1695 EVCC_DiagReqData2 0;
+BA_ "GenSigSendType" SG_ 1695 EVCC_DiagReqData2 0;
+BA_ "GenSigInactiveValue" SG_ 1695 EVCC_DiagReqData3 0;
+BA_ "GenSigStartValue" SG_ 1695 EVCC_DiagReqData3 0;
+BA_ "GenSigInvalidValue" SG_ 1695 EVCC_DiagReqData3 0;
+BA_ "GenSigSendType" SG_ 1695 EVCC_DiagReqData3 0;
+BA_ "GenSigInactiveValue" SG_ 1695 EVCC_DiagReqData4 0;
+BA_ "GenSigStartValue" SG_ 1695 EVCC_DiagReqData4 0;
+BA_ "GenSigInvalidValue" SG_ 1695 EVCC_DiagReqData4 0;
+BA_ "GenSigSendType" SG_ 1695 EVCC_DiagReqData4 0;
+BA_ "GenSigInactiveValue" SG_ 1695 EVCC_DiagReqData5 0;
+BA_ "GenSigStartValue" SG_ 1695 EVCC_DiagReqData5 0;
+BA_ "GenSigInvalidValue" SG_ 1695 EVCC_DiagReqData5 0;
+BA_ "GenSigSendType" SG_ 1695 EVCC_DiagReqData5 0;
+BA_ "GenSigInactiveValue" SG_ 1695 EVCC_DiagReqData6 0;
+BA_ "GenSigStartValue" SG_ 1695 EVCC_DiagReqData6 0;
+BA_ "GenSigInvalidValue" SG_ 1695 EVCC_DiagReqData6 0;
+BA_ "GenSigSendType" SG_ 1695 EVCC_DiagReqData6 0;
+BA_ "GenSigInactiveValue" SG_ 1695 EVCC_DiagReqData7 0;
+BA_ "GenSigStartValue" SG_ 1695 EVCC_DiagReqData7 0;
+BA_ "GenSigInvalidValue" SG_ 1695 EVCC_DiagReqData7 0;
+BA_ "GenSigSendType" SG_ 1695 EVCC_DiagReqData7 0;
+BA_ "GenSigInactiveValue" SG_ 1567 EVCC_DiagRespData0 0;
+BA_ "GenSigStartValue" SG_ 1567 EVCC_DiagRespData0 0;
+BA_ "GenSigInvalidValue" SG_ 1567 EVCC_DiagRespData0 0;
+BA_ "GenSigSendType" SG_ 1567 EVCC_DiagRespData0 0;
+BA_ "GenSigInactiveValue" SG_ 1567 EVCC_DiagRespData1 0;
+BA_ "GenSigStartValue" SG_ 1567 EVCC_DiagRespData1 0;
+BA_ "GenSigInvalidValue" SG_ 1567 EVCC_DiagRespData1 0;
+BA_ "GenSigSendType" SG_ 1567 EVCC_DiagRespData1 0;
+BA_ "GenSigInactiveValue" SG_ 1567 EVCC_DiagRespData2 0;
+BA_ "GenSigStartValue" SG_ 1567 EVCC_DiagRespData2 0;
+BA_ "GenSigInvalidValue" SG_ 1567 EVCC_DiagRespData2 0;
+BA_ "GenSigSendType" SG_ 1567 EVCC_DiagRespData2 0;
+BA_ "GenSigInactiveValue" SG_ 1567 EVCC_DiagRespData3 0;
+BA_ "GenSigStartValue" SG_ 1567 EVCC_DiagRespData3 0;
+BA_ "GenSigInvalidValue" SG_ 1567 EVCC_DiagRespData3 0;
+BA_ "GenSigSendType" SG_ 1567 EVCC_DiagRespData3 0;
+BA_ "GenSigInactiveValue" SG_ 1567 EVCC_DiagRespData4 0;
+BA_ "GenSigStartValue" SG_ 1567 EVCC_DiagRespData4 0;
+BA_ "GenSigInvalidValue" SG_ 1567 EVCC_DiagRespData4 0;
+BA_ "GenSigSendType" SG_ 1567 EVCC_DiagRespData4 0;
+BA_ "GenSigInactiveValue" SG_ 1567 EVCC_DiagRespData5 0;
+BA_ "GenSigStartValue" SG_ 1567 EVCC_DiagRespData5 0;
+BA_ "GenSigInvalidValue" SG_ 1567 EVCC_DiagRespData5 0;
+BA_ "GenSigSendType" SG_ 1567 EVCC_DiagRespData5 0;
+BA_ "GenSigInactiveValue" SG_ 1567 EVCC_DiagRespData6 0;
+BA_ "GenSigStartValue" SG_ 1567 EVCC_DiagRespData6 0;
+BA_ "GenSigInvalidValue" SG_ 1567 EVCC_DiagRespData6 0;
+BA_ "GenSigSendType" SG_ 1567 EVCC_DiagRespData6 0;
+BA_ "GenSigInactiveValue" SG_ 1567 EVCC_DiagRespData7 0;
+BA_ "GenSigStartValue" SG_ 1567 EVCC_DiagRespData7 0;
+BA_ "GenSigInvalidValue" SG_ 1567 EVCC_DiagRespData7 0;
+BA_ "GenSigSendType" SG_ 1567 EVCC_DiagRespData7 0;
+BA_ "GenSigInactiveValue" SG_ 1791 DiagFunctionalAddressingData0 0;
+BA_ "GenSigStartValue" SG_ 1791 DiagFunctionalAddressingData0 0;
+BA_ "GenSigInvalidValue" SG_ 1791 DiagFunctionalAddressingData0 0;
+BA_ "GenSigSendType" SG_ 1791 DiagFunctionalAddressingData0 0;
+BA_ "GenSigInactiveValue" SG_ 1791 DiagFunctionalAddressingData1 0;
+BA_ "GenSigStartValue" SG_ 1791 DiagFunctionalAddressingData1 0;
+BA_ "GenSigInvalidValue" SG_ 1791 DiagFunctionalAddressingData1 0;
+BA_ "GenSigSendType" SG_ 1791 DiagFunctionalAddressingData1 0;
+BA_ "GenSigInactiveValue" SG_ 1791 DiagFunctionalAddressingData2 0;
+BA_ "GenSigStartValue" SG_ 1791 DiagFunctionalAddressingData2 0;
+BA_ "GenSigInvalidValue" SG_ 1791 DiagFunctionalAddressingData2 0;
+BA_ "GenSigSendType" SG_ 1791 DiagFunctionalAddressingData2 0;
+BA_ "GenSigInactiveValue" SG_ 1791 DiagFunctionalAddressingData3 0;
+BA_ "GenSigStartValue" SG_ 1791 DiagFunctionalAddressingData3 0;
+BA_ "GenSigInvalidValue" SG_ 1791 DiagFunctionalAddressingData3 0;
+BA_ "GenSigSendType" SG_ 1791 DiagFunctionalAddressingData3 0;
+BA_ "GenSigInactiveValue" SG_ 1791 DiagFunctionalAddressingData4 0;
+BA_ "GenSigStartValue" SG_ 1791 DiagFunctionalAddressingData4 0;
+BA_ "GenSigInvalidValue" SG_ 1791 DiagFunctionalAddressingData4 0;
+BA_ "GenSigSendType" SG_ 1791 DiagFunctionalAddressingData4 0;
+BA_ "GenSigInactiveValue" SG_ 1791 DiagFunctionalAddressingData5 0;
+BA_ "GenSigStartValue" SG_ 1791 DiagFunctionalAddressingData5 0;
+BA_ "GenSigInvalidValue" SG_ 1791 DiagFunctionalAddressingData5 0;
+BA_ "GenSigSendType" SG_ 1791 DiagFunctionalAddressingData5 0;
+BA_ "GenSigInactiveValue" SG_ 1791 DiagFunctionalAddressingData6 0;
+BA_ "GenSigStartValue" SG_ 1791 DiagFunctionalAddressingData6 0;
+BA_ "GenSigInvalidValue" SG_ 1791 DiagFunctionalAddressingData6 0;
+BA_ "GenSigSendType" SG_ 1791 DiagFunctionalAddressingData6 0;
+BA_ "GenSigInactiveValue" SG_ 1791 DiagFunctionalAddressingData7 0;
+BA_ "GenSigStartValue" SG_ 1791 DiagFunctionalAddressingData7 0;
+BA_ "GenSigInvalidValue" SG_ 1791 DiagFunctionalAddressingData7 0;
+BA_ "GenSigSendType" SG_ 1791 DiagFunctionalAddressingData7 0;
+BA_ "GenSigInactiveValue" SG_ 1680 SS_DiagReqData7 0;
+BA_ "GenSigStartValue" SG_ 1680 SS_DiagReqData7 0;
+BA_ "GenSigInvalidValue" SG_ 1680 SS_DiagReqData7 0;
+BA_ "GenSigSendType" SG_ 1680 SS_DiagReqData7 0;
+BA_ "GenSigInactiveValue" SG_ 1680 SS_DiagReqData6 0;
+BA_ "GenSigStartValue" SG_ 1680 SS_DiagReqData6 0;
+BA_ "GenSigInvalidValue" SG_ 1680 SS_DiagReqData6 0;
+BA_ "GenSigSendType" SG_ 1680 SS_DiagReqData6 0;
+BA_ "GenSigInactiveValue" SG_ 1680 SS_DiagReqData5 0;
+BA_ "GenSigStartValue" SG_ 1680 SS_DiagReqData5 0;
+BA_ "GenSigInvalidValue" SG_ 1680 SS_DiagReqData5 0;
+BA_ "GenSigSendType" SG_ 1680 SS_DiagReqData5 0;
+BA_ "GenSigInactiveValue" SG_ 1680 SS_DiagReqData4 0;
+BA_ "GenSigStartValue" SG_ 1680 SS_DiagReqData4 0;
+BA_ "GenSigInvalidValue" SG_ 1680 SS_DiagReqData4 0;
+BA_ "GenSigSendType" SG_ 1680 SS_DiagReqData4 0;
+BA_ "GenSigInactiveValue" SG_ 1680 SS_DiagReqData3 0;
+BA_ "GenSigStartValue" SG_ 1680 SS_DiagReqData3 0;
+BA_ "GenSigInvalidValue" SG_ 1680 SS_DiagReqData3 0;
+BA_ "GenSigSendType" SG_ 1680 SS_DiagReqData3 0;
+BA_ "GenSigInactiveValue" SG_ 1680 SS_DiagReqData2 0;
+BA_ "GenSigStartValue" SG_ 1680 SS_DiagReqData2 0;
+BA_ "GenSigInvalidValue" SG_ 1680 SS_DiagReqData2 0;
+BA_ "GenSigSendType" SG_ 1680 SS_DiagReqData2 0;
+BA_ "GenSigInactiveValue" SG_ 1680 SS_DiagReqData1 0;
+BA_ "GenSigStartValue" SG_ 1680 SS_DiagReqData1 0;
+BA_ "GenSigInvalidValue" SG_ 1680 SS_DiagReqData1 0;
+BA_ "GenSigSendType" SG_ 1680 SS_DiagReqData1 0;
+BA_ "GenSigInactiveValue" SG_ 1680 SS_DiagReqData0 0;
+BA_ "GenSigStartValue" SG_ 1680 SS_DiagReqData0 0;
+BA_ "GenSigInvalidValue" SG_ 1680 SS_DiagReqData0 0;
+BA_ "GenSigSendType" SG_ 1680 SS_DiagReqData0 0;
+BA_ "GenSigInactiveValue" SG_ 1552 SS_DiagRespData7 0;
+BA_ "GenSigStartValue" SG_ 1552 SS_DiagRespData7 0;
+BA_ "GenSigInvalidValue" SG_ 1552 SS_DiagRespData7 0;
+BA_ "GenSigSendType" SG_ 1552 SS_DiagRespData7 0;
+BA_ "GenSigInactiveValue" SG_ 1552 SS_DiagRespData6 0;
+BA_ "GenSigStartValue" SG_ 1552 SS_DiagRespData6 0;
+BA_ "GenSigInvalidValue" SG_ 1552 SS_DiagRespData6 0;
+BA_ "GenSigSendType" SG_ 1552 SS_DiagRespData6 0;
+BA_ "GenSigInactiveValue" SG_ 1552 SS_DiagRespData5 0;
+BA_ "GenSigStartValue" SG_ 1552 SS_DiagRespData5 0;
+BA_ "GenSigInvalidValue" SG_ 1552 SS_DiagRespData5 0;
+BA_ "GenSigSendType" SG_ 1552 SS_DiagRespData5 0;
+BA_ "GenSigInactiveValue" SG_ 1552 SS_DiagRespData4 0;
+BA_ "GenSigStartValue" SG_ 1552 SS_DiagRespData4 0;
+BA_ "GenSigInvalidValue" SG_ 1552 SS_DiagRespData4 0;
+BA_ "GenSigSendType" SG_ 1552 SS_DiagRespData4 0;
+BA_ "GenSigInactiveValue" SG_ 1552 SS_DiagRespData3 0;
+BA_ "GenSigStartValue" SG_ 1552 SS_DiagRespData3 0;
+BA_ "GenSigInvalidValue" SG_ 1552 SS_DiagRespData3 0;
+BA_ "GenSigSendType" SG_ 1552 SS_DiagRespData3 0;
+BA_ "GenSigInactiveValue" SG_ 1552 SS_DiagRespData2 0;
+BA_ "GenSigStartValue" SG_ 1552 SS_DiagRespData2 0;
+BA_ "GenSigInvalidValue" SG_ 1552 SS_DiagRespData2 0;
+BA_ "GenSigSendType" SG_ 1552 SS_DiagRespData2 0;
+BA_ "GenSigInactiveValue" SG_ 1552 SS_DiagRespData1 0;
+BA_ "GenSigStartValue" SG_ 1552 SS_DiagRespData1 0;
+BA_ "GenSigInvalidValue" SG_ 1552 SS_DiagRespData1 0;
+BA_ "GenSigSendType" SG_ 1552 SS_DiagRespData1 0;
+BA_ "GenSigInactiveValue" SG_ 1552 SS_DiagRespData0 0;
+BA_ "GenSigStartValue" SG_ 1552 SS_DiagRespData0 0;
+BA_ "GenSigInvalidValue" SG_ 1552 SS_DiagRespData0 0;
+BA_ "GenSigSendType" SG_ 1552 SS_DiagRespData0 0;
+BA_ "GenSigInactiveValue" SG_ 1705 ABS_DiagReqData7 0;
+BA_ "GenSigStartValue" SG_ 1705 ABS_DiagReqData7 0;
+BA_ "GenSigInvalidValue" SG_ 1705 ABS_DiagReqData7 0;
+BA_ "GenSigSendType" SG_ 1705 ABS_DiagReqData7 0;
+BA_ "GenSigInactiveValue" SG_ 1705 ABS_DiagReqData6 0;
+BA_ "GenSigStartValue" SG_ 1705 ABS_DiagReqData6 0;
+BA_ "GenSigInvalidValue" SG_ 1705 ABS_DiagReqData6 0;
+BA_ "GenSigSendType" SG_ 1705 ABS_DiagReqData6 0;
+BA_ "GenSigInactiveValue" SG_ 1705 ABS_DiagReqData5 0;
+BA_ "GenSigStartValue" SG_ 1705 ABS_DiagReqData5 0;
+BA_ "GenSigInvalidValue" SG_ 1705 ABS_DiagReqData5 0;
+BA_ "GenSigSendType" SG_ 1705 ABS_DiagReqData5 0;
+BA_ "GenSigInactiveValue" SG_ 1705 ABS_DiagReqData4 0;
+BA_ "GenSigStartValue" SG_ 1705 ABS_DiagReqData4 0;
+BA_ "GenSigInvalidValue" SG_ 1705 ABS_DiagReqData4 0;
+BA_ "GenSigSendType" SG_ 1705 ABS_DiagReqData4 0;
+BA_ "GenSigInactiveValue" SG_ 1705 ABS_DiagReqData3 0;
+BA_ "GenSigStartValue" SG_ 1705 ABS_DiagReqData3 0;
+BA_ "GenSigInvalidValue" SG_ 1705 ABS_DiagReqData3 0;
+BA_ "GenSigSendType" SG_ 1705 ABS_DiagReqData3 0;
+BA_ "GenSigInactiveValue" SG_ 1705 ABS_DiagReqData2 0;
+BA_ "GenSigStartValue" SG_ 1705 ABS_DiagReqData2 0;
+BA_ "GenSigInvalidValue" SG_ 1705 ABS_DiagReqData2 0;
+BA_ "GenSigSendType" SG_ 1705 ABS_DiagReqData2 0;
+BA_ "GenSigInactiveValue" SG_ 1705 ABS_DiagReqData1 0;
+BA_ "GenSigStartValue" SG_ 1705 ABS_DiagReqData1 0;
+BA_ "GenSigInvalidValue" SG_ 1705 ABS_DiagReqData1 0;
+BA_ "GenSigSendType" SG_ 1705 ABS_DiagReqData1 0;
+BA_ "GenSigInactiveValue" SG_ 1705 ABS_DiagReqData0 0;
+BA_ "GenSigStartValue" SG_ 1705 ABS_DiagReqData0 0;
+BA_ "GenSigInvalidValue" SG_ 1705 ABS_DiagReqData0 0;
+BA_ "GenSigSendType" SG_ 1705 ABS_DiagReqData0 0;
+BA_ "GenSigInactiveValue" SG_ 1577 ABS_DiagRespData7 0;
+BA_ "GenSigStartValue" SG_ 1577 ABS_DiagRespData7 0;
+BA_ "GenSigInvalidValue" SG_ 1577 ABS_DiagRespData7 0;
+BA_ "GenSigSendType" SG_ 1577 ABS_DiagRespData7 0;
+BA_ "GenSigInactiveValue" SG_ 1577 ABS_DiagRespData6 0;
+BA_ "GenSigStartValue" SG_ 1577 ABS_DiagRespData6 0;
+BA_ "GenSigInvalidValue" SG_ 1577 ABS_DiagRespData6 0;
+BA_ "GenSigSendType" SG_ 1577 ABS_DiagRespData6 0;
+BA_ "GenSigInactiveValue" SG_ 1577 ABS_DiagRespData5 0;
+BA_ "GenSigStartValue" SG_ 1577 ABS_DiagRespData5 0;
+BA_ "GenSigInvalidValue" SG_ 1577 ABS_DiagRespData5 0;
+BA_ "GenSigSendType" SG_ 1577 ABS_DiagRespData5 0;
+BA_ "GenSigInactiveValue" SG_ 1577 ABS_DiagRespData4 0;
+BA_ "GenSigStartValue" SG_ 1577 ABS_DiagRespData4 0;
+BA_ "GenSigInvalidValue" SG_ 1577 ABS_DiagRespData4 0;
+BA_ "GenSigSendType" SG_ 1577 ABS_DiagRespData4 0;
+BA_ "GenSigInactiveValue" SG_ 1577 ABS_DiagRespData3 0;
+BA_ "GenSigStartValue" SG_ 1577 ABS_DiagRespData3 0;
+BA_ "GenSigInvalidValue" SG_ 1577 ABS_DiagRespData3 0;
+BA_ "GenSigSendType" SG_ 1577 ABS_DiagRespData3 0;
+BA_ "GenSigInactiveValue" SG_ 1577 ABS_DiagRespData2 0;
+BA_ "GenSigStartValue" SG_ 1577 ABS_DiagRespData2 0;
+BA_ "GenSigInvalidValue" SG_ 1577 ABS_DiagRespData2 0;
+BA_ "GenSigSendType" SG_ 1577 ABS_DiagRespData2 0;
+BA_ "GenSigInactiveValue" SG_ 1577 ABS_DiagRespData1 0;
+BA_ "GenSigStartValue" SG_ 1577 ABS_DiagRespData1 0;
+BA_ "GenSigInvalidValue" SG_ 1577 ABS_DiagRespData1 0;
+BA_ "GenSigSendType" SG_ 1577 ABS_DiagRespData1 0;
+BA_ "GenSigInactiveValue" SG_ 1577 ABS_DiagRespData0 0;
+BA_ "GenSigStartValue" SG_ 1577 ABS_DiagRespData0 0;
+BA_ "GenSigInvalidValue" SG_ 1577 ABS_DiagRespData0 0;
+BA_ "GenSigSendType" SG_ 1577 ABS_DiagRespData0 0;
+BA_ "GenSigInactiveValue" SG_ 1672 ACU_DiagReqData7 0;
+BA_ "GenSigStartValue" SG_ 1672 ACU_DiagReqData7 0;
+BA_ "GenSigInvalidValue" SG_ 1672 ACU_DiagReqData7 0;
+BA_ "GenSigSendType" SG_ 1672 ACU_DiagReqData7 0;
+BA_ "GenSigInactiveValue" SG_ 1672 ACU_DiagReqData6 0;
+BA_ "GenSigStartValue" SG_ 1672 ACU_DiagReqData6 0;
+BA_ "GenSigInvalidValue" SG_ 1672 ACU_DiagReqData6 0;
+BA_ "GenSigSendType" SG_ 1672 ACU_DiagReqData6 0;
+BA_ "GenSigInactiveValue" SG_ 1672 ACU_DiagReqData5 0;
+BA_ "GenSigStartValue" SG_ 1672 ACU_DiagReqData5 0;
+BA_ "GenSigInvalidValue" SG_ 1672 ACU_DiagReqData5 0;
+BA_ "GenSigSendType" SG_ 1672 ACU_DiagReqData5 0;
+BA_ "GenSigInactiveValue" SG_ 1672 ACU_DiagReqData4 0;
+BA_ "GenSigStartValue" SG_ 1672 ACU_DiagReqData4 0;
+BA_ "GenSigInvalidValue" SG_ 1672 ACU_DiagReqData4 0;
+BA_ "GenSigSendType" SG_ 1672 ACU_DiagReqData4 0;
+BA_ "GenSigInactiveValue" SG_ 1672 ACU_DiagReqData3 0;
+BA_ "GenSigStartValue" SG_ 1672 ACU_DiagReqData3 0;
+BA_ "GenSigInvalidValue" SG_ 1672 ACU_DiagReqData3 0;
+BA_ "GenSigSendType" SG_ 1672 ACU_DiagReqData3 0;
+BA_ "GenSigInactiveValue" SG_ 1672 ACU_DiagReqData2 0;
+BA_ "GenSigStartValue" SG_ 1672 ACU_DiagReqData2 0;
+BA_ "GenSigInvalidValue" SG_ 1672 ACU_DiagReqData2 0;
+BA_ "GenSigSendType" SG_ 1672 ACU_DiagReqData2 0;
+BA_ "GenSigInactiveValue" SG_ 1672 ACU_DiagReqData1 0;
+BA_ "GenSigStartValue" SG_ 1672 ACU_DiagReqData1 0;
+BA_ "GenSigInvalidValue" SG_ 1672 ACU_DiagReqData1 0;
+BA_ "GenSigSendType" SG_ 1672 ACU_DiagReqData1 0;
+BA_ "GenSigInactiveValue" SG_ 1672 ACU_DiagReqData0 0;
+BA_ "GenSigStartValue" SG_ 1672 ACU_DiagReqData0 0;
+BA_ "GenSigInvalidValue" SG_ 1672 ACU_DiagReqData0 0;
+BA_ "GenSigSendType" SG_ 1672 ACU_DiagReqData0 0;
+BA_ "GenSigInactiveValue" SG_ 1544 ACU_DiagRespData7 0;
+BA_ "GenSigStartValue" SG_ 1544 ACU_DiagRespData7 0;
+BA_ "GenSigInvalidValue" SG_ 1544 ACU_DiagRespData7 0;
+BA_ "GenSigSendType" SG_ 1544 ACU_DiagRespData7 0;
+BA_ "GenSigInactiveValue" SG_ 1544 ACU_DiagRespData6 0;
+BA_ "GenSigStartValue" SG_ 1544 ACU_DiagRespData6 0;
+BA_ "GenSigInvalidValue" SG_ 1544 ACU_DiagRespData6 0;
+BA_ "GenSigSendType" SG_ 1544 ACU_DiagRespData6 0;
+BA_ "GenSigInactiveValue" SG_ 1544 ACU_DiagRespData5 0;
+BA_ "GenSigStartValue" SG_ 1544 ACU_DiagRespData5 0;
+BA_ "GenSigInvalidValue" SG_ 1544 ACU_DiagRespData5 0;
+BA_ "GenSigSendType" SG_ 1544 ACU_DiagRespData5 0;
+BA_ "GenSigInactiveValue" SG_ 1544 ACU_DiagRespData4 0;
+BA_ "GenSigStartValue" SG_ 1544 ACU_DiagRespData4 0;
+BA_ "GenSigInvalidValue" SG_ 1544 ACU_DiagRespData4 0;
+BA_ "GenSigSendType" SG_ 1544 ACU_DiagRespData4 0;
+BA_ "GenSigInactiveValue" SG_ 1544 ACU_DiagRespData3 0;
+BA_ "GenSigStartValue" SG_ 1544 ACU_DiagRespData3 0;
+BA_ "GenSigInvalidValue" SG_ 1544 ACU_DiagRespData3 0;
+BA_ "GenSigSendType" SG_ 1544 ACU_DiagRespData3 0;
+BA_ "GenSigInactiveValue" SG_ 1544 ACU_DiagRespData2 0;
+BA_ "GenSigStartValue" SG_ 1544 ACU_DiagRespData2 0;
+BA_ "GenSigInvalidValue" SG_ 1544 ACU_DiagRespData2 0;
+BA_ "GenSigSendType" SG_ 1544 ACU_DiagRespData2 0;
+BA_ "GenSigInactiveValue" SG_ 1544 ACU_DiagRespData1 0;
+BA_ "GenSigStartValue" SG_ 1544 ACU_DiagRespData1 0;
+BA_ "GenSigInvalidValue" SG_ 1544 ACU_DiagRespData1 0;
+BA_ "GenSigSendType" SG_ 1544 ACU_DiagRespData1 0;
+BA_ "GenSigInactiveValue" SG_ 1544 ACU_DiagRespData0 0;
+BA_ "GenSigStartValue" SG_ 1544 ACU_DiagRespData0 0;
+BA_ "GenSigInvalidValue" SG_ 1544 ACU_DiagRespData0 0;
+BA_ "GenSigSendType" SG_ 1544 ACU_DiagRespData0 0;
+BA_ "GenSigInactiveValue" SG_ 1675 IPC_DiagReqData7 0;
+BA_ "GenSigStartValue" SG_ 1675 IPC_DiagReqData7 0;
+BA_ "GenSigInvalidValue" SG_ 1675 IPC_DiagReqData7 0;
+BA_ "GenSigSendType" SG_ 1675 IPC_DiagReqData7 0;
+BA_ "GenSigInactiveValue" SG_ 1675 IPC_DiagReqData6 0;
+BA_ "GenSigStartValue" SG_ 1675 IPC_DiagReqData6 0;
+BA_ "GenSigInvalidValue" SG_ 1675 IPC_DiagReqData6 0;
+BA_ "GenSigSendType" SG_ 1675 IPC_DiagReqData6 0;
+BA_ "GenSigInactiveValue" SG_ 1675 IPC_DiagReqData5 0;
+BA_ "GenSigStartValue" SG_ 1675 IPC_DiagReqData5 0;
+BA_ "GenSigInvalidValue" SG_ 1675 IPC_DiagReqData5 0;
+BA_ "GenSigSendType" SG_ 1675 IPC_DiagReqData5 0;
+BA_ "GenSigInactiveValue" SG_ 1675 IPC_DiagReqData4 0;
+BA_ "GenSigStartValue" SG_ 1675 IPC_DiagReqData4 0;
+BA_ "GenSigInvalidValue" SG_ 1675 IPC_DiagReqData4 0;
+BA_ "GenSigSendType" SG_ 1675 IPC_DiagReqData4 0;
+BA_ "GenSigInactiveValue" SG_ 1675 IPC_DiagReqData3 0;
+BA_ "GenSigStartValue" SG_ 1675 IPC_DiagReqData3 0;
+BA_ "GenSigInvalidValue" SG_ 1675 IPC_DiagReqData3 0;
+BA_ "GenSigSendType" SG_ 1675 IPC_DiagReqData3 0;
+BA_ "GenSigInactiveValue" SG_ 1675 IPC_DiagReqData2 0;
+BA_ "GenSigStartValue" SG_ 1675 IPC_DiagReqData2 0;
+BA_ "GenSigInvalidValue" SG_ 1675 IPC_DiagReqData2 0;
+BA_ "GenSigSendType" SG_ 1675 IPC_DiagReqData2 0;
+BA_ "GenSigInactiveValue" SG_ 1675 IPC_DiagReqData1 0;
+BA_ "GenSigStartValue" SG_ 1675 IPC_DiagReqData1 0;
+BA_ "GenSigInvalidValue" SG_ 1675 IPC_DiagReqData1 0;
+BA_ "GenSigSendType" SG_ 1675 IPC_DiagReqData1 0;
+BA_ "GenSigInactiveValue" SG_ 1675 IPC_DiagReqData0 0;
+BA_ "GenSigStartValue" SG_ 1675 IPC_DiagReqData0 0;
+BA_ "GenSigInvalidValue" SG_ 1675 IPC_DiagReqData0 0;
+BA_ "GenSigSendType" SG_ 1675 IPC_DiagReqData0 0;
+BA_ "GenSigInactiveValue" SG_ 1547 IPC_DiagRespData7 0;
+BA_ "GenSigStartValue" SG_ 1547 IPC_DiagRespData7 0;
+BA_ "GenSigInvalidValue" SG_ 1547 IPC_DiagRespData7 0;
+BA_ "GenSigSendType" SG_ 1547 IPC_DiagRespData7 0;
+BA_ "GenSigInactiveValue" SG_ 1547 IPC_DiagRespData6 0;
+BA_ "GenSigStartValue" SG_ 1547 IPC_DiagRespData6 0;
+BA_ "GenSigInvalidValue" SG_ 1547 IPC_DiagRespData6 0;
+BA_ "GenSigSendType" SG_ 1547 IPC_DiagRespData6 0;
+BA_ "GenSigInactiveValue" SG_ 1547 IPC_DiagRespData5 0;
+BA_ "GenSigStartValue" SG_ 1547 IPC_DiagRespData5 0;
+BA_ "GenSigInvalidValue" SG_ 1547 IPC_DiagRespData5 0;
+BA_ "GenSigSendType" SG_ 1547 IPC_DiagRespData5 0;
+BA_ "GenSigInactiveValue" SG_ 1547 IPC_DiagRespData4 0;
+BA_ "GenSigStartValue" SG_ 1547 IPC_DiagRespData4 0;
+BA_ "GenSigInvalidValue" SG_ 1547 IPC_DiagRespData4 0;
+BA_ "GenSigSendType" SG_ 1547 IPC_DiagRespData4 0;
+BA_ "GenSigInactiveValue" SG_ 1547 IPC_DiagRespData3 0;
+BA_ "GenSigStartValue" SG_ 1547 IPC_DiagRespData3 0;
+BA_ "GenSigInvalidValue" SG_ 1547 IPC_DiagRespData3 0;
+BA_ "GenSigSendType" SG_ 1547 IPC_DiagRespData3 0;
+BA_ "GenSigInactiveValue" SG_ 1547 IPC_DiagRespData2 0;
+BA_ "GenSigStartValue" SG_ 1547 IPC_DiagRespData2 0;
+BA_ "GenSigInvalidValue" SG_ 1547 IPC_DiagRespData2 0;
+BA_ "GenSigSendType" SG_ 1547 IPC_DiagRespData2 0;
+BA_ "GenSigInactiveValue" SG_ 1547 IPC_DiagRespData1 0;
+BA_ "GenSigStartValue" SG_ 1547 IPC_DiagRespData1 0;
+BA_ "GenSigInvalidValue" SG_ 1547 IPC_DiagRespData1 0;
+BA_ "GenSigSendType" SG_ 1547 IPC_DiagRespData1 0;
+BA_ "GenSigInactiveValue" SG_ 1547 IPC_DiagRespData0 0;
+BA_ "GenSigStartValue" SG_ 1547 IPC_DiagRespData0 0;
+BA_ "GenSigInvalidValue" SG_ 1547 IPC_DiagRespData0 0;
+BA_ "GenSigSendType" SG_ 1547 IPC_DiagRespData0 0;
+BA_ "GenSigInactiveValue" SG_ 1665 BCM_DiagReqData7 0;
+BA_ "GenSigStartValue" SG_ 1665 BCM_DiagReqData7 0;
+BA_ "GenSigInvalidValue" SG_ 1665 BCM_DiagReqData7 0;
+BA_ "GenSigSendType" SG_ 1665 BCM_DiagReqData7 0;
+BA_ "GenSigInactiveValue" SG_ 1665 BCM_DiagReqData6 0;
+BA_ "GenSigStartValue" SG_ 1665 BCM_DiagReqData6 0;
+BA_ "GenSigInvalidValue" SG_ 1665 BCM_DiagReqData6 0;
+BA_ "GenSigSendType" SG_ 1665 BCM_DiagReqData6 0;
+BA_ "GenSigInactiveValue" SG_ 1665 BCM_DiagReqData5 0;
+BA_ "GenSigStartValue" SG_ 1665 BCM_DiagReqData5 0;
+BA_ "GenSigInvalidValue" SG_ 1665 BCM_DiagReqData5 0;
+BA_ "GenSigSendType" SG_ 1665 BCM_DiagReqData5 0;
+BA_ "GenSigInactiveValue" SG_ 1665 BCM_DiagReqData4 0;
+BA_ "GenSigStartValue" SG_ 1665 BCM_DiagReqData4 0;
+BA_ "GenSigInvalidValue" SG_ 1665 BCM_DiagReqData4 0;
+BA_ "GenSigSendType" SG_ 1665 BCM_DiagReqData4 0;
+BA_ "GenSigInactiveValue" SG_ 1665 BCM_DiagReqData3 0;
+BA_ "GenSigStartValue" SG_ 1665 BCM_DiagReqData3 0;
+BA_ "GenSigInvalidValue" SG_ 1665 BCM_DiagReqData3 0;
+BA_ "GenSigSendType" SG_ 1665 BCM_DiagReqData3 0;
+BA_ "GenSigInactiveValue" SG_ 1665 BCM_DiagReqData2 0;
+BA_ "GenSigStartValue" SG_ 1665 BCM_DiagReqData2 0;
+BA_ "GenSigInvalidValue" SG_ 1665 BCM_DiagReqData2 0;
+BA_ "GenSigSendType" SG_ 1665 BCM_DiagReqData2 0;
+BA_ "GenSigInactiveValue" SG_ 1665 BCM_DiagReqData1 0;
+BA_ "GenSigStartValue" SG_ 1665 BCM_DiagReqData1 0;
+BA_ "GenSigInvalidValue" SG_ 1665 BCM_DiagReqData1 0;
+BA_ "GenSigSendType" SG_ 1665 BCM_DiagReqData1 0;
+BA_ "GenSigInactiveValue" SG_ 1665 BCM_DiagReqData0 0;
+BA_ "GenSigStartValue" SG_ 1665 BCM_DiagReqData0 0;
+BA_ "GenSigInvalidValue" SG_ 1665 BCM_DiagReqData0 0;
+BA_ "GenSigSendType" SG_ 1665 BCM_DiagReqData0 0;
+BA_ "GenSigInactiveValue" SG_ 1537 BCM_DiagRespData7 0;
+BA_ "GenSigStartValue" SG_ 1537 BCM_DiagRespData7 0;
+BA_ "GenSigInvalidValue" SG_ 1537 BCM_DiagRespData7 0;
+BA_ "GenSigSendType" SG_ 1537 BCM_DiagRespData7 0;
+BA_ "GenSigInactiveValue" SG_ 1537 BCM_DiagRespData6 0;
+BA_ "GenSigStartValue" SG_ 1537 BCM_DiagRespData6 0;
+BA_ "GenSigInvalidValue" SG_ 1537 BCM_DiagRespData6 0;
+BA_ "GenSigSendType" SG_ 1537 BCM_DiagRespData6 0;
+BA_ "GenSigInactiveValue" SG_ 1537 BCM_DiagRespData5 0;
+BA_ "GenSigStartValue" SG_ 1537 BCM_DiagRespData5 0;
+BA_ "GenSigInvalidValue" SG_ 1537 BCM_DiagRespData5 0;
+BA_ "GenSigSendType" SG_ 1537 BCM_DiagRespData5 0;
+BA_ "GenSigInactiveValue" SG_ 1537 BCM_DiagRespData4 0;
+BA_ "GenSigStartValue" SG_ 1537 BCM_DiagRespData4 0;
+BA_ "GenSigInvalidValue" SG_ 1537 BCM_DiagRespData4 0;
+BA_ "GenSigSendType" SG_ 1537 BCM_DiagRespData4 0;
+BA_ "GenSigInactiveValue" SG_ 1537 BCM_DiagRespData3 0;
+BA_ "GenSigStartValue" SG_ 1537 BCM_DiagRespData3 0;
+BA_ "GenSigInvalidValue" SG_ 1537 BCM_DiagRespData3 0;
+BA_ "GenSigSendType" SG_ 1537 BCM_DiagRespData3 0;
+BA_ "GenSigInactiveValue" SG_ 1537 BCM_DiagRespData2 0;
+BA_ "GenSigStartValue" SG_ 1537 BCM_DiagRespData2 0;
+BA_ "GenSigInvalidValue" SG_ 1537 BCM_DiagRespData2 0;
+BA_ "GenSigSendType" SG_ 1537 BCM_DiagRespData2 0;
+BA_ "GenSigInactiveValue" SG_ 1537 BCM_DiagRespData1 0;
+BA_ "GenSigStartValue" SG_ 1537 BCM_DiagRespData1 0;
+BA_ "GenSigInvalidValue" SG_ 1537 BCM_DiagRespData1 0;
+BA_ "GenSigSendType" SG_ 1537 BCM_DiagRespData1 0;
+BA_ "GenSigInactiveValue" SG_ 1537 BCM_DiagRespData0 0;
+BA_ "GenSigStartValue" SG_ 1537 BCM_DiagRespData0 0;
+BA_ "GenSigInvalidValue" SG_ 1537 BCM_DiagRespData0 0;
+BA_ "GenSigSendType" SG_ 1537 BCM_DiagRespData0 0;
+BA_ "GenSigInactiveValue" SG_ 1598 OBC_DiagRespData0 0;
+BA_ "GenSigStartValue" SG_ 1598 OBC_DiagRespData0 0;
+BA_ "GenSigInvalidValue" SG_ 1598 OBC_DiagRespData0 0;
+BA_ "GenSigSendType" SG_ 1598 OBC_DiagRespData0 0;
+BA_ "GenSigInactiveValue" SG_ 1598 OBC_DiagRespData1 0;
+BA_ "GenSigStartValue" SG_ 1598 OBC_DiagRespData1 0;
+BA_ "GenSigInvalidValue" SG_ 1598 OBC_DiagRespData1 0;
+BA_ "GenSigSendType" SG_ 1598 OBC_DiagRespData1 0;
+BA_ "GenSigInactiveValue" SG_ 1598 OBC_DiagRespData2 0;
+BA_ "GenSigStartValue" SG_ 1598 OBC_DiagRespData2 0;
+BA_ "GenSigInvalidValue" SG_ 1598 OBC_DiagRespData2 0;
+BA_ "GenSigSendType" SG_ 1598 OBC_DiagRespData2 0;
+BA_ "GenSigInactiveValue" SG_ 1598 OBC_DiagRespData3 0;
+BA_ "GenSigStartValue" SG_ 1598 OBC_DiagRespData3 0;
+BA_ "GenSigInvalidValue" SG_ 1598 OBC_DiagRespData3 0;
+BA_ "GenSigSendType" SG_ 1598 OBC_DiagRespData3 0;
+BA_ "GenSigInactiveValue" SG_ 1598 OBC_DiagRespData4 0;
+BA_ "GenSigStartValue" SG_ 1598 OBC_DiagRespData4 0;
+BA_ "GenSigInvalidValue" SG_ 1598 OBC_DiagRespData4 0;
+BA_ "GenSigSendType" SG_ 1598 OBC_DiagRespData4 0;
+BA_ "GenSigInactiveValue" SG_ 1598 OBC_DiagRespData5 0;
+BA_ "GenSigStartValue" SG_ 1598 OBC_DiagRespData5 0;
+BA_ "GenSigInvalidValue" SG_ 1598 OBC_DiagRespData5 0;
+BA_ "GenSigSendType" SG_ 1598 OBC_DiagRespData5 0;
+BA_ "GenSigInactiveValue" SG_ 1598 OBC_DiagRespData6 0;
+BA_ "GenSigStartValue" SG_ 1598 OBC_DiagRespData6 0;
+BA_ "GenSigInvalidValue" SG_ 1598 OBC_DiagRespData6 0;
+BA_ "GenSigSendType" SG_ 1598 OBC_DiagRespData6 0;
+BA_ "GenSigInactiveValue" SG_ 1598 OBC_DiagRespData7 0;
+BA_ "GenSigStartValue" SG_ 1598 OBC_DiagRespData7 0;
+BA_ "GenSigInvalidValue" SG_ 1598 OBC_DiagRespData7 0;
+BA_ "GenSigSendType" SG_ 1598 OBC_DiagRespData7 0;
+BA_ "GenSigInactiveValue" SG_ 1726 OBC_DiagReqData0 0;
+BA_ "GenSigStartValue" SG_ 1726 OBC_DiagReqData0 0;
+BA_ "GenSigInvalidValue" SG_ 1726 OBC_DiagReqData0 0;
+BA_ "GenSigSendType" SG_ 1726 OBC_DiagReqData0 0;
+BA_ "GenSigInactiveValue" SG_ 1726 OBC_DiagReqData1 0;
+BA_ "GenSigStartValue" SG_ 1726 OBC_DiagReqData1 0;
+BA_ "GenSigInvalidValue" SG_ 1726 OBC_DiagReqData1 0;
+BA_ "GenSigSendType" SG_ 1726 OBC_DiagReqData1 0;
+BA_ "GenSigInactiveValue" SG_ 1726 OBC_DiagReqData2 0;
+BA_ "GenSigStartValue" SG_ 1726 OBC_DiagReqData2 0;
+BA_ "GenSigInvalidValue" SG_ 1726 OBC_DiagReqData2 0;
+BA_ "GenSigSendType" SG_ 1726 OBC_DiagReqData2 0;
+BA_ "GenSigInactiveValue" SG_ 1726 OBC_DiagReqData3 0;
+BA_ "GenSigStartValue" SG_ 1726 OBC_DiagReqData3 0;
+BA_ "GenSigInvalidValue" SG_ 1726 OBC_DiagReqData3 0;
+BA_ "GenSigSendType" SG_ 1726 OBC_DiagReqData3 0;
+BA_ "GenSigInactiveValue" SG_ 1726 OBC_DiagReqData4 0;
+BA_ "GenSigStartValue" SG_ 1726 OBC_DiagReqData4 0;
+BA_ "GenSigInvalidValue" SG_ 1726 OBC_DiagReqData4 0;
+BA_ "GenSigSendType" SG_ 1726 OBC_DiagReqData4 0;
+BA_ "GenSigInactiveValue" SG_ 1726 OBC_DiagReqData5 0;
+BA_ "GenSigStartValue" SG_ 1726 OBC_DiagReqData5 0;
+BA_ "GenSigInvalidValue" SG_ 1726 OBC_DiagReqData5 0;
+BA_ "GenSigSendType" SG_ 1726 OBC_DiagReqData5 0;
+BA_ "GenSigInactiveValue" SG_ 1726 OBC_DiagReqData6 0;
+BA_ "GenSigStartValue" SG_ 1726 OBC_DiagReqData6 0;
+BA_ "GenSigInvalidValue" SG_ 1726 OBC_DiagReqData6 0;
+BA_ "GenSigSendType" SG_ 1726 OBC_DiagReqData6 0;
+BA_ "GenSigInactiveValue" SG_ 1726 OBC_DiagReqData7 0;
+BA_ "GenSigStartValue" SG_ 1726 OBC_DiagReqData7 0;
+BA_ "GenSigInvalidValue" SG_ 1726 OBC_DiagReqData7 0;
+BA_ "GenSigSendType" SG_ 1726 OBC_DiagReqData7 0;
+
