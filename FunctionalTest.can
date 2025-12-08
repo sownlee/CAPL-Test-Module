@@ -1,12 +1,12 @@
 /*@!Encoding:1252*/
 includes
 {
-  
+
 }
 
 variables
 {
-  const dword kWAIT_TIMEOUT = 500; // 500msecs 
+const dword kWAIT_TIMEOUT = 500; // 500msecs 
 int WaitResult;
 }
 
