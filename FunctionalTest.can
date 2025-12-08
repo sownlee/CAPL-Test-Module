@@ -8,6 +8,7 @@ variables
 {
 const dword kWAIT_TIMEOUT = 500; // 500msecs 
 int WaitResult;
+message GW_BCM_DoorSts_0x3D0 msg;
 }
 
 void MainTest() 
@@ -26,8 +27,8 @@ TestReportAddEngineerInfo("Tester name", "Le Dinh Giang Son");
 TestReportAddSetupInfo("CANoe", "Version 15.0"); 
 TestReportAddSetupInfo("vTestStudio", "Version 5.0"); 
 TestReportAddSUTInfo ("SUT", "Doors ECU"); 
-} */
-/*testfunction PreConditions() 
+} 
+testfunction PreConditions() 
 { 
     testStep("Pre-cond","Start"); 
     testStep("","Set Ignition to ON"); 
@@ -35,9 +36,9 @@ TestReportAddSUTInfo ("SUT", "Doors ECU");
     @sysvar::testNS::IgnitionStart = @sysvar::testNS::IgnitionStart::Ign_ON; 
     testWaitForTimeout(500); 
     testStep("Pre-cond","End"); 
-} */
+}
 
-/*testfunction PostConditions() 
+testfunction PostConditions() 
 { 
     testStep("Post-cond","Start"); 
     testStep("","Set Ignition to OFF"); 
@@ -45,7 +46,7 @@ TestReportAddSUTInfo ("SUT", "Doors ECU");
     @sysvar::testNS::IgnitionStart = @sysvar::testNS::IgnitionStart::Ign_OFF; 
     testWaitForTimeout(500); 
     testStep("Post-cond","End"); 
-}*/
+}
 testcase ctc_TimeoutSignal()
 {
   int waitRes;
@@ -75,7 +76,7 @@ testcase ctc_TimeoutSignal()
       TestStepFail("Error", "TestWaitForMessage returned unexpected value %d", waitRes);
   }
 
-  //PostConditions();
+  PostConditions();
 }
 
 /*testcase ctc_WindowDownUp() 
