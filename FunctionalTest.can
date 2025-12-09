@@ -12,11 +12,11 @@ int WaitResult;
 
 void MainTest() 
 { 
-cf_testPreparation();
+//cf_testPreparation();
 //ctc_RequestLock();
 ctc_TimeoutSignal();
 } 
-/*void cf_testPreparation() 
+void cf_testPreparation() 
 { 
 /* Add Description of Test Module */ 
 TestModuleDescription("Sample test cases written in CAPL."); 
@@ -56,8 +56,8 @@ testcase ctc_TimeoutSignal()
 
   testStep("Step 1", "Waiting for message GW_BCM_DoorSts_0x3D0 for %d ms", kWAIT_TIMEOUT);
 
-  waitRes = TestWaitForMessage(BCM_FrontLeftDoorAjarStatus, kWAIT_TIMEOUT);
-
+  waitRes = TestWaitForMessage(GW_BCM_DoorState_0x4D4, kWAIT_TIMEOUT);
+//PT::VCU::GW_BCM_DoorState_0x4D4::BCM_FrontLeftDoorAjarStatus
   switch(waitRes)
   {
     case 0:
