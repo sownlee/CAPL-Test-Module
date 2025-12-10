@@ -161,7 +161,7 @@ WinStat.WindowPosition);
   PostConditions(); 
 } 
 
-/*testcase ctc_RequestLock() 
+testcase ctc_RequestLock() 
 { 
   message GW_BCM_DoorSts_0x3D0 LockingStatus; 
    
@@ -219,7 +219,7 @@ WinStat.WindowPosition);
    
   PostConditions(); 
 }
-*/
+
 /*testcase ctc_AutoLock() 
 { 
   message EngineStatus EngState; 
