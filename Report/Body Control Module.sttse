@@ -1,2 +1,5 @@
 [NStatePersistence]
 Signature=VectorStatePersistence
+[VTestExecutable]
+TestNode0_LastReportTmpFile=Report
+TestNode1_LastReportTmpFile=Report
