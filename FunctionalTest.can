@@ -66,7 +66,7 @@ testcase ctc_TimeoutSignal()
       break;
 
     case 1:
-      // Message was received — test expects a timeout, so fail.
+      // Message was received ï¿½ test expects a timeout, so fail.
       // We intentionally DO NOT call TestGetWaitEventMsgData here (no signal variable).
       TestStepFail("Received", "Message GW_BCM_DoorSts_0x3D0 was received before timeout");
       break;
@@ -78,7 +78,7 @@ testcase ctc_TimeoutSignal()
   PostConditions();
 }
 
-/*testcase ctc_WindowDownUp() 
+testcase ctc_WindowDownUp() 
 { 
 int LoopVar; 
 message WindowState WinStat; 
@@ -160,7 +160,7 @@ WinStat.WindowPosition);
    
   PostConditions(); 
 } 
-*/
+
 /*testcase ctc_RequestLock() 
 { 
   message GW_BCM_DoorSts_0x3D0 LockingStatus; 
