@@ -50,25 +50,25 @@ testcase ctc_TimeoutSignal()
 {
   int waitRes;
 
-  TestCaseTitle("Timeout Test", "Verify GW_BCM_DoorSts_0x3D0 times out (no signal extraction)");
+  TestCaseTitle("Timeout Test", "Verify BCM_FrontLeftDoorAjarStatus times out (no signal extraction)");
 
   PreConditions();
 
-  testStep("Step 1", "Waiting for message GW_BCM_DoorSts_0x3D0 for %d ms", kWAIT_TIMEOUT);
+  testStep("Step 1", "Waiting for message BCM_FrontLeftDoorAjarStatus for %d ms", kWAIT_TIMEOUT);
 
-  waitRes = TestWaitForMessage(GW_BCM_DoorState_0x4D4, kWAIT_TIMEOUT);
+  waitRes = TestWaitForMessage(BCM_FrontLeftDoorAjarStatus, kWAIT_TIMEOUT);
 //PT::VCU::GW_BCM_DoorState_0x4D4::BCM_FrontLeftDoorAjarStatus
   switch(waitRes)
   {
     case 0:
       // No message received within timeout -> expected for this timeout-check test
-      TestStepPass("Timeout", "Message GW_BCM_DoorSts_0x3D0 not received within %d ms", kWAIT_TIMEOUT);
+      TestStepPass("Timeout", "Message BCM_FrontLeftDoorAjarStatus not received within %d ms", kWAIT_TIMEOUT);
       break;
 
     case 1:
       // Message was received � test expects a timeout, so fail.
       // We intentionally DO NOT call TestGetWaitEventMsgData here (no signal variable).
-      TestStepFail("Received", "Message GW_BCM_DoorSts_0x3D0 was received before timeout");
+      TestStepFail("Received", "Message BCM_FrontLeftDoorAjarStatus was received before timeout");
       break;
 
     default:
@@ -176,7 +176,7 @@ testcase ctc_RequestLock()
   @sysvar::testNS::LockRq = @sysvar::testNS::LockRq::RqToUnlock; 
    
   // Wait for the reply message from Doors ECU for 500ms 
-  WaitResult = TestWaitForMessage(GW_BCM_DoorSts_0x3D0, kWAIT_TIMEOUT); 
+  WaitResult = TestWaitForMessage(BCM_FrontLeftDoorAjarStatus, kWAIT_TIMEOUT); 
    
   // Determine results of test step 
   switch(WaitResult) 
