@@ -163,7 +163,7 @@ WinStat.WindowPosition);
 
 testcase ctc_RequestLock() 
 { 
-  message GW_BCM_DoorSts_0x3D0 LockingStatus; 
+  message BCM_FrontLeftDoorAjarStatus LockingStatus; 
    
   TestCaseTitle("Locking Test", "Request to Lock"); 
    
@@ -220,7 +220,7 @@ testcase ctc_RequestLock()
   PostConditions(); 
 }
 
-/*testcase ctc_AutoLock() 
+testcase ctc_AutoLock() 
 { 
   message EngineStatus EngState; 
   message LockingState LockSysState; 
@@ -274,4 +274,3 @@ testStep("","Reset speed back to 0 kmph");
 @sysvar::Main::Velocity = 0; 
 PostConditions(); 
 } 
-*/
