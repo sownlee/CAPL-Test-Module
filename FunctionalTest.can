@@ -91,7 +91,7 @@ testStep("Test Step 1", "Rolling down window completely");
   { 
     testStep("Start","Roll Down Window to position %d",LoopVar); 
     //Set Window Request to Roll Down 
-    @sysvar::Main::WindowRequest = @sysvar::Main::WindowRequest::Roll_Down; 
+    @sysvar::testNS::WindowRequest = @sysvar::testNS::WindowRequest::Roll_Down; 
     // Wait for the message “WindowState” to occur 
     WaitResult = TestWaitForMessage(GW_BCM_Status_0x201, kWAIT_TIMEOUT); 
     // Determine results of test step 
@@ -114,7 +114,7 @@ WinStat.BCM_FLWIN_Postion_Reserved);
           TestStepFail("Failed for other reasons"); 
     } 
     // Make sure to reset Window Down button to original position 
-    @sysvar::Main::WindowRequest = @sysvar::Main::WindowRequest::No_Request; 
+    @sysvar::testNS::WindowRequest = @sysvar::testNS::WindowRequest::No_Request; 
   } 
   TestReportAddWindowCapture("Trace", "" , "Window Down"); 
   traceWindowClear("Trace"); 
@@ -126,7 +126,7 @@ WinStat.BCM_FLWIN_Postion_Reserved);
   { 
     testStep("Start","Roll Up Window to position %d",LoopVar); 
     //Set Window Request to Roll Up 
-    @sysvar::Main::WindowRequest = @sysvar::Main::WindowRequest::Roll_Up; 
+    @sysvar::testNS::WindowRequest = @sysvar::testNS::WindowRequest::Roll_Up; 
     // Wait for the message “WindowState” to occur 
     WaitResult = TestWaitForMessage(BCM_Status_0x201, kWAIT_TIMEOUT); 
     // Determine results of test step 
@@ -147,7 +147,7 @@ WinStat.BCM_FLWIN_Postion_Reserved);
           TestStepFail("Failed for other reasons"); 
     } 
     // Make sure to reset Window Down button to original position 
-    @sysvar::Main::WindowRequest = @sysvar::Main::WindowRequest::No_Request; 
+    @sysvar::testNS::WindowRequest = @sysvar::testNS::WindowRequest::No_Request; 
   } 
   TestReportAddWindowCapture("Trace", "" , "Window Up"); 
    
