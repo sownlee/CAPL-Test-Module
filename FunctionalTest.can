@@ -14,6 +14,7 @@ void MainTest()
 { 
 //cf_testPreparation();
 //ctc_RequestLock();
+ctc_WindowDownUp();  
 ctc_TimeoutSignal();
 } 
 void cf_testPreparation() 
