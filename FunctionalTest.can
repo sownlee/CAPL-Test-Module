@@ -82,7 +82,7 @@ testcase ctc_WindowDownUp()
 { 
 int LoopVar; 
 message BCM_Status_0x201 WinStat; 
-//PT::VCU::GW_BCM_Status_0x201::BCM_FLWIN_Postion_Reserved BCM_Status_0x201
+//BCM_Status_0x201::BCM_FLWIN_Postion_Reserved
 TestCaseTitle("Rolling Windows", "Window Down and Up"); 
 PreConditions(); 
 testStep("Test Step 1", "Rolling down window completely"); 
@@ -103,12 +103,12 @@ testStep("Test Step 1", "Rolling down window completely");
         // Retrieve the message data of “WinStat” 
         TestGetWaitEventMsgData(WinStat); 
         // Check if Actual Window position = Calculated Window position 
-        if(WinStat.WindowPosition == LoopVar) 
+        if(WinStat.BCM_FLWIN_Postion_Reserved == LoopVar) 
           TestStepPass("","Window is rolled down to position %d", 
-WinStat.WindowPosition); 
+WinStat.BCM_FLWIN_Postion_Reserved); 
         else 
           TestStepFail("","Window is still in position %d", 
-WinStat.WindowPosition); 
+WinStat.BCM_FLWIN_Postion_Reserved); 
         break; 
       default:  
           TestStepFail("Failed for other reasons"); 
@@ -138,10 +138,10 @@ WinStat.WindowPosition);
         // Retrieve the message data of “WinStat” 
         TestGetWaitEventMsgData(WinStat); 
         // Check if Actual Window position = Calculated Window position 
-        if(WinStat.WindowPosition == LoopVar) 
-          TestStepPass("","Window is rolled up to position %d", WinStat.WindowPosition); 
+        if(WinStat.BCM_FLWIN_Postion_Reserved == LoopVar) 
+          TestStepPass("","Window is rolled up to position %d", WinStat.BCM_FLWIN_Postion_Reserved); 
         else
-        TestStepFail("","Window is still in position %d", WinStat.WindowPosition); 
+        TestStepFail("","Window is still in position %d", WinStat.BCM_FLWIN_Postion_Reserved); 
         break; 
       default:  
           TestStepFail("Failed for other reasons"); 
