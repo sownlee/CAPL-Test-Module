@@ -28,7 +28,7 @@ TestReportAddSetupInfo("CANoe", "Version 15.0");
 TestReportAddSetupInfo("vTestStudio", "Version 5.0"); 
 TestReportAddSUTInfo ("SUT", "Doors ECU"); 
 } 
-testfunction PreConditions() 
+testfunction PreConditions() //Ignition ON + m? c?a + c·c di?u ki?n c?n
 { 
     testStep("Pre-cond","Start"); 
     testStep("","Set Ignition to ON"); 
@@ -38,7 +38,7 @@ testfunction PreConditions()
     testStep("Pre-cond","End"); 
 }
 
-testfunction PostConditions() 
+testfunction PostConditions() //Ignition OFF + reset t?t c? v? tr?ng th·i an to‡n
 { 
     testStep("Post-cond","Start"); 
     testStep("","Set Ignition to OFF"); 
@@ -101,15 +101,13 @@ testStep("Test Step 1", "Rolling down window completely");
       case 0: TestStepFail("Message not received"); 
         break; 
       case 1: 
-        // Retrieve the message data of ‚ÄúWinStat‚Äù 
+        // Retrieve the message data of  
         TestGetWaitEventMsgData(WinStat); 
         // Check if Actual Window position = Calculated Window position 
         if(WinStat.BCM_FLWIN_Postion_Reserved == LoopVar) 
-          TestStepPass("","Window is rolled down to position %d", 
-WinStat.BCM_FLWIN_Postion_Reserved); 
+          TestStepPass("","Window is rolled down to position %d", WinStat.BCM_FLWIN_Postion_Reserved); 
         else 
-          TestStepFail("","Window is still in position %d", 
-WinStat.BCM_FLWIN_Postion_Reserved); 
+          TestStepFail("","Window is still in position %d", WinStat.BCM_FLWIN_Postion_Reserved); 
         break; 
       default:  
           TestStepFail("Failed for other reasons"); 

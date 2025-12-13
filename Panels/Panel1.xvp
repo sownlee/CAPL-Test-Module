@@ -1,6 +1,25 @@
 <?xml version="1.0"?>
 <Panel Type="Vector.CANalyzer.Panels.PanelSerializer, Vector.CANalyzer.Panels.Serializer, Version=15.5.23.0, Culture=neutral, PublicKeyToken=null">
   <Object Type="Vector.CANalyzer.Panels.Runtime.Panel, Vector.CANalyzer.Panels.Common, Version=15.5.23.0, Culture=neutral, PublicKeyToken=null" Name="Panel" Children="Controls" ControlName="Panel1">
+    <Object Type="Vector.CANalyzer.Panels.Design.GroupBoxControl, Vector.CANalyzer.Panels.CommonControls, Version=15.5.23.0, Culture=neutral, PublicKeyToken=null" Name="GroupBoxControl2" Children="Controls" ControlName="Group Box 2">
+      <Object Type="Vector.CANalyzer.Panels.Design.ComboBoxControl, Vector.CANalyzer.Panels.CommonControls, Version=15.5.23.0, Culture=neutral, PublicKeyToken=null" Name="ComboBoxControl1" Children="Controls" ControlName="Combo Box 1">
+        <Property Name="Name">ComboBoxControl1</Property>
+        <Property Name="Size">184, 19</Property>
+        <Property Name="Location">5, 30</Property>
+        <Property Name="BackColor">Window</Property>
+        <Property Name="ForeColor">WindowText</Property>
+        <Property Name="DisplayLabel">Left</Property>
+        <Property Name="DescriptionSize">63, 19</Property>
+        <Property Name="SymbolConfiguration">
+        </Property>
+        <Property Name="TabIndex">0</Property>
+      </Object>
+      <Property Name="Name">GroupBoxControl2</Property>
+      <Property Name="Size">490, 180</Property>
+      <Property Name="Location">26, 264</Property>
+      <Property Name="Text">Window Request</Property>
+      <Property Name="TabIndex">6</Property>
+    </Object>
     <Object Type="Vector.CANalyzer.Panels.Design.GroupBoxControl, Vector.CANalyzer.Panels.CommonControls, Version=15.5.23.0, Culture=neutral, PublicKeyToken=null" Name="GroupBoxControl1" Children="Controls" ControlName="Group Box 1">
       <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=15.5.23.0, Culture=neutral, PublicKeyToken=null" Name="SwitchControl2" ControlName="Switch/Indicator 2">
         <Property Name="Name">SwitchControl2</Property>
@@ -101,11 +120,11 @@
       <Property Name="Name">GroupBoxControl1</Property>
       <Property Name="Size">490, 221</Property>
       <Property Name="Location">26, 13</Property>
-      <Property Name="Text">MHU</Property>
+      <Property Name="Text">Ignition (OFF / ACC / ON / START)</Property>
       <Property Name="TabIndex">0</Property>
     </Object>
     <Property Name="Name">Panel</Property>
-    <Property Name="Size">580, 270</Property>
+    <Property Name="Size">830, 502</Property>
     <Property Name="BackColor">White</Property>
   </Object>
 </Panel>
