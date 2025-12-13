@@ -165,8 +165,7 @@ testcase ctc_RequestLock()
   /* ====================== BU?C 1: G?i l?nh Unlock ====================== */
   testStep("", "Send Unlock Request");
   @sysvar::testNS::LockRq = @sysvar::testNS::LockRq::RqToUnlock;
-  testWaitForTimeout(300);   // ch? BCM x? lý l?nh
-
+ 
   WaitResult = TestWaitForMessage(BCM_DoorState_0x4D4, kWAIT_TIMEOUT);
   switch(WaitResult)
   {
@@ -189,8 +188,7 @@ testcase ctc_RequestLock()
   /* ====================== BU?C 2: G?i l?nh Lock ====================== */
   testStep("Locking Test", "Send Lock Request");
   @sysvar::testNS::LockRq = @sysvar::testNS::LockRq::RqToLock;
-  testWaitForTimeout(300);
-
+  
   WaitResult = TestWaitForMessage(BCM_DoorState_0x4D4, kWAIT_TIMEOUT);
   switch(WaitResult)
   {
