@@ -16,15 +16,16 @@
       </Object>
       <Object Type="Vector.CANalyzer.Panels.Design.ComboBoxControl, Vector.CANalyzer.Panels.CommonControls, Version=15.5.23.0, Culture=neutral, PublicKeyToken=null" Name="ComboBoxControl2" Children="Controls" ControlName="Combo Box 2">
         <Property Name="Name">ComboBoxControl2</Property>
-        <Property Name="Size">214, 19</Property>
+        <Property Name="Size">185, 19</Property>
         <Property Name="Location">52, 30</Property>
         <Property Name="BackColor">Window</Property>
         <Property Name="ForeColor">WindowText</Property>
         <Property Name="TextBackColor">White</Property>
         <Property Name="DisplayLabel">Left</Property>
-        <Property Name="DescriptionText">BCM_PowerMode:</Property>
-        <Property Name="DescriptionSize">94, 19</Property>
-        <Property Name="SymbolConfiguration">8;2;MGREEN_400V_BCAN_Matrix_FOTA_V11;BCM;BCM_Status_0x201;BCM_PowerMode;1;BODY-RX;;-1;;;;;;0</Property>
+        <Property Name="DescriptionText">IgnitionStart:</Property>
+        <Property Name="UsedValueTable">PhysicalValue</Property>
+        <Property Name="DescriptionSize">64, 19</Property>
+        <Property Name="SymbolConfiguration">8;16;testNS;;;IgnitionStart;1;;;-1;;;;;;0</Property>
         <Property Name="TabIndex">1</Property>
       </Object>
       <Property Name="Name">GroupBoxControl3</Property>
@@ -48,14 +49,15 @@
       </Object>
       <Object Type="Vector.CANalyzer.Panels.Design.ComboBoxControl, Vector.CANalyzer.Panels.CommonControls, Version=15.5.23.0, Culture=neutral, PublicKeyToken=null" Name="ComboBoxControl1" Children="Controls" ControlName="Combo Box 1">
         <Property Name="Name">ComboBoxControl1</Property>
-        <Property Name="Size">284, 19</Property>
+        <Property Name="Size">206, 19</Property>
         <Property Name="Location">146, 17</Property>
         <Property Name="BackColor">Window</Property>
         <Property Name="ForeColor">WindowText</Property>
         <Property Name="DisplayLabel">Left</Property>
-        <Property Name="DescriptionText">BCM_FLWIN_Postion_Reserved:</Property>
-        <Property Name="DescriptionSize">163, 19</Property>
-        <Property Name="SymbolConfiguration">8;2;MGREEN_400V_BCAN_Matrix_FOTA_V11;BCM;BCM_Status_0x201;BCM_FLWIN_Postion_Reserved;1;BODY-RX;;-1;;;;;;0</Property>
+        <Property Name="DescriptionText">WindowRequest:</Property>
+        <Property Name="UsedValueTable">PhysicalValue</Property>
+        <Property Name="DescriptionSize">86, 19</Property>
+        <Property Name="SymbolConfiguration">8;16;testNS;;;WindowRequest;1;;;-1;;;;;;0</Property>
         <Property Name="TabIndex">0</Property>
       </Object>
       <Property Name="Name">GroupBoxControl2</Property>
@@ -127,7 +129,7 @@
       </Object>
       <Object Type="Vector.CANalyzer.Panels.Design.TextBoxControl, Vector.CANalyzer.Panels.CommonControls, Version=15.5.23.0, Culture=neutral, PublicKeyToken=null" Name="TextBoxControl1" Children="Controls" ControlName="Input/Output Box 1">
         <Property Name="Name">TextBoxControl1</Property>
-        <Property Name="Size">247, 18</Property>
+        <Property Name="Size">143, 18</Property>
         <Property Name="Location">144, 31</Property>
         <Property Name="AlarmUpperTextColor">WindowText</Property>
         <Property Name="ValueDecimalPlaces">0</Property>
@@ -137,10 +139,10 @@
         <Property Name="AlarmLowerTextColor">WindowText</Property>
         <Property Name="AlarmGeneralSettings">1;0;0;100</Property>
         <Property Name="DisplayLabel">Left</Property>
-        <Property Name="DescriptionText">BCM_LeftDoorLockStatusDrv:</Property>
-        <Property Name="ValueType">RawValue</Property>
-        <Property Name="DescriptionSize">147, 18</Property>
-        <Property Name="SymbolConfiguration">8;2;RX_MGREEN_400V_BCAN_Matrix_FOTA_;BCM;BCM_DoorState_0x4D4;BCM_LeftDoorLockStatusDrv;1;BODY-RX;;-1;;;;;;0</Property>
+        <Property Name="DescriptionText">LockRq:</Property>
+        <Property Name="DescriptionSize">43, 18</Property>
+        <Property Name="UsedValueTable">PhysicalValue</Property>
+        <Property Name="SymbolConfiguration">8;16;testNS;;;LockRq;1;;;-1;;;;;;0</Property>
         <Property Name="TabIndex">0</Property>
       </Object>
       <Property Name="Name">GroupBoxControl1</Property>
