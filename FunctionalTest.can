@@ -152,7 +152,7 @@ testStep("Test Step 1", "Rolling down window completely");
    
   PostConditions(); 
 } 
-/*
+
 testcase ctc_RequestLock() 
 { 
   message GW_BCM_DoorState_0x4D4 LockingStatus; 
@@ -211,7 +211,7 @@ testcase ctc_RequestLock()
    
   PostConditions(); 
 }
-
+/*
 testcase ctc_AutoLock() 
 { 
   message EngineStatus EngState; 
