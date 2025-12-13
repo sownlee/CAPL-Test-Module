@@ -13,7 +13,7 @@ int WaitResult;
 void MainTest() 
 { 
 //cf_testPreparation();
-//ctc_RequestLock();
+ctc_RequestLock();
 ctc_WindowDownUp();  
 ctc_TimeoutSignal();
 } 
@@ -155,7 +155,7 @@ testStep("Test Step 1", "Rolling down window completely");
 
 testcase ctc_RequestLock() 
 { 
-  message GW_BCM_DoorState_0x4D4 LockingStatus; 
+  message BCM_DoorState_0x4D4 BCM_FrontLeftDoorAjarStatus; 
   
   TestCaseTitle("Locking Test", "Request to Lock"); 
    
@@ -177,9 +177,9 @@ testcase ctc_RequestLock()
       break; 
     case 1: 
       // Retrieve the message data of “LockSysState” 
-      TestGetWaitEventMsgData(LockingStatus); 
+      TestGetWaitEventMsgData(BCM_FrontLeftDoorAjarStatus); 
       // If Lock state is unlocked, then test passed. 
-      if(LockingStatus.STAT_DoorLockDriver == STAT_DoorLockDriver::Unlocked ) 
+      if(BCM_FrontLeftDoorAjarStatus.STAT_DoorLockDriver == STAT_DoorLockDriver::Unlocked ) 
         TestStepPass("Test Step 1", "Door is Unlocked"); 
       else 
         TestStepFail("Test Step 1", "Still Locked"); 
@@ -191,7 +191,7 @@ testcase ctc_RequestLock()
   @sysvar::testNS::LockRq = @sysvar::testNS::LockRq::RqToLock; 
    
   // Wait for the message “LockingSysState” to occur for 500ms 
-  WaitResult = TestWaitForMessage(GW_BCM_DoorSts_0x3D0, kWAIT_TIMEOUT); 
+  WaitResult = TestWaitForMessage(BCM_DoorSts_0x3D0, kWAIT_TIMEOUT); 
   // Determine results of test step 
   switch(WaitResult) 
   { 
@@ -199,9 +199,9 @@ testcase ctc_RequestLock()
       break; 
     case 1: 
       // Retrieve the message data of “LockSysState” 
-      TestGetWaitEventMsgData(LockingStatus);
+      TestGetWaitEventMsgData(BCM_FrontLeftDoorAjarStatus);
       // If Lock state is locked, then test passed. 
-      if(LockingStatus.STAT_DoorLockDriver == STAT_DoorLockDriver::Locked ) 
+      if(BCM_FrontLeftDoorAjarStatus.STAT_DoorLockDriver == STAT_DoorLockDriver::Locked ) 
         TestStepPass("Test Step 1", "Door is Locked"); 
       else 
         TestStepFail("Test Step 1", "Still Unlocked"); 
