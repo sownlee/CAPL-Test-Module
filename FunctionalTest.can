@@ -94,7 +94,7 @@ testStep("Test Step 1", "Rolling down window completely");
     //Set Window Request to Roll Down 
     @sysvar::testNS::WindowRequest = @sysvar::testNS::WindowRequest::Roll_Down; 
     // Wait for the message ‚ÄúWindowState‚Äù to occur 
-    WaitResult = TestWaitForMessage(GW_BCM_Status_0x201, kWAIT_TIMEOUT); 
+    WaitResult = TestWaitForMessage(BCM_Status_0x201, kWAIT_TIMEOUT); 
     // Determine results of test step 
     switch(WaitResult) 
     { 
@@ -153,63 +153,65 @@ testStep("Test Step 1", "Rolling down window completely");
   PostConditions(); 
 } 
 
-testcase ctc_RequestLock() 
-{ 
-  message BCM_DoorState_0x4D4 BCM_FrontLeftDoorAjarStatus; 
-  
-  TestCaseTitle("Locking Test", "Request to Lock"); 
-   
-  PreConditions(); 
-   
-  testStep("","Set request to Lock State"); 
-  @sysvar::testNS::LockRq = @sysvar::testNS::LockRq::RqToLock; 
-   
-  TestStep("Unlocking Test", "Set Locking request to RqToUnlock"); 
-  @sysvar::testNS::LockRq = @sysvar::testNS::LockRq::RqToUnlock; 
-   
-  // Wait for the reply message from Doors ECU for 500ms 
-  WaitResult = TestWaitForMessage(BCM_FrontLeftDoorAjarStatus, kWAIT_TIMEOUT); 
-   
-  // Determine results of test step 
-  switch(WaitResult) 
-  { 
-    case 0: TestStepFail("Message not received"); 
-      break; 
-    case 1: 
-      // Retrieve the message data of ‚ÄúLockSysState‚Äù 
-      TestGetWaitEventMsgData(BCM_FrontLeftDoorAjarStatus); 
-      // If Lock state is unlocked, then test passed. 
-      if(BCM_FrontLeftDoorAjarStatus.STAT_DoorLockDriver == STAT_DoorLockDriver::Unlocked ) 
-        TestStepPass("Test Step 1", "Door is Unlocked"); 
-      else 
-        TestStepFail("Test Step 1", "Still Locked"); 
-      break; 
-  } 
-  TestWaitForTimeout(kWAIT_TIMEOUT); // Wait for 500ms 
-   
-  TestStep("Locking Test", "Set Locking request to RqToLock"); 
-  @sysvar::testNS::LockRq = @sysvar::testNS::LockRq::RqToLock; 
-   
-  // Wait for the message ‚ÄúLockingSysState‚Äù to occur for 500ms 
-  WaitResult = TestWaitForMessage(BCM_DoorSts_0x3D0, kWAIT_TIMEOUT); 
-  // Determine results of test step 
-  switch(WaitResult) 
-  { 
-    case 0: TestStepFail("Message not received"); 
-      break; 
-    case 1: 
-      // Retrieve the message data of ‚ÄúLockSysState‚Äù 
-      TestGetWaitEventMsgData(BCM_FrontLeftDoorAjarStatus);
-      // If Lock state is locked, then test passed. 
-      if(BCM_FrontLeftDoorAjarStatus.STAT_DoorLockDriver == STAT_DoorLockDriver::Locked ) 
-        TestStepPass("Test Step 1", "Door is Locked"); 
-      else 
-        TestStepFail("Test Step 1", "Still Unlocked"); 
-      break; 
-  } 
-  TestWaitForTimeout(kWAIT_TIMEOUT); // Wait for 500ms 
-   
-  PostConditions(); 
+testcase ctc_RequestLock()
+{
+  // Khai b·o d˙ng message object
+  message BCM_DoorState_0x4D4 doorMsg;
+
+  TestCaseTitle("Locking Test", "Verify Central Lock/Unlock Request");
+
+  PreConditions();
+
+  /* ====================== BU?C 1: G?i l?nh Unlock ====================== */
+  testStep("", "Send Unlock Request");
+  @sysvar::testNS::LockRq = @sysvar::testNS::LockRq::RqToUnlock;
+  testWaitForTimeout(300);   // ch? BCM x? l˝ l?nh
+
+  WaitResult = TestWaitForMessage(BCM_DoorState_0x4D4, kWAIT_TIMEOUT);
+  switch(WaitResult)
+  {
+    case 0:
+      TestStepFail("No Response", "Message 0x4D4 not received after Unlock request");
+      break;
+    case 1:
+      TestGetWaitEventMsgData(doorMsg);
+      if (doorMsg.BCM_LeftDoorLockStatusDrv == 0)   // 0 = Unlocked
+        TestStepPass("Unlock Successful", "Driver door is Unlocked");
+      else
+        TestStepFail("Unlock Failed", "Driver door still Locked (value = %d)", doorMsg.BCM_LeftDoorLockStatusDrv);
+      break;
+    default:
+      TestStepFail("Error", "Unexpected WaitResult = %d", WaitResult);
+  }
+
+  testWaitForTimeout(500);
+
+  /* ====================== BU?C 2: G?i l?nh Lock ====================== */
+  testStep("Locking Test", "Send Lock Request");
+  @sysvar::testNS::LockRq = @sysvar::testNS::LockRq::RqToLock;
+  testWaitForTimeout(300);
+
+  WaitResult = TestWaitForMessage(BCM_DoorState_0x4D4, kWAIT_TIMEOUT);
+  switch(WaitResult)
+  {
+    case 0:
+      TestStepFail("No Response", "Message 0x4D4 not received after Lock request");
+      break;
+    case 1:
+      TestGetWaitEventMsgData(doorMsg);
+      if (doorMsg.BCM_LeftDoorLockStatusDrv == 1)   // 1 = Locked
+        TestStepPass("Lock Successful", "Driver door is Locked");
+      else
+        TestStepFail("Lock Failed", "Driver door still Unlocked (value = %d)", doorMsg.BCM_LeftDoorLockStatusDrv);
+      break;
+    default:
+      TestStepFail("Error", "Unexpected WaitResult = %d", WaitResult);
+  }
+
+  // Reset v? tr?ng th·i an to‡n (t˘y ch?n)
+  @sysvar::testNS::LockRq = @sysvar::testNS::LockRq::No_Request;
+
+  PostConditions();
 }
 /*
 testcase ctc_AutoLock() 
