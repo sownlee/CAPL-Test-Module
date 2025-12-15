@@ -212,57 +212,78 @@ testcase ctc_RequestLock()
   PostConditions();
 }
 
-testcase ctc_AutoLock() 
-{ 
-  message ABS_Status_0x118 Speed; //PT::VCU::GW_ABS_Status_0x118::ABS_VehicleSpeed
-  message BCM_DoorState_0x4D4 LockStatus; //PT::VCU::GW_BCM_DoorState_0x4D4::BCM_LeftDoorLockStatusDrv
-  byte ind1,ind2; 
-   
-  TestCaseTitle("Locking Test", "Auto Lock"); 
-   
-  PreConditions(); 
-   
-  testStep("","Set Locking request to RqToUnlock"); 
-  @sysvar::Main::LockRq = @sysvar::Main::LockRq::RqToUnlock; 
-   
-  //Check if the door is "Unlocked" before reaching the threshold 
-  testStep("Set speed","15 kmph"); 
-  @sysvar::Main::Speed = 15; 
-   
-  ind1 = testJoinMessageEvent(ABS_Status_0x118); 
-  ind2 = testJoinMessageEvent(BCM_DoorState_0x4D4); 
-  testWaitForAllJoinedEvents(200); 
-  testGetWaitEventMsgData(ind1, Speed); 
-  testGetWaitEventMsgData(ind2, LockStatus); 
-   
-  if(ABS_Status_0x118.Speed == 15) 
-  { 
-    testWaitForTimeout(50); 
-    if(BCM_DoorState_0x4D4.LockState == VtSig_LockState::Unlocked) 
-      testStepPass("Door is in Unlocked state before reaching the speed threshold"); 
-    else 
-      testStepFail("Door is not in Unlocked state before reaching the speed threshold"); 
-  } 
-   
-  //Check if the door is "Locked" after reaching the threshold 
-  testStep("Set speed","16 kmph"); 
-  @sysvar::Main::Velocity = 16; 
-   
-  ind1 = testJoinMessageEvent(EngineStatus); 
-  ind2 = testJoinMessageEvent(LockingState); 
-  testWaitForAllJoinedEvents(200); 
-  testGetWaitEventMsgData(ind1, EngState); 
-  testGetWaitEventMsgData(ind2, LockSysState); 
-   
-  if(EngState.Velocity == 16) 
-  { 
-    testWaitForMessage(LockingState,200); 
-    if(LockSysState.LockState == VtSig_LockState::Locked) 
-      testStepPass("Door is in Locked state after reaching the speed threshold");
-else 
-    testStepFail("Door is not in Locked state after reaching the speed threshold"); 
-}     
-testStep("","Reset speed back to 0 kmph"); 
-@sysvar::Main::Velocity = 0; 
-PostConditions(); 
-} 
+testcase ctc_AutoLock()
+{
+  // Khai báo message d? nh?n d? li?u
+  message GW_ABS_Status_0x118       absMsg;
+  message GW_BCM_DoorState_0x4D4    doorMsg;
+
+  int indAbs, indDoor;
+
+  TestCaseTitle("Auto Lock Test", "Verify doors auto-lock when vehicle speed exceeds threshold");
+
+  PreConditions();
+
+  // Step 1: Ð?t yêu c?u m? khóa (RqToUnlock)
+  testStep("Set lock request", "Set Lock Request to Unlock");
+  @sysvar::Main::LockRq = @sysvar::Main::LockRq::RqToUnlock;
+
+  // Step 2: Ð?t t?c d? = 15 km/h ? ki?m tra c?a v?n m? (Unlocked)
+  testStep("Set vehicle speed", "Set speed to 15 km/h");
+  @sysvar::Main::ABS_VehicleSpeed = 15;
+
+  // Join event d? ch? 2 message du?c g?i di (do thay d?i sysvar s? kích g?i message)
+  indAbs  = testJoinMessageEvent(GW_ABS_Status_0x118);
+  indDoor = testJoinMessageEvent(GW_BCM_DoorState_0x4D4);
+  testWaitForAllJoinedEvents(500);  // Ð?i t?i da 500ms
+
+  // L?y d? li?u message v?a nh?n
+  testGetWaitEventMsgData(indAbs,  absMsg);
+  testGetWaitEventMsgData(indDoor, doorMsg);
+
+  // Ki?m tra t?c d? và tr?ng thái c?a ? 15 km/h
+  if (absMsg.ABS_VehicleSpeed == 15)
+  {
+    testWaitForTimeout(50);  // Ð?i ?n d?nh m?t chút
+    if (doorMsg.BCM_LeftDoorLockStatusDrv == VtSig_LockState::Unlocked)
+      testStepPass("Door remains Unlocked at 15 km/h (below threshold)");
+    else
+      testStepFail("Door is Locked at 15 km/h - should be Unlocked");
+  }
+  else
+  {
+    testStepFail("ABS_VehicleSpeed not updated to 15 km/h");
+  }
+
+  // Step 3: Tang t?c d? lên 16 km/h ? ki?m tra c?a t? d?ng khóa
+  testStep("Set vehicle speed", "Set speed to 16 km/h (exceed threshold)");
+  @sysvar::Main::ABS_VehicleSpeed = 16;
+
+  // Join l?i d? ch? message m?i
+  indAbs  = testJoinMessageEvent(GW_ABS_Status_0x118);
+  indDoor = testJoinMessageEvent(GW_BCM_DoorState_0x4D4);
+  testWaitForAllJoinedEvents(500);
+
+  testGetWaitEventMsgData(indAbs,  absMsg);
+  testGetWaitEventMsgData(indDoor, doorMsg);
+
+  // Ki?m tra t?c d? và tr?ng thái khóa ? 16 km/h
+  if (absMsg.ABS_VehicleSpeed == 16)
+  {
+    testWaitForTimeout(100);  // Ð?i ECU x? lý và khóa c?a
+    if (doorMsg.BCM_LeftDoorLockStatusDrv == VtSig_LockState::Locked)
+      testStepPass("Door auto-locked when speed exceeds threshold (16 km/h)");
+    else
+      testStepFail("Door did NOT auto-lock after speed > threshold");
+  }
+  else
+  {
+    testStepFail("ABS_VehicleSpeed not updated to 16 km/h");
+  }
+
+  // Step 4: Reset t?c d? v? 0
+  testStep("Reset", "Set vehicle speed back to 0 km/h");
+  @sysvar::Main::ABS_VehicleSpeed = 0;
+
+  PostConditions();
+}
