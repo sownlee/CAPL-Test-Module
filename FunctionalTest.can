@@ -211,7 +211,7 @@ testcase ctc_RequestLock()
 
   PostConditions();
 }
-/*
+
 testcase ctc_AutoLock() 
 { 
   message EngineStatus EngState; 
@@ -266,4 +266,3 @@ testStep("","Reset speed back to 0 kmph");
 @sysvar::Main::Velocity = 0; 
 PostConditions(); 
 } 
-*/
