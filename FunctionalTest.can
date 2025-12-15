@@ -214,8 +214,8 @@ testcase ctc_RequestLock()
 
 testcase ctc_AutoLock() 
 { 
-  message EngineStatus EngState; 
-  message LockingState LockSysState; 
+  message ABS_Status_0x118 Speed; //PT::VCU::GW_ABS_Status_0x118::ABS_VehicleSpeed
+  message BCM_DoorState_0x4D4 LockStatus; //PT::VCU::GW_BCM_DoorState_0x4D4::BCM_LeftDoorLockStatusDrv
   byte ind1,ind2; 
    
   TestCaseTitle("Locking Test", "Auto Lock"); 
@@ -227,18 +227,18 @@ testcase ctc_AutoLock()
    
   //Check if the door is "Unlocked" before reaching the threshold 
   testStep("Set speed","15 kmph"); 
-  @sysvar::Main::Velocity = 15; 
+  @sysvar::Main::Speed = 15; 
    
-  ind1 = testJoinMessageEvent(EngineStatus); 
-  ind2 = testJoinMessageEvent(LockingState); 
+  ind1 = testJoinMessageEvent(ABS_Status_0x118); 
+  ind2 = testJoinMessageEvent(BCM_DoorState_0x4D4); 
   testWaitForAllJoinedEvents(200); 
-  testGetWaitEventMsgData(ind1, EngState); 
-  testGetWaitEventMsgData(ind2, LockSysState); 
+  testGetWaitEventMsgData(ind1, Speed); 
+  testGetWaitEventMsgData(ind2, LockStatus); 
    
-  if(EngState.Velocity == 15) 
+  if(ABS_Status_0x118.Speed == 15) 
   { 
     testWaitForTimeout(50); 
-    if(LockSysState.LockState == VtSig_LockState::Unlocked) 
+    if(BCM_DoorState_0x4D4.LockState == VtSig_LockState::Unlocked) 
       testStepPass("Door is in Unlocked state before reaching the speed threshold"); 
     else 
       testStepFail("Door is not in Unlocked state before reaching the speed threshold"); 
