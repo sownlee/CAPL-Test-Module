@@ -65,6 +65,15 @@ on key 'd'
   nextSN   = 1;                      // Sequence number CF k? v?ng ti?p theo (1..15)
 }
 
+on message 0x123
+{
+  // Message received ? reset timer
+  cancelTimer(tMsgTimeout);         // Cancel if running
+  setTimer(tMsgTimeout, MESSAGE_TIMEOUT);
+  // Optional: update signal values or counters
+  write("Message 0x123 received at %time");
+}
+
 on message 0x601
 {
   msg_rx = this;
