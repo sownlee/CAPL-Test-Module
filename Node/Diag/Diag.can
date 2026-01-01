@@ -27,6 +27,11 @@ variables
   char vin[64];                       // Buffer ch?a chu?i VIN (ASCII)
   byte sn;                            // Sequence number t? Consecutive Frame
   int L;                              // Ð? dài payload t? Single Frame
+  
+  timer tMsgTimeout;          // Timer for message timeout
+  msTimer tPeriodicCheck;     // Optional periodic check
+  const float MESSAGE_TIMEOUT = 500;  // 500 ms timeout
+  const int EXPECTED_MSG_ID = 0x123;
 }
 
 on start{}
