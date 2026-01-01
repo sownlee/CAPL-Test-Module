@@ -36,6 +36,14 @@ variables
 
 on start{}
 
+on timer tMsgTimeout
+{
+  // Timeout occurred ? message missing
+  write("ERROR: Timeout - Message 0x123 not received within %MESSAGE_TIMEOUT ms at %time");
+  testStepFail("Message 0x123 Timeout");
+  // Optional: set default values or trigger fail-safe
+  setSignal(MyDBC::SignalName, 0);  // Example substitute
+}
 on timer Timer_delay{}
 
 on timer Timer_BCM{}
