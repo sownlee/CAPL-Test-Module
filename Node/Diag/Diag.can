@@ -1,8 +1,10 @@
 /*@!Encoding:1252*/
 includes
 {
-  
+
 }
+@include "CRC.can" 
+
 
 variables
 {
