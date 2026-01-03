@@ -1,192 +1,124 @@
-/*@!Encoding:1252*/
+/* CAPL Script: BCM DTC Read/Clear in CANoe Test System
+ * - Reads DTCs via 0x19 02 FF (report by status mask).
+ * - Clears DTCs via 0x14 FF FF FF (all groups).
+ * - Configurable: Use sysvars for IDs; import ODX for dynamic service defs.
+ * - Trigger: Press 'r' to read, 'c' to clear.
+ * - Handles timeouts and logs to Write window/Test Report.
+ * - Extend to other ECUs: Set sysvar::TargetECU and update IDs via ODX.
+ */
+
 includes
 {
-
+  // @include "diagDefs.cin"  // Optional external for common diag funcs
 }
-@include "CRC.can" 
-
 
 variables
 {
-  // === TIMER VÀ MESSAGE OBJECTS ===
-  msTimer Timer_delay;                // Timer delay (chua s? d?ng)
-  msTimer Timer_BCM;                  // Timer BCM (chua s? d?ng)
-  Message 0x681 msg_tx;               // Message g?i di (Tester -> ECU)
-  Message 0x601 msg_rx;               // Message nh?n v? (ECU -> Tester)
+  msTimer tDiagTimeout;      // Response timeout (adjust per ODX P2)
+  dword physReqID = 0x681;   // From ODX: Tester -> BCM
+  dword physRespID = 0x601;  // From ODX: BCM -> Tester
+  char targetECU[32] = "BCM"; // Sysvar configurable for other ECUs
   
-  // === ISO-TP STATE MANAGEMENT ===
-  byte udsPayload[512];               // Buffer ch?a toàn b? payload UDS dã ghép
-  int totalLen = 0;                   // T?ng d? dài payload UDS (t? First Frame)
-  int wroteLen = 0;                   // S? byte dã ghép du?c vào buffer
-  int nextSN   = 1;                   // Sequence number CF k? v?ng ti?p theo (1..15, r?i 0)
-  
-  // === BI?N LOCAL CHO X? LÝ MESSAGE ===
-  int i;                              // Bi?n d?m vòng l?p
-  int firstChunk;                     // S? byte chép t? First Frame (t?i da 6)
-  int remaining;                      // S? byte còn l?i c?n nh?n
-  int chunk;                          // S? byte s? chép t? Consecutive Frame hi?n t?i
-  int vinLen;                         // Ð? dài VIN sau khi parse
-  char vin[64];                       // Buffer ch?a chu?i VIN (ASCII)
-  byte sn;                            // Sequence number t? Consecutive Frame
-  int L;                              // Ð? dài payload t? Single Frame
-  
-  timer tMsgTimeout;          // Timer for message timeout
-  msTimer tPeriodicCheck;     // Optional periodic check
-  const float MESSAGE_TIMEOUT = 500;  // 500 ms timeout
-  const int EXPECTED_MSG_ID = 0x123;
+  // Sysvars for configurability (set in CANoe panel or ODX import)
+  sysvar dword::ReqID;       // e.g., sysSet(ReqID, 0x681);
+  sysvar dword::RespID;
 }
 
-on start{}
-
-on timer tMsgTimeout
+on sysvar_update ReqID
 {
-  // Timeout occurred ? message missing
-  write("ERROR: Timeout - Message 0x123 not received within %MESSAGE_TIMEOUT ms at %time");
-  testStepFail("Message 0x123 Timeout");
-  // Optional: set default values or trigger fail-safe
-  setSignal(MyDBC::SignalName, 0);  // Example substitute
-}
-on timer Timer_delay{}
-
-on timer Timer_BCM{}
-on key 'a'
-{
-  // === H?Y TIMER BCM ===
-  cancelTimer(Timer_BCM);
+  physReqID = sysGet(ReqID);  // Update from ODX/panel
 }
 
-on key 'd'
+on sysvar_update RespID
 {
-  // === G?I REQUEST Ð?C VIN ===
-  msg_tx.dlc = 8;                    // Ð?t DLC = 8 byte (CAN Classic yêu c?u padding)
-  msg_tx.byte(0) = 0x03;             // SF (Single Frame): PCI = 0x0L, L=3 (3 byte UDS payload)
-  msg_tx.byte(1) = 0x22;             // SID: ReadDataByIdentifier (0x22)
-  msg_tx.byte(2) = 0xF1;             // DID High: 0xF1
-  msg_tx.byte(3) = 0x90;             // DID Low: 0x90 => DID = 0xF190 (VIN)
-  msg_tx.byte(4) = 0x00;             // Padding byte 4
-  msg_tx.byte(5) = 0x00;             // Padding byte 5
-  msg_tx.byte(6) = 0x00;             // Padding byte 6
-  msg_tx.byte(7) = 0x00;             // Padding byte 7
-  output(msg_tx);                    // G?i request trên CAN ID 0x681
-
-  // === RESET TR?NG THÁI ISO-TP CHO RESPONSE M?I ===
-  totalLen = 0;                      // T?ng d? dài payload UDS (t? FF)
-  wroteLen = 0;                      // S? byte dã ghép du?c
-  nextSN   = 1;                      // Sequence number CF k? v?ng ti?p theo (1..15)
+  physRespID = sysGet(RespID);
 }
 
-on message 0x123
+on start
 {
-  // Message received ? reset timer
-  cancelTimer(tMsgTimeout);         // Cancel if running
-  setTimer(tMsgTimeout, MESSAGE_TIMEOUT);
-  // Optional: update signal values or counters
-  write("Message 0x123 received at %time");
+  // Initialize sysvars from ODX if imported
+  sysSet(ReqID, 0x681);
+  sysSet(RespID, 0x601);
+  write("DTC Script Ready for %s. Press 'r' to read, 'c' to clear.", targetECU);
 }
 
-on message 0x601
+on key 'r'  // Trigger DTC read
 {
-  msg_rx = this;
-  
-  // === LOG RESPONSE Ð? DEBUG (HEX FORMAT) ===
-  write("RX 0x601: %02X %02X %02X %02X %02X %02X %02X %02X",
-        msg_rx.byte(0), msg_rx.byte(1), msg_rx.byte(2), msg_rx.byte(3),
-        msg_rx.byte(4), msg_rx.byte(5), msg_rx.byte(6), msg_rx.byte(7));
+  sendReadDTC();
+}
 
-  // === X? LÝ FIRST FRAME (FF) - 0x10 ===
-  if ((msg_rx.byte(0) & 0xF0) == 0x10)
-  {
-    // Tính t?ng d? dài payload UDS t? 12-bit length trong FF
-    totalLen = ((msg_rx.byte(0) & 0x0F) << 8) | msg_rx.byte(1);
-    
-    // Chép t?i da 6 byte payload d?u t? FF (byte 2-7)
-    firstChunk = totalLen;
-    if (firstChunk > 6) firstChunk = 6;
-    
-    for (i = 0; i < firstChunk; i++) 
-    {
-      udsPayload[i] = msg_rx.byte(2 + i);  // Chép t? byte(2) c?a FF
-    }
-    wroteLen = firstChunk;
+on key 'c'  // Trigger DTC clear
+{
+  sendClearDTC();
+}
 
-    // === G?I FLOW CONTROL (FC) - Clear To Send ===
-    msg_tx.dlc = 8;                    // DLC = 8 byte
-    msg_tx.byte(0) = 0x30;             // FC: Clear To Send
-    msg_tx.byte(1) = 0x00;             // BlockSize = 0 (không gi?i h?n)
-    msg_tx.byte(2) = 0x00;             // STmin = 0ms (th?i gian t?i thi?u gi?a các CF)
-    msg_tx.byte(3) = 0x00;             // Padding
-    msg_tx.byte(4) = 0x00;             // Padding
-    msg_tx.byte(5) = 0x00;             // Padding
-    msg_tx.byte(6) = 0x00;             // Padding
-    msg_tx.byte(7) = 0x00;             // Padding
-    output(msg_tx);                    // G?i FC trên CAN ID 0x681
-    nextSN = 1;                        // Reset sequence number CF v? 1
-  }
-  // === X? LÝ CONSECUTIVE FRAME (CF) - 0x2N ===
-  else if ((msg_rx.byte(0) & 0xF0) == 0x20)
-  {
-    // L?y sequence number t? 4 bit th?p c?a byte d?u CF
-    sn = msg_rx.byte(0) & 0x0F;
-    
-    // Ki?m tra sequence number có dúng th? t? không
-    if (sn != (nextSN & 0x0F)) 
-    {
-      write("CF SN mismatch: got %d exp %d", sn, nextSN & 0x0F);
-      return;
-    }
-    
-    // Tính s? byte còn l?i c?n nh?n và s? byte s? chép t? CF này
-    remaining = totalLen - wroteLen;
-    chunk = remaining;
-    if (chunk > 7) chunk = 7;  // CF ch? ch?a t?i da 7 byte payload
-    
-    // Chép payload t? CF (b?t d?u t? byte(1), b? qua PCI byte(0))
-    for (i = 0; i < chunk; i++) 
-    {
-      udsPayload[wroteLen + i] = msg_rx.byte(1 + i);
-    }
-    wroteLen += chunk;
-    
-    // C?p nh?t sequence number cho CF ti?p theo (1..15, r?i 0)
-    nextSN++;
-    if (nextSN > 15) nextSN = 0;
+void sendReadDTC()
+{
+  message * req;
+  req.id = physReqID;
+  req.dlc = 3;
+  req.byte(0) = 0x19;  // SID: ReadDTCInformation
+  req.byte(1) = 0x02;  // Sub: reportDTCByStatusMask
+  req.byte(2) = 0xFF;  // Mask: All status
+  output(req);         // Or diagSendRequest if ODX defines BCM.ReadDTCByStatus
+  setTimer(tDiagTimeout, 5000);
+  write("Sent Read DTC request to %s", targetECU);
+  testStepRunning("Reading DTCs");
+}
 
-    // === KI?M TRA ÐÃ NH?N Ð? PAYLOAD CHUA ===
-    if (wroteLen >= totalLen && totalLen >= 3)
-    {
-      // Ki?m tra header UDS: 0x62 (positive response) + 0xF190 (DID)
-      if (udsPayload[0] == 0x62 && udsPayload[1] == 0xF1 && udsPayload[2] == 0x90)
-      {
-        // Tính d? dài VIN (b? 3 byte header UDS)
-        vinLen = totalLen - 3; 
-        if (vinLen > 31) vinLen = 31;  // Gi?i h?n d? dài VIN
-        
-        // Chuy?n d?i t? hex bytes sang ASCII string
-        for (i = 0; i < vinLen; i++) 
-        {
-          vin[i] = udsPayload[3 + i];  // B? qua 3 byte header, chép VIN
-        }
-        vin[vinLen] = 0;  // Null terminate string
-        
-        // === IN K?T QU? VIN ===
-        write("VIN: %s", vin);
-        write("VIN exported: %s", vin);
-      }
+void sendClearDTC()
+{
+  message * req;
+  req.id = physReqID;
+  req.dlc = 4;
+  req.byte(0) = 0x14;  // SID: ClearDiagnosticInformation
+  req.byte(1) = 0xFF;
+  req.byte(2) = 0xFF;
+  req.byte(3) = 0xFF;  // Group: All DTCs
+  output(req);
+  setTimer(tDiagTimeout, 5000);
+  write("Sent Clear DTC request to %s", targetECU);
+  testStepRunning("Clearing DTCs");
+}
+
+on message physRespID  // Raw response handler (or on diagResponse BCM.* if ODX)
+{
+  cancelTimer(tDiagTimeout);
+  if (this.byte(0) == 0x59) {  // Positive resp to 0x19
+    // Parse DTCs (e.g., from ODX DTC-List sheet)
+    int numDTCs = this.byte(2);  // DTC count
+    write("DTCs Read: %d found", numDTCs);
+    int i;
+    for (i = 0; i < numDTCs; i++) {
+      dword dtc = (this.byte(3 + i*3) << 16) | (this.byte(4 + i*3) << 8) | this.byte(5 + i*3);
+      write("DTC: 0x%X", dtc);
     }
-  }
-  // === X? LÝ SINGLE FRAME (SF) - 0x0L (TRU?NG H?P Ð?C BI?T) ===
-  else if ((msg_rx.byte(0) & 0xF0) == 0x00)
-  {
-    // L?y d? dài payload t? 4 bit th?p c?a PCI
-    L = msg_rx.byte(0) & 0x0F; 
-    if (L > 7) L = 7;  // Gi?i h?n t?i da 7 byte payload trong SF
-    
-    // Chép toàn b? payload t? SF (b?t d?u t? byte(1))
-    for (i = 0; i < L; i++) 
-    {
-      udsPayload[i] = msg_rx.byte(1 + i);
-    }
-    totalLen = L;      // T?ng d? dài = d? dài SF
-    wroteLen = L;      // Ðã nh?n d?
+    if (numDTCs == 0) testStepPass("No DTCs");
+    else testStepFail("DTCs present");
+  } else if (this.byte(0) == 0x54) {  // Positive resp to 0x14
+    write("DTCs Cleared Successfully");
+    testStepPass("DTC Clear");
+  } else if (this.byte(0) == 0x7F) {  // NRC
+    write("NRC: 0x%X for SID 0x%X", this.byte(2), this.byte(1));
+    testStepFail("Diag Error");
   }
 }
+
+on timer tDiagTimeout
+{
+  write("Diag Timeout for %s", targetECU);
+  testStepFail("Timeout");
+}
+
+// For ODX Configurability:
+// - Import ODX to auto-define diagRequest BCM.ReadDTCByStatusMask { ... }
+// - Example: diagRequest BCM.ReadDTCByStatusMask readReq;
+//   readReq.statusMask = 0xFF;
+//   diagSendRequest(readReq);
+// - Switch ECU: on sysvar_update TargetECU { snprintf(targetECU, 32, "%s", sysGet(TargetECU)); }
+// - DTC Validation: Compare against extracted DTC list from ODX Excel (hardcode or load via fileRead).
+
+/* Extension for Other ECUs:
+// Add if-else in send functions based on targetECU.
+// e.g., if (strcmp(targetECU, "VCU") == 0) { physReqID = 0xXXX; } // From new ODX
+*/
