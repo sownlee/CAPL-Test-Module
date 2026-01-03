@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Panel Type="Vector.CANalyzer.Panels.PanelSerializer, Vector.CANalyzer.Panels.Serializer, Version=15.5.23.0, Culture=neutral, PublicKeyToken=null">
-  <Object Type="Vector.CANalyzer.Panels.Runtime.Panel, Vector.CANalyzer.Panels.Common, Version=15.5.23.0, Culture=neutral, PublicKeyToken=null" Name="Panel" Children="Controls" ControlName="Panel1">
+  <Object Type="Vector.CANalyzer.Panels.Runtime.Panel, Vector.CANalyzer.Panels.Common, Version=15.5.23.0, Culture=neutral, PublicKeyToken=null" Name="Panel" Children="Controls" ControlName="TestModul">
     <Object Type="Vector.CANalyzer.Panels.Design.GroupBoxControl, Vector.CANalyzer.Panels.CommonControls, Version=15.5.23.0, Culture=neutral, PublicKeyToken=null" Name="GroupBoxControl3" Children="Controls" ControlName="Group Box 3">
       <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=15.5.23.0, Culture=neutral, PublicKeyToken=null" Name="SwitchControl4" ControlName="Switch/Indicator 4">
         <Property Name="Name">SwitchControl4</Property>
@@ -16,7 +16,7 @@
       </Object>
       <Object Type="Vector.CANalyzer.Panels.Design.ComboBoxControl, Vector.CANalyzer.Panels.CommonControls, Version=15.5.23.0, Culture=neutral, PublicKeyToken=null" Name="ComboBoxControl2" Children="Controls" ControlName="Combo Box 2">
         <Property Name="Name">ComboBoxControl2</Property>
-        <Property Name="Size">185, 19</Property>
+        <Property Name="Size">185, 22</Property>
         <Property Name="Location">52, 30</Property>
         <Property Name="BackColor">Window</Property>
         <Property Name="ForeColor">WindowText</Property>
@@ -24,7 +24,7 @@
         <Property Name="DisplayLabel">Left</Property>
         <Property Name="DescriptionText">IgnitionStart:</Property>
         <Property Name="UsedValueTable">PhysicalValue</Property>
-        <Property Name="DescriptionSize">64, 19</Property>
+        <Property Name="DescriptionSize">64, 22</Property>
         <Property Name="SymbolConfiguration">8;16;testNS;;;IgnitionStart;1;;;-1;;;;;;0</Property>
         <Property Name="TabIndex">1</Property>
       </Object>
@@ -49,34 +49,36 @@
       </Object>
       <Object Type="Vector.CANalyzer.Panels.Design.ComboBoxControl, Vector.CANalyzer.Panels.CommonControls, Version=15.5.23.0, Culture=neutral, PublicKeyToken=null" Name="ComboBoxControl1" Children="Controls" ControlName="Combo Box 1">
         <Property Name="Name">ComboBoxControl1</Property>
-        <Property Name="Size">206, 19</Property>
+        <Property Name="Size">206, 22</Property>
         <Property Name="Location">146, 17</Property>
         <Property Name="BackColor">Window</Property>
         <Property Name="ForeColor">WindowText</Property>
+        <Property Name="TextBackColor">White</Property>
         <Property Name="DisplayLabel">Left</Property>
         <Property Name="DescriptionText">WindowRequest:</Property>
         <Property Name="UsedValueTable">PhysicalValue</Property>
-        <Property Name="DescriptionSize">86, 19</Property>
+        <Property Name="DescriptionSize">86, 22</Property>
         <Property Name="SymbolConfiguration">8;16;testNS;;;WindowRequest;1;;;-1;;;;;;0</Property>
         <Property Name="TabIndex">0</Property>
       </Object>
       <Property Name="Name">GroupBoxControl2</Property>
       <Property Name="Size">490, 180</Property>
-      <Property Name="Location">26, 264</Property>
+      <Property Name="Location">26, 238</Property>
       <Property Name="Text">Window Request</Property>
       <Property Name="TabIndex">6</Property>
     </Object>
     <Object Type="Vector.CANalyzer.Panels.Design.GroupBoxControl, Vector.CANalyzer.Panels.CommonControls, Version=15.5.23.0, Culture=neutral, PublicKeyToken=null" Name="GroupBoxControl1" Children="Controls" ControlName="Group Box 1">
       <Object Type="Vector.CANalyzer.Panels.Design.ComboBoxControl, Vector.CANalyzer.Panels.CommonControls, Version=15.5.23.0, Culture=neutral, PublicKeyToken=null" Name="ComboBoxControl3" Children="Controls" ControlName="Combo Box 3">
         <Property Name="Name">ComboBoxControl3</Property>
-        <Property Name="Size">164, 19</Property>
+        <Property Name="Size">164, 22</Property>
         <Property Name="Location">146, 30</Property>
         <Property Name="BackColor">Window</Property>
         <Property Name="ForeColor">WindowText</Property>
+        <Property Name="TextBackColor">White</Property>
         <Property Name="DisplayLabel">Left</Property>
         <Property Name="DescriptionText">LockRq:</Property>
         <Property Name="UsedValueTable">PhysicalValue</Property>
-        <Property Name="DescriptionSize">43, 19</Property>
+        <Property Name="DescriptionSize">43, 22</Property>
         <Property Name="SymbolConfiguration">8;16;testNS;;;LockRq;1;;;-1;;;;;;0</Property>
         <Property Name="TabIndex">6</Property>
       </Object>
@@ -94,7 +96,7 @@
       </Object>
       <Object Type="Vector.CANalyzer.Panels.Design.TextBoxControl, Vector.CANalyzer.Panels.CommonControls, Version=15.5.23.0, Culture=neutral, PublicKeyToken=null" Name="TextBoxControl4" Children="Controls" ControlName="Input/Output Box 4">
         <Property Name="Name">TextBoxControl4</Property>
-        <Property Name="Size">186, 18</Property>
+        <Property Name="Size">186, 21</Property>
         <Property Name="Location">145, 127</Property>
         <Property Name="AlarmUpperTextColor">WindowText</Property>
         <Property Name="ValueDecimalPlaces">0</Property>
@@ -105,14 +107,14 @@
         <Property Name="AlarmGeneralSettings">1;0;0;100</Property>
         <Property Name="DisplayLabel">Left</Property>
         <Property Name="DescriptionText">auto_test_status:</Property>
-        <Property Name="DescriptionSize">86, 18</Property>
+        <Property Name="DescriptionSize">86, 21</Property>
         <Property Name="UsedValueTable">PhysicalValue</Property>
         <Property Name="SymbolConfiguration">8;16;AutoTestModule;;;auto_test_status;1;;;-1;;;;;;0</Property>
         <Property Name="TabIndex">4</Property>
       </Object>
       <Object Type="Vector.CANalyzer.Panels.Design.TextBoxControl, Vector.CANalyzer.Panels.CommonControls, Version=15.5.23.0, Culture=neutral, PublicKeyToken=null" Name="TextBoxControl3" Children="Controls" ControlName="Input/Output Box 3">
         <Property Name="Name">TextBoxControl3</Property>
-        <Property Name="Size">246, 18</Property>
+        <Property Name="Size">246, 21</Property>
         <Property Name="Location">144, 96</Property>
         <Property Name="AlarmUpperTextColor">WindowText</Property>
         <Property Name="ValueDecimalPlaces">0</Property>
@@ -124,7 +126,7 @@
         <Property Name="DisplayLabel">Left</Property>
         <Property Name="DescriptionText">BCM_STAT_DoorSpeedLock:</Property>
         <Property Name="ValueType">RawValue</Property>
-        <Property Name="DescriptionSize">146, 18</Property>
+        <Property Name="DescriptionSize">146, 21</Property>
         <Property Name="SymbolConfiguration">8;2;RX_MGREEN_400V_BCAN_Matrix_FOTA_;BCM;BCM_DoorState_0x4D4;BCM_STAT_DoorSpeedLock;1;BODY-RX;;-1;;;;;;0</Property>
         <Property Name="TabIndex">3</Property>
       </Object>
