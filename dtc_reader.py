@@ -5,31 +5,45 @@ import os
 import win32com.client
 import time
 import json
+from datetime import datetime
+import openpyxl
 
 class DTCTool:
     def __init__(self, root):
         self.root = root
         self.root.title("DTC Reader Tool with CANoe API")
-        self.root.geometry("800x500")
+        self.root.geometry("900x600")
         self.root.protocol("WM_DELETE_WINDOW", self.on_close)
 
         self.ecus = {}  # ECU name -> dict
-        self.load_ecus()  # Load from json on start
+        self.load_ecus()  # Load from json
         self.canoe_app = None
         self.canoe_meas = None
+        self.vehicle_vin = "RLNVMNMS6ST199010"  # Default VIN, can edit
 
-        # Left frame for details
-        left_frame = tk.Frame(root)
-        left_frame.grid(row=0, column=0, sticky="n", padx=10, pady=10)
+        # Notebook for tabs
+        self.notebook = ttk.Notebook(root)
+        self.notebook.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
 
-        # Right frame for ECU list
-        right_frame = tk.Frame(root)
-        right_frame.grid(row=0, column=1, sticky="n", padx=10, pady=10)
+        # Tab 1: ECU Management
+        self.tab_ecu = ttk.Frame(self.notebook)
+        self.notebook.add(self.tab_ecu, text="ECU Management")
+
+        left_frame = tk.Frame(self.tab_ecu)
+        left_frame.grid(row=0, column=0, sticky="n", padx=10)
+
+        right_frame = tk.Frame(self.tab_ecu)
+        right_frame.grid(row=0, column=1, sticky="n", padx=10)
 
         # Pick Vehicle
         tk.Label(left_frame, text="Pick Vehicle:").pack(anchor="w")
         self.vehicle_var = tk.StringVar(value="VF2")
         ttk.Entry(left_frame, textvariable=self.vehicle_var).pack(anchor="w")
+
+        # VIN
+        tk.Label(left_frame, text="VIN:").pack(anchor="w")
+        self.vin_var = tk.StringVar(value=self.vehicle_vin)
+        ttk.Entry(left_frame, textvariable=self.vin_var).pack(anchor="w")
 
         # CAN Channel
         tk.Label(left_frame, text="CAN Channel:").pack(anchor="w")
@@ -67,9 +81,9 @@ class DTCTool:
         # Connect CANoe
         ttk.Button(left_frame, text="Connect CANoe", command=self.connect_canoe).pack(anchor="w", pady=10)
 
-        # Read/Clear DTC
-        ttk.Button(left_frame, text="Read DTC", command=self.read_dtc).pack(anchor="w", pady=5)
-        ttk.Button(left_frame, text="Clear DTC", command=self.clear_dtc).pack(anchor="w", pady=5)
+        # Read/Clear DTC for selected ECU
+        ttk.Button(left_frame, text="Read DTC (Selected ECU)", command=self.read_dtc).pack(anchor="w", pady=5)
+        ttk.Button(left_frame, text="Clear DTC (Selected ECU)", command=self.clear_dtc).pack(anchor="w", pady=5)
 
         # ECU List (right side)
         tk.Label(right_frame, text="ECU List").pack(anchor="w")
@@ -78,11 +92,21 @@ class DTCTool:
         self.ecu_listbox.bind("<<ListboxSelect>>", self.select_from_list)
         self.update_ecu_list()
 
-        # Result area
-        self.result_text = tk.Text(root, height=12, width=80)
-        self.result_text.grid(row=1, column=0, columnspan=2, padx=10, pady=10)
+        # Tab 2: Report Summary
+        self.tab_report = ttk.Frame(self.notebook)
+        self.notebook.add(self.tab_report, text="Report Summary")
+
+        tk.Label(self.tab_report, text="Vehicle Report Summary").pack(pady=10)
+
+        # Generate Report for all ECUs
+        ttk.Button(self.tab_report, text="Generate Full DTC Report & Export XLSX", command=self.generate_report).pack(pady=10)
+
+        # Report result text
+        self.report_text = tk.Text(self.tab_report, height=20, width=80)
+        self.report_text.pack(pady=10)
 
     def add_new_ecu(self):
+        # same as before
         ecu_name = tk.simpledialog.askstring("Add ECU", "Enter ECU name:")
         if ecu_name:
             req_id = tk.simpledialog.askstring("ID Request", "Enter ID Request (HEX):", initialvalue="7DF")
@@ -106,6 +130,7 @@ class DTCTool:
             self.load_ecu_details()
 
     def load_ecu_details(self, event=None):
+        # same as before
         ecu = self.ecu_combo.get()
         if ecu in self.ecus:
             data = self.ecus[ecu]
@@ -115,6 +140,7 @@ class DTCTool:
             self.dtc_var.set(data['dtc_file'])
 
     def import_dll(self):
+        # same as before
         file = filedialog.askopenfilename(filetypes=[("DLL files", "*.dll")])
         if file:
             ecu = self.ecu_combo.get()
@@ -123,6 +149,7 @@ class DTCTool:
                 self.dll_var.set(file)
 
     def import_dtc(self):
+        # same as before
         file = filedialog.askopenfilename(filetypes=[("Excel files", "*.xlsx")])
         if file:
             ecu = self.ecu_combo.get()
@@ -131,6 +158,7 @@ class DTCTool:
                 self.dtc_var.set(file)
 
     def connect_canoe(self):
+        # same as before
         try:
             self.canoe_app = win32com.client.Dispatch("CANoe.Application")
             self.canoe_meas = self.canoe_app.Measurement
@@ -143,14 +171,14 @@ class DTCTool:
             messagebox.showerror("Error", f"CANoe not running or COM error: {str(e)}\nRun CANoe first!")
 
     def send_diag_request(self, service, data=b''):
+        # same as before
         ecu = self.ecu_combo.get()
         if not ecu or not self.canoe_app:
-            messagebox.showerror("Error", "Select ECU and connect CANoe")
             return None
 
         channel = int(self.channel_var.get())
-        req_id = int(self.req_id_var.get(), 16)
-        resp_id = int(self.resp_id_var.get(), 16)
+        req_id = int(self.ecus[ecu]['req_id'], 16)
+        resp_id = int(self.ecus[ecu]['resp_id'], 16)
 
         try:
             diag = self.canoe_app.Diagnostic
@@ -159,27 +187,67 @@ class DTCTool:
             diag.ResponseID = resp_id
 
             payload = bytes([service]) + data
-            response = diag.Request(payload, timeout=2000)  # ms
-
-            if response:
-                return response
-            else:
-                return None
+            response = diag.Request(payload, timeout=2000)
+            return response if response else None
         except Exception as e:
-            self.result_text.insert(tk.END, f"Diag error: {str(e)}\n")
+            self.result_text.insert(tk.END, f"Diag error for {ecu}: {str(e)}\n")
             return None
 
     def read_dtc(self):
         self.result_text.delete(1.0, tk.END)
         ecu = self.ecu_combo.get()
-
-        # Read DTC (UDS service 19 02)
         response = self.send_diag_request(0x19, b'\x02')
         if not response:
-            self.result_text.insert(tk.END, "No response or timeout\n")
+            self.result_text.insert(tk.END, f"No response from {ecu}\n")
             return
 
-        # Parse DTCs (simple, adjust if needed)
+        dtc_codes = self.parse_dtc_response(response)
+
+        dtc_file = self.ecus[ecu]['dtc_file']
+        dtc_dict = self.load_dtc_dict(dtc_file)
+        self.display_dtc(ecu, dtc_codes, dtc_dict, self.result_text)
+
+    def clear_dtc(self):
+        ecu = self.ecu_combo.get()
+        response = self.send_diag_request(0x14, b'\xFF\xFF\xFF')
+        if response and response[0] == 0x54:
+            messagebox.showinfo("Success", f"DTC cleared for {ecu}!")
+        else:
+            messagebox.showerror("Error", f"Clear failed for {ecu}")
+
+    def generate_report(self):
+        self.report_text.delete(1.0, tk.END)
+        report_data = []
+        time_str = datetime.now().strftime("%d/%m/%Y %I:%M:%S %p")
+        vehicle = self.vehicle_var.get()
+        vin = self.vin_var.get()
+
+        for ecu in self.ecus:
+            response = self.send_diag_request(0x19, b'\x02')
+            if not response:
+                report_data.append([ecu, "", "No response", ""])
+                continue
+
+            dtc_codes = self.parse_dtc_response(response)
+            dtc_file = self.ecus[ecu]['dtc_file']
+            dtc_dict = self.load_dtc_dict(dtc_file)
+
+            if dtc_codes:
+                for code in dtc_codes:
+                    desc = dtc_dict.get(code, "Unknown")
+                    report_data.append([ecu, code, desc, ""])
+            else:
+                report_data.append([ecu, "", "No DTC", ""])
+
+        self.display_report(time_str, vehicle, vin, report_data)
+
+        # Export to xlsx
+        export_file = filedialog.asksaveasfilename(defaultextension=".xlsx", filetypes=[("Excel files", "*.xlsx")])
+        if export_file:
+            self.export_to_xlsx(time_str, vehicle, vin, report_data, export_file)
+            messagebox.showinfo("Success", f"Report exported to {export_file}")
+
+    def parse_dtc_response(self, response):
         dtc_codes = []
         if len(response) > 3 and response[0] == 0x59:
             num_dtcs = response[1]
@@ -187,28 +255,50 @@ class DTCTool:
                 dtc_bytes = response[2 + i*3 : 5 + i*3]
                 dtc_code = f"P{(dtc_bytes[0] & 0x3F):01X}{(dtc_bytes[0] >> 6):01X}{dtc_bytes[1]:02X}{dtc_bytes[2]:02X}"
                 dtc_codes.append(dtc_code)
+        return dtc_codes
 
-        # Parse desc from xlsx
-        dtc_file = self.ecus[ecu]['dtc_file']
-        if dtc_codes and dtc_file:
+    def load_dtc_dict(self, dtc_file):
+        if dtc_file:
             try:
                 df = pd.read_excel(dtc_file, sheet_name="DTC-List")
-                dtc_dict = dict(zip(df.iloc[:, 0].astype(str), df.iloc[:, 1].astype(str)))
-                self.result_text.insert(tk.END, f"DTCs in {ecu} (Channel {self.channel_var.get()}):\n")
-                for code in dtc_codes:
-                    desc = dtc_dict.get(code, "Unknown")
-                    self.result_text.insert(tk.END, f"{code}: {desc}\n")
-            except Exception as e:
-                self.result_text.insert(tk.END, f"Parse error: {str(e)}\n")
-        else:
-            self.result_text.insert(tk.END, "No DTCs or no file\n")
+                return dict(zip(df.iloc[:, 0].astype(str), df.iloc[:, 1].astype(str)))
+            except:
+                return {}
+        return {}
 
-    def clear_dtc(self):
-        response = self.send_diag_request(0x14, b'\xFF\xFF\xFF')
-        if response and response[0] == 0x54:
-            messagebox.showinfo("Success", "DTC cleared!")
+    def display_dtc(self, ecu, dtc_codes, dtc_dict, text_widget):
+        text_widget.insert(tk.END, f"DTCs in {ecu} (Channel {self.channel_var.get()}):\n")
+        if dtc_codes:
+            for code in dtc_codes:
+                desc = dtc_dict.get(code, "Unknown")
+                text_widget.insert(tk.END, f"{code}: {desc}\n")
         else:
-            messagebox.showerror("Error", "Clear failed")
+            text_widget.insert(tk.END, "No DTC\n")
+
+    def display_report(self, time_str, vehicle, vin, report_data):
+        self.report_text.insert(tk.END, f"Time: {time_str}\n")
+        self.report_text.insert(tk.END, f"Vehicle: {vehicle}\n")
+        self.report_text.insert(tk.END, f"VIN: {vin}\n\n")
+        self.report_text.insert(tk.END, "DTC Report\n")
+        for row in report_data:
+            self.report_text.insert(tk.END, f"{row[0]}: {row[1]} {row[2]}\n")
+
+    def export_to_xlsx(self, time_str, vehicle, vin, report_data, file):
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        ws.title = "Report"
+
+        ws.append(["Time:", time_str])
+        ws.append(["Vehicle:", vehicle])
+        ws.append(["VIN:", vin])
+        ws.append([])  # Blank
+        ws.append(["DTC Report"])
+        ws.append(["Node", "DTC Code", "DTC Name", "Status bytes", "Remark"])
+
+        for row in report_data:
+            ws.append(row + ["", ""])  # Add empty for Status, Remark
+
+        wb.save(file)
 
     def load_ecus(self):
         if os.path.exists('ecus.json'):
