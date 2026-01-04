@@ -2,14 +2,16 @@ import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
 import pandas as pd
 import os
+import obd  # pip install obd
 
 class DTCTool:
     def __init__(self, root):
         self.root = root
-        self.root.title("DTC Reader Tool")
+        self.root.title("DTC Reader Tool with OBD-II")
         self.root.geometry("600x400")
 
         self.ecus = {}  # ECU name -> {'req_id': str, 'resp_id': str, 'dll_file': str, 'dtc_file': str}
+        self.obd_connection = None
 
         # Pick Vehicle
         tk.Label(root, text="Pick Vehicle:").grid(row=0, column=0, sticky="w")
@@ -52,12 +54,20 @@ class DTCTool:
         ttk.Entry(root, textvariable=self.dtc_var, state="readonly").grid(row=6, column=1, sticky="w")
         ttk.Button(root, text="Import DTC", command=self.import_dtc).grid(row=6, column=2, padx=10)
 
+        # OBD Port
+        tk.Label(root, text="OBD Port (e.g., COM3 or /dev/ttyUSB0):").grid(row=7, column=0, sticky="w")
+        self.obd_port_var = tk.StringVar(value="COM3")
+        ttk.Entry(root, textvariable=self.obd_port_var).grid(row=7, column=1, sticky="w")
+
+        # Connect OBD
+        ttk.Button(root, text="Connect OBD-II", command=self.connect_obd).grid(row=7, column=2, padx=10)
+
         # Read DTC button
-        ttk.Button(root, text="Read DTC", command=self.read_dtc).grid(row=7, column=1, pady=20)
+        ttk.Button(root, text="Read DTC", command=self.read_dtc).grid(row=8, column=1, pady=20)
 
         # Result area
         self.result_text = tk.Text(root, height=10, width=60)
-        self.result_text.grid(row=8, column=0, columnspan=3)
+        self.result_text.grid(row=9, column=0, columnspan=3)
 
     def add_new_ecu(self):
         ecu_name = tk.simpledialog.askstring("Add ECU", "Enter ECU name:")
@@ -94,25 +104,44 @@ class DTCTool:
                 self.ecus[ecu]['dtc_file'] = file
                 self.dtc_var.set(file)
 
+    def connect_obd(self):
+        port = self.obd_port_var.get()
+        try:
+            self.obd_connection = obd.OBD(port)
+            if self.obd_connection.is_connected():
+                messagebox.showinfo("Success", "OBD-II connected!")
+            else:
+                messagebox.showerror("Error", "Failed to connect OBD-II")
+        except Exception as e:
+            messagebox.showerror("Error", str(e))
+
     def read_dtc(self):
         ecu = self.ecu_combo.get()
         if not ecu or not self.ecus[ecu]['dtc_file']:
             messagebox.showerror("Error", "Select ECU and import DTC file")
             return
 
-        # Giả lập đọc DTC từ ECU (thay bằng diag thật: OBD/CANoe API)
-        simulated_dtc_codes = ["P0001", "P0002", "U0001"]  # List DTC code đọc được từ ECU
+        dtc_codes = []
+        if self.obd_connection and self.obd_connection.is_connected():
+            # Đọc DTC thật từ OBD-II (mode 03 cho stored DTCs)
+            cmd = obd.commands.GET_DTC
+            response = self.obd_connection.query(cmd)
+            if response.value:
+                dtc_codes = [dtc[0] for dtc in response.value]  # Lấy DTC codes như "P0001"
+        else:
+            # Fallback simulated nếu không connect OBD
+            dtc_codes = ["P0001", "P0002", "U0001"]
 
-        # Parse DTC list từ file xlsx (giả sử sheet "DTC-List" hoặc sheet 0, cột 0: DTC code, cột 1: Description)
+        # Parse DTC list từ file xlsx
         dtc_file = self.ecus[ecu]['dtc_file']
         try:
             df = pd.read_excel(dtc_file, sheet_name=0)  # Hoặc sheet_name="DTC-List"
             dtc_list = dict(zip(df.iloc[:, 0], df.iloc[:, 1]))  # Cột 0: code, cột 1: desc
 
-            # In ra DTC có trong ECU
+            # In ra DTC
             self.result_text.delete(1.0, tk.END)
             self.result_text.insert(tk.END, f"DTC in {ecu}:\n")
-            for code in simulated_dtc_codes:
+            for code in dtc_codes:
                 desc = dtc_list.get(code, "Not found in DTC list")
                 self.result_text.insert(tk.END, f"{code}: {desc}\n")
         except Exception as e:
